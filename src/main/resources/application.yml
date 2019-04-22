@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: wgxcb
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user?useUnicode=true&characterEncoding=UTF-8&useAffectedRows=true&useSSL=false
+    username: root
+    password: 12345678
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      filters: wall,stat
+      min-idle: 6
+      max-active: 50
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+
+
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /
+
+#logging:
+#  level:
+#    root: INFO
+logging:
+  config: classpath:log4j2-spring.xml
+
+#内部访问swagger—json数据
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /swagger

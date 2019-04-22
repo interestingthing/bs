@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+    <!--<settings>-->
+        <!-- TODO 暂未做详细配置 后续补充-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+        <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+        <!--<setting name="aggressiveLazyLoading" value="true"/>-->
+
+        <!-- 打开该配置可显示sql 日志-->
+        <!--<setting name="logImpl" value="LOG4J2"/>-->
+    <!--</settings>-->
+</configuration>

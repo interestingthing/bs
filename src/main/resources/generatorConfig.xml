@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--The major enhancement in this release is a new type of generated id.
+    The generator will now create id that is based on the MyBatis Dynamic SQL library.
+    From the first release of MyBatis Generator,
+    the generator has created id that includes "by example" support,
+    but that support has been limited and difficult to use. -->
+    <context id="MybatisGenerator" defaultModelType="flat" targetRuntime="MyBatis3DynamicSQL">
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 这个插件只会增加字符串字段映射到一个JDBC字符的方法 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!--自定义注释-->
+        <!--<commentGenerator type="MybatisCommentGenerator">-->
+        <!--<property name="addRemarkComments" value="true"/>-->
+        <!--<property name="dateFormat" value="yyyy-MM-dd HH:MM:SS"/>-->
+        <!--</commentGenerator>-->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+            <!--根据数据库注释生成java注释-->
+            <property name="addRemarkComments" value="true"/>
+            <!--日期注释-->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!--load from properties-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/user?useUnicode=true"
+                        userId="root"
+                        password="12345678">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+            <property name="TINYINT" value="java.lang.Byte"/>
+            <property name="BIGINT" value="java.lang.Long"/>
+        </javaTypeResolver>
+
+        <!--load targetProject from properties  model-->
+        <javaModelGenerator targetPackage="personal.bs.domain.po" targetProject="../wgxcb/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--load targetProject from properties  target: mybatis3, MyBatis3DynamicSQL不生成 -->
+        <sqlMapGenerator targetPackage="personal.bs.dao.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </sqlMapGenerator>
+
+        <!--load targetProject from properties 当targetRuntime = MyBatis3 时使用  注解和XML混合  mapper.java-->
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="personal.bs.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table schema="" tableName="audits" domainObjectName="Audits">-->
+        <!--&lt;!&ndash;MYSQL = selectKey  JDBC = userGenerateKey&ndash;&gt;-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--&lt;!&ndash;如果表有前缀 可过滤&ndash;&gt;-->
+        <!--&lt;!&ndash;<domainObjectRenamingRule searchString="^t_" replaceString="" />&ndash;&gt;-->
+        <!--</table>-->
+
+        <table schema="" tableName="user" domainObjectName="UserPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
+
+
+
