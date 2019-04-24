@@ -9,8 +9,8 @@
     The generator will now create id that is based on the MyBatis Dynamic SQL library.
     From the first release of MyBatis Generator,
     the generator has created id that includes "by example" support,
-    but that support has been limited and difficult to use. -->
-    <context id="MybatisGenerator" defaultModelType="flat" targetRuntime="MyBatis3DynamicSQL">
+    but that support has been limited and difficult to use. MyBatis3 、MyBatis3DynamicSQL-->
+    <context id="MybatisGenerator" defaultModelType="flat" targetRuntime="MyBatis3">
         <!-- generate entity时，生成hashcode和equals方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
         <!-- generate entity时，生成serialVersionUID -->
@@ -46,19 +46,19 @@
         </javaTypeResolver>
 
         <!--load targetProject from properties  model-->
-        <javaModelGenerator targetPackage="personal.bs.domain.po" targetProject="../wgxcb/src/main/java">
+        <javaModelGenerator targetPackage="personal1.bs.domain.po" targetProject="../wgxcb/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!--load targetProject from properties  target: mybatis3, MyBatis3DynamicSQL不生成 -->
-        <sqlMapGenerator targetPackage="personal.bs.dao.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </sqlMapGenerator>
 
-        <!--load targetProject from properties 当targetRuntime = MyBatis3 时使用  注解和XML混合  mapper.java-->
-        <javaClientGenerator type="MIXEDMAPPER" targetPackage="personal.bs.dao.mapper" targetProject="src/main/java">
+        <!-- XMLMAPPER 、MIXEDMAPPER  load targetProject from properties 当targetRuntime = MyBatis3 时使用  注解和XML混合  mapper.java-->
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="personal1.bs.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -69,34 +69,34 @@
         <!--&lt;!&ndash;<domainObjectRenamingRule searchString="^t_" replaceString="" />&ndash;&gt;-->
         <!--</table>-->
 
-        <table schema="" tableName="user" domainObjectName="UserPO">
+        <table schema="" tableName="user" domainObjectName="UserDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="order" domainObjectName="OrderPO">
+        <table schema="" tableName="order" domainObjectName="OrderDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="order_item" domainObjectName="OrderItemPO">
+        <table schema="" tableName="order_item" domainObjectName="OrderItemDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="sku" domainObjectName="SkuPO">
+        <table schema="" tableName="sku" domainObjectName="SkuDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spu" domainObjectName="SpuPO">
+        <table schema="" tableName="spu" domainObjectName="SpuDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spec" domainObjectName="SpecPO">
+        <table schema="" tableName="spec" domainObjectName="SpecDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spec_value" domainObjectName="SpecValuePO">
+        <table schema="" tableName="spec_value" domainObjectName="SpecValueDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spu_spec" domainObjectName="SpuSpecPO">
+        <table schema="" tableName="spu_spec" domainObjectName="SpuSpecDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="store" domainObjectName="StorePO">
+        <table schema="" tableName="store" domainObjectName="StoreDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="type" domainObjectName="TypePo">
+        <table schema="" tableName="type" domainObjectName="TypeDO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
 

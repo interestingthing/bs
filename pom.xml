@@ -34,6 +34,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <!-- json-->
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
@@ -495,7 +499,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--TODO-->
-                    <mainClass>WebApplication</mainClass>
+                    <mainClass>WGXCBApplication</mainClass>
                     <executable>true</executable>
                 </configuration>
             </plugin>

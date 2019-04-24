@@ -24,7 +24,12 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 'x'
-
+  thymeleaf:
+    enabled: true
+    mode: HTML5
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 
 server:
   port: 8080
@@ -47,3 +52,8 @@ springfox:
     swagger:
       v2:
         path: /swagger
+mybatis:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*Mapper.xml
+

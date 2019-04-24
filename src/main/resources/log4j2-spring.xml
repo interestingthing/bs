@@ -99,7 +99,7 @@
             <appender-ref ref="ErrorLog"/>
         </logger>
 
-        <logger name="personal.bs" level="info" additivity="false" includeLocation="true">
+        <logger name="org.mybatis" level="info" additivity="false" includeLocation="true">
             <appender-ref ref="ErrorLog"/>
             <!--本地只吧日志打印到控制台-->
             <appender-ref ref="AppLog"/>
