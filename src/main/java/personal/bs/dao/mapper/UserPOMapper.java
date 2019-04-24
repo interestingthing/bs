@@ -55,7 +55,11 @@ public interface UserPOMapper {
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="UserPOResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
     })
     List<UserPO> selectMany(SelectStatementProvider selectStatement);
 
@@ -86,7 +90,11 @@ public interface UserPOMapper {
     default int insert(UserPO record) {
         return insert(SqlBuilder.insert(record)
                 .into(userPO)
-                .map(name).toProperty("name")
+                .map(username).toProperty("username")
+                .map(password).toProperty("password")
+                .map(nickname).toProperty("nickname")
+                .map(phone).toProperty("phone")
+                .map(email).toProperty("email")
                 .build()
                 .render(RenderingStrategy.MYBATIS3));
     }
@@ -95,26 +103,30 @@ public interface UserPOMapper {
     default int insertSelective(UserPO record) {
         return insert(SqlBuilder.insert(record)
                 .into(userPO)
-                .map(name).toPropertyWhenPresent("name", record::getName)
+                .map(username).toPropertyWhenPresent("username", record::getUsername)
+                .map(password).toPropertyWhenPresent("password", record::getPassword)
+                .map(nickname).toPropertyWhenPresent("nickname", record::getNickname)
+                .map(phone).toPropertyWhenPresent("phone", record::getPhone)
+                .map(email).toPropertyWhenPresent("email", record::getEmail)
                 .build()
                 .render(RenderingStrategy.MYBATIS3));
     }
 
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default QueryExpressionDSL<MyBatis3SelectModelAdapter<List<UserPO>>> selectByExample() {
-        return SelectDSL.selectWithMapper(this::selectMany, id, name)
+        return SelectDSL.selectWithMapper(this::selectMany, id, username, password, nickname, phone, email)
                 .from(userPO);
     }
 
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default QueryExpressionDSL<MyBatis3SelectModelAdapter<List<UserPO>>> selectDistinctByExample() {
-        return SelectDSL.selectDistinctWithMapper(this::selectMany, id, name)
+        return SelectDSL.selectDistinctWithMapper(this::selectMany, id, username, password, nickname, phone, email)
                 .from(userPO);
     }
 
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default UserPO selectByPrimaryKey(Integer id_) {
-        return SelectDSL.selectWithMapper(this::selectOne, id, name)
+        return SelectDSL.selectWithMapper(this::selectOne, id, username, password, nickname, phone, email)
                 .from(userPO)
                 .where(id, isEqualTo(id_))
                 .build()
@@ -124,19 +136,31 @@ public interface UserPOMapper {
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default UpdateDSL<MyBatis3UpdateModelAdapter<Integer>> updateByExample(UserPO record) {
         return UpdateDSL.updateWithMapper(this::update, userPO)
-                .set(name).equalTo(record::getName);
+                .set(username).equalTo(record::getUsername)
+                .set(password).equalTo(record::getPassword)
+                .set(nickname).equalTo(record::getNickname)
+                .set(phone).equalTo(record::getPhone)
+                .set(email).equalTo(record::getEmail);
     }
 
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default UpdateDSL<MyBatis3UpdateModelAdapter<Integer>> updateByExampleSelective(UserPO record) {
         return UpdateDSL.updateWithMapper(this::update, userPO)
-                .set(name).equalToWhenPresent(record::getName);
+                .set(username).equalToWhenPresent(record::getUsername)
+                .set(password).equalToWhenPresent(record::getPassword)
+                .set(nickname).equalToWhenPresent(record::getNickname)
+                .set(phone).equalToWhenPresent(record::getPhone)
+                .set(email).equalToWhenPresent(record::getEmail);
     }
 
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default int updateByPrimaryKey(UserPO record) {
         return UpdateDSL.updateWithMapper(this::update, userPO)
-                .set(name).equalTo(record::getName)
+                .set(username).equalTo(record::getUsername)
+                .set(password).equalTo(record::getPassword)
+                .set(nickname).equalTo(record::getNickname)
+                .set(phone).equalTo(record::getPhone)
+                .set(email).equalTo(record::getEmail)
                 .where(id, isEqualTo(record::getId))
                 .build()
                 .execute();
@@ -145,7 +169,11 @@ public interface UserPOMapper {
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", comments="Source Table: user")
     default int updateByPrimaryKeySelective(UserPO record) {
         return UpdateDSL.updateWithMapper(this::update, userPO)
-                .set(name).equalToWhenPresent(record::getName)
+                .set(username).equalToWhenPresent(record::getUsername)
+                .set(password).equalToWhenPresent(record::getPassword)
+                .set(nickname).equalToWhenPresent(record::getNickname)
+                .set(phone).equalToWhenPresent(record::getPhone)
+                .set(email).equalToWhenPresent(record::getEmail)
                 .where(id, isEqualTo(record::getId))
                 .build()
                 .execute();

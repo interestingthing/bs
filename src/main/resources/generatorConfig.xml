@@ -34,7 +34,7 @@
         </commentGenerator>
         <!--load from properties-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/user?useUnicode=true"
+                        connectionURL="jdbc:mysql://localhost:3306/wgxcb?useUnicode=true"
                         userId="root"
                         password="12345678">
         </jdbcConnection>
@@ -70,6 +70,33 @@
         <!--</table>-->
 
         <table schema="" tableName="user" domainObjectName="UserPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="order" domainObjectName="OrderPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="order_item" domainObjectName="OrderItemPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="sku" domainObjectName="SkuPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="spu" domainObjectName="SpuPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="spec" domainObjectName="SpecPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="spec_value" domainObjectName="SpecValuePO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="spu_spec" domainObjectName="SpuSpecPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="store" domainObjectName="StorePO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table schema="" tableName="type" domainObjectName="TypePo">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
 
