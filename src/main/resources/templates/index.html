@@ -5,21 +5,10 @@
     <title>wgxcb</title>
     <script th:src="@{/static/jquery/jquery-3.3.1.js}" src="../static/jquery/jquery-3.3.1.js"></script>
 
-    <script>
-        $("#div").click(function () {
-
-            $.get("healthCheck", function (data, status) {
-                alert("数据: " + data + "\n状态: " + status);
-            });
-        });
-
-    </script>
-
 </head>
 <body>
-
-<button id="div">点击事件</button>
-
-
+<a th:href="@{/operate}">operate</a>
+<br>
+<a th:href="@{/store}">store</a>
 </body>
 </html>

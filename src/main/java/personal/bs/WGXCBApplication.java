@@ -20,6 +20,6 @@ public class WGXCBApplication {
         for (String profile : activeProfiles) {
             log.info("boot by profile:  {} =============================== {} ====== {} ====== {}", profile, profile, profile, profile);
         }
-        System.out.println("start over");
+        System.out.println("start over==============================================================================");
     }
 }

@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * 相当于之前的web.xml
@@ -25,5 +26,14 @@ public class WebConfig {
         registrationBean.setName("HystrixMetricsStreamServlet");
         return registrationBean;
     }
+
+//    @Bean
+//    public CommonsMultipartResolver commonsMultipartResolver(){
+//        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+//        commonsMultipartResolver.setDefaultEncoding("utf-8");
+//        commonsMultipartResolver.setMaxInMemorySize(1024*1024*10);
+//        commonsMultipartResolver.setMaxUploadSizePerFile(1024*1024*10);
+//        return commonsMultipartResolver;
+//    }
 
 }
