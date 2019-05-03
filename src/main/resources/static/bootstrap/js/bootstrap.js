@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap v4.3.1 (https://getbootstrap.com/)
+  * Bootstrap v4.3.2 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -71,7 +71,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): util.js
+     * Bootstrap (v4.3.2): util.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -2614,7 +2614,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): tools/sanitizer.js
+     * Bootstrap (v4.3.2): tools/sanitizer.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -4396,7 +4396,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): index.js
+     * Bootstrap (v4.3.2): index.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -4414,7 +4414,7 @@
         var maxMajor = 4;
 
         if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-            throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
+            throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.2 but less than v4.0.0');
         }
     })();
 

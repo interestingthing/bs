@@ -4,7 +4,6 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * 相当于之前的web.xml
@@ -15,6 +14,7 @@ public class WebConfig {
 
     /**
      * spring2.0以上的时候 hystrix仪表盘需要配置该servlet才行， 官方reference中也未提及。。很坑
+     *
      * @return
      */
     @Bean
@@ -34,6 +34,18 @@ public class WebConfig {
 //        commonsMultipartResolver.setMaxInMemorySize(1024*1024*10);
 //        commonsMultipartResolver.setMaxUploadSizePerFile(1024*1024*10);
 //        return commonsMultipartResolver;
+//    }
+
+
+//    @Bean
+//    public InternalResourceViewResolver internalResourceViewResolver() {
+//
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+////        viewResolver.setPrefix("classpath:/templates/");
+//        viewResolver.setSuffix(".jsp");
+//        viewResolver.setContentType("text/html;charset=UTF-8");
+//
+//        return viewResolver;
 //    }
 
 }

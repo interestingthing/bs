@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <title>个人注册</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/webbase.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages-register.css"/>
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../../static/js/plugins/angularjs/angular.min.js"></script>
+    <!-- 引入分页相关的JS和CSS -->
+    <script type="text/javascript" src="../../static/js/base.js"></script>
+    <script type="text/javascript" src="../../static/jquery/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../../static/js/service/userService.js"></script>
+    <script type="text/javascript" src="../../static/js/controller/userController.js"></script>
+</head>
+
+<body ng-app="wgxcb" ng-controller="userController">
+<div class="register py-container ">
+    <!--head-->
+    <div th:include="user/header :: header"></div>
+
+    <!--register-->
+    <div class="registerArea">
+        <h3>注册新用户<span class="go">我有账号，<a href="login.html" target="_blank">去登录</a></span></h3>
+        <div class="info">
+            <form name="register" class="sui-form form-horizontal" novalidate>
+                <div class="control-group">
+                    <label class="control-label">用户名：</label>
+                    <div class="controls">
+                        <input type="text" name="username" ng-model="entity.username" placeholder="请输入你的用户名"
+                               class="input-xfat input-xlarge" required>
+                        <span ng-show="register.username.$dirty&&register.username.$error.required">用户名不能为空。</span>
+                        <span style="color:#f05050" ng-show='register.username.$error.unique'>用户名已存在！</span>
+
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputPassword" class="control-label">登录密码：</label>
+                    <div class="controls">
+                        <input type="password" ng-model="entity.password" placeholder="设置登录密码"
+                               class="input-xfat input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputPassword" class="control-label">确认密码：</label>
+                    <div class="controls">
+                        <input type="password" name="password" ng-model="password" placeholder="再次确认密码"
+                               class="input-xfat input-xlarge">
+                        <span style="color:#f05050" ng-show='register.password.$dirty&&register.password.$error.unique'>两次输入密码不一致，请重新输入！</span>
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">手机号：</label>
+                    <div class="controls">
+                        <input type="text" name="phone" ng-model="entity.phone" placeholder="请输入你的手机号"
+                               class="input-xfat input-xlarge" required>
+                        <span style="color:red" ng-show="register.phone.$dirty && register.phone.$invalid">
+                            <span ng-show="register.phone.$error.required">手机号不能为空。</span></span>
+                        <span style="color:#f05050" ng-show='register.phone.$error.unique'>手机号已注册！</span>
+                    </div>
+                </div>
+                <!--<div class="control-group">-->
+                <!--<label for="inputPassword" class="control-label">短信验证码：</label>-->
+                <!--<div class="controls">-->
+                <!--<input type="text" placeholder="短信验证码" ng-model="smscode" class="input-xfat input-xlarge"> <a-->
+                <!--href="#" ng-click="sendCode()">获取短信验证码</a>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <div class="control-group">
+                    <label for="inputPassword" class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div class="controls">
+                        <input name="m1" type="checkbox" value="2" checked=""><span>同意协议并注册《用户协议》</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"></label>
+                    <div class="controls btn-reg">
+                        <input type="submit" value="完成注册" ng-click="reg()"
+
+                               class="sui-btn btn-block btn-xlarge btn-danger" target="_blank"/>
+                    </div>
+                    <!-- ng-disabled="register.username.$error.required"&&register.password.$error.required&&&lt;!&ndash;register.phone.$error.required&ndash;&gt;-->
+                </div>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--foot-->
+    <div th:include="user/footer :: footer"></div>
+</div>
+
+
+<script type="text/javascript" src="../../static/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../static/js/plugins/jquery.easing/jquery.easing.min.js"></script>
+<script type="text/javascript" src="../../static/js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="../../static/js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="../../static/js/pages/register.js"></script>
+<script>
+
+
+    // }
+    // });
+</script>
+</body>
+
+</html>

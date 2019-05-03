@@ -46,7 +46,7 @@
         </javaTypeResolver>
 
         <!--load targetProject from properties  model-->
-        <javaModelGenerator targetPackage="personal1.bs.domain.po" targetProject="../wgxcb/src/main/java">
+        <javaModelGenerator targetPackage="personal.bs.domain.po" targetProject="../wgxcb/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -58,7 +58,7 @@
         </sqlMapGenerator>
 
         <!-- XMLMAPPER 、MIXEDMAPPER  load targetProject from properties 当targetRuntime = MyBatis3 时使用  注解和XML混合  mapper.java-->
-        <javaClientGenerator type="MIXEDMAPPER" targetPackage="personal1.bs.dao.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="personal.bs.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -69,34 +69,34 @@
         <!--&lt;!&ndash;<domainObjectRenamingRule searchString="^t_" replaceString="" />&ndash;&gt;-->
         <!--</table>-->
 
-        <table schema="" tableName="user" domainObjectName="UserDO">
+        <table schema="" tableName="user" domainObjectName="UserPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="order" domainObjectName="OrderDO">
+        <table schema="" tableName="order" domainObjectName="OrderPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="order_item" domainObjectName="OrderItemDO">
+        <table schema="" tableName="order_item" domainObjectName="OrderItemPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="sku" domainObjectName="SkuDO">
+        <table schema="" tableName="sku" domainObjectName="SkuPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spu" domainObjectName="SpuDO">
+        <table schema="" tableName="spu" domainObjectName="SpuPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spec" domainObjectName="SpecDO">
+        <table schema="" tableName="spec" domainObjectName="SpecPO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spec_value" domainObjectName="SpecValueDO">
+        <table schema="" tableName="spec_value" domainObjectName="SpecValuePO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="spu_spec" domainObjectName="SpuSpecDO">
+        <table schema="" tableName="spec_template" domainObjectName="SpecTemplatePO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="store" domainObjectName="StoreDO">
+        <table schema="" tableName="store" domainObjectName="StorePO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table schema="" tableName="type" domainObjectName="TypeDO">
+        <table schema="" tableName="type" domainObjectName="TypePO">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
 

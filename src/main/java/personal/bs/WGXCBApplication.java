@@ -4,14 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"personal.bs"})
-@MapperScan("personal1.bs.dao.mapper")
+@MapperScan("personal.bs.dao.mapper")
 @Slf4j
-public class WGXCBApplication {
+public class WGXCBApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
 
         ApplicationContext ctx = SpringApplication.run(WGXCBApplication.class, args);
@@ -22,4 +27,10 @@ public class WGXCBApplication {
         }
         System.out.println("start over==============================================================================");
     }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(WGXCBApplication.class);
+    }
+
 }

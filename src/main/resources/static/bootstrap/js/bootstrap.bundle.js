@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap v4.3.1 (https://getbootstrap.com/)
+  * Bootstrap v4.3.2 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -70,7 +70,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): util.js
+     * Bootstrap (v4.3.2): util.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -1505,7 +1505,7 @@
 
     /**!
      * @fileOverview Kickass library to create and place poppers near their reference elements.
-     * @version 1.14.7
+     * @version 2.14.7
      * @license
      * Copyright (c) 2016 Federico Zivolo and contributors
      *
@@ -1601,7 +1601,7 @@
         if (element.nodeType !== 1) {
             return [];
         }
-        // NOTE: 1 DOM access here
+        // NOTE: 2 DOM access here
         var window = element.ownerDocument.defaultView;
         var css = window.getComputedStyle(element, null);
         return property ? css[property] : css;
@@ -1690,7 +1690,7 @@
 
         var noOffsetParent = isIE(10) ? document.body : null;
 
-        // NOTE: 1 DOM access here
+        // NOTE: 2 DOM access here
         var offsetParent = element.offsetParent || null;
         // Skip hidden elements which don't have an offsetParent
         while (offsetParent === noOffsetParent && element.nextElementSibling) {
@@ -2112,7 +2112,7 @@
     function getBoundaries(popper, reference, padding, boundariesElement) {
         var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
-        // NOTE: 1 DOM access here
+        // NOTE: 2 DOM access here
 
         var boundaries = {top: 0, left: 0};
         var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
@@ -2326,7 +2326,7 @@
      * @argument {Array} arr
      * @argument prop
      * @argument value
-     * @returns index or -1
+     * @returns index or -2
      */
     function find(arr, check) {
         // use native find if supported
@@ -2345,7 +2345,7 @@
      * @argument {Array} arr
      * @argument prop
      * @argument value
-     * @returns index or -1
+     * @returns index or -2
      */
     function findIndex(arr, prop, value) {
         // use native findIndex if supported
@@ -2811,7 +2811,7 @@
         var left = void 0,
             top = void 0;
         if (sideA === 'bottom') {
-            // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)
+            // when offsetParent is <html xmlns:th="http://www.thymeleaf.org"> the positioning is relative to the bottom of the screen (excluding the scrollbar)
             // and not the bottom of the html element
             if (offsetParent.nodeName === 'HTML') {
                 top = -offsetParent.clientHeight + offsets.bottom;
@@ -3819,7 +3819,7 @@
             /** @prop {Function} */
             onLoad: applyStyleOnLoad,
             /**
-             * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+             * @deprecated since version 2.10.0, the property moved to `computeStyle` modifier
              * @prop {Boolean} gpuAcceleration=true
              * If true, it uses the CSS 3D transformation to position the popper.
              * Otherwise, it will use the `top` and `left` properties
@@ -4038,7 +4038,7 @@
 
                 /**
                  * Collection of utilities useful when writing custom modifiers.
-                 * Starting from version 1.7, this method is available only if you
+                 * Starting from version 2.7, this method is available only if you
                  * include `popper-utils.js` before `popper.js`.
                  *
                  * **DEPRECATION**: This way to access PopperUtils is deprecated
@@ -4048,7 +4048,7 @@
                  * @static
                  * @private
                  * @type {Object}
-                 * @deprecated since version 1.8
+                 * @deprecated since version 2.8
                  * @member Utils
                  * @memberof Popper
                  */
@@ -5192,7 +5192,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): tools/sanitizer.js
+     * Bootstrap (v4.3.2): tools/sanitizer.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -6974,7 +6974,7 @@
 
     /**
      * --------------------------------------------------------------------------
-     * Bootstrap (v4.3.1): index.js
+     * Bootstrap (v4.3.2): index.js
      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
      * --------------------------------------------------------------------------
      */
@@ -6992,7 +6992,7 @@
         var maxMajor = 4;
 
         if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-            throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
+            throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.2 but less than v4.0.0');
         }
     })();
 

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <title>我的店铺</title>
+    <link rel="icon" href="/assets/img/favicon.ico">
+
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/webbase.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/widget-jquery.autocomplete.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/pages-shop.css"/>
+</head>
+
+<body>
+<!-- 头部栏位 -->
+<!--页面顶部-->
+<div id="nav-bottom">
+    <!--顶部-->
+    <div class="nav-top">
+        <div th:include="user/header :: header"></div>
+
+        <!--头部-->
+        <div class="header">
+            <div class="py-container">
+                <div class="yui3-g Logo">
+                    <div class="yui3-u Left logoArea">
+                        <a class="logo-bd" title="品优购" href="JD-index.html" target="_blank"></a>
+                    </div>
+                    <div class="yui3-u Center searchArea">
+                        <div class="search">
+                            <form action="" class="sui-form form-inline">
+                                <!--searchAutoComplete-->
+                                <div class="input-append">
+                                    <input type="text" id="autocomplete" class="input-error input-xxlarge"/>
+                                    <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="hotwords">
+                            <ul>
+                                <li class="f-item">品优购首发</li>
+                                <li class="f-item">亿元优惠</li>
+                                <li class="f-item">9.9元团购</li>
+                                <li class="f-item">每满99减30</li>
+                                <li class="f-item">亿元优惠</li>
+                                <li class="f-item">9.9元团购</li>
+                                <li class="f-item">办公用品</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="yui3-u Right shopArea">
+                        <div class="fr shopcar">
+                            <div class="show-shopcar" id="shopcar">
+                                <span class="car"></span>
+                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                    <span>我的购物车</span>
+                                    <i class="shopnum">0</i>
+                                </a>
+                                <div class="clearfix shopcarlist" id="shopcarlist" style="display:none">
+                                    <p>"啊哦，你的购物车还没有商品哦！"</p>
+                                    <p>"啊哦，你的购物车还没有商品哦！"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yui3-g NavList">
+                    <div class="yui3-u Left all-sort">
+                        <h4>全部商品分类</h4>
+                    </div>
+                    <div class="yui3-u Center navArea">
+                        <ul class="nav">
+                            <li class="f-item">服装城</li>
+                            <li class="f-item">美妆馆</li>
+                            <li class="f-item">品优超市</li>
+                            <li class="f-item">全球购</li>
+                            <li class="f-item">闪购</li>
+                            <li class="f-item">团购</li>
+                            <li class="f-item">有趣</li>
+                            <li class="f-item"><a href="seckill-index.html" target="_blank">秒杀</a></li>
+                        </ul>
+                    </div>
+                    <div class="yui3-u Right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../static/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#service").hover(function () {
+            $(".service").show();
+        }, function () {
+            $(".service").hide();
+        });
+        $("#shopcar").hover(function () {
+            $("#shopcarlist").show();
+        }, function () {
+            $("#shopcarlist").hide();
+        });
+
+    })
+</script>
+<script type="text/javascript" src="../../static/js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="../../static/js/widget/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="../../static/js/widget/nav.js"></script>
+<script type="text/javascript" src="../../static/js/pages/seckill-index.js"></script>
+<script type="text/javascript" src="../../static/js/pages/shop.js"></script>
+<script>
+    $(function () {
+        $("#code").hover(function () {
+            $(".erweima").show();
+        }, function () {
+            $(".erweima").hide();
+        });
+    })
+</script>
+</body>
+
+<div class="py-container shop">
+    <!--header-->
+    <div class="shop-name">红袖官方旗舰店</div>
+
+    <div class="shop-logo">
+        <div class="fl logo-img">
+            <img src="../../static/img/_/shop-logo.png"/>
+        </div>
+        <div class="shop-vip">
+            <div class="pay">
+                <img src="../../static/img/_/car.png" alt="">
+                <span>
+                         全场免运费<br/>
+                         货到付款
+                    </span>
+            </div>
+            <div class="vip">
+                会员权益<br/>
+                VIP PRIVILEGE
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="head-nav" id="headnav-fixed">
+        <div class="sui-navbar">
+            <div class="navbar-inner">
+                <ul class="sui-nav ">
+                    <li><a href="#">首页</a></li>
+                    <li id="li-1" class="all-list">全部分类<span></span></li>
+                    <li class="active"><a href="#tab-one" data-toggle="tab">热卖爆款</a></li>
+                    <li><a href="#tab-two" data-toggle="tab">秋装新品</a></li>
+                    <li><a href="#tab-three" data-toggle="tab">连衣裙</a></li>
+                    <li><a href="#tab-four">T恤</a></li>
+                    <li><a href="#tab-five">衬衫雪纺</a></li>
+                    <li><a href="#tab-six">半身裙</a></li>
+                    <li><a href="#tab-seven">裤装</a></li>
+                    <li><a href="#tab-eight">商场同款</a></li>
+                </ul>
+
+                <form class="sui-form sui-form pull-right">
+                    <input type="text" placeholder="连衣裙...">
+                    <button class="sui-btn">搜索</button>
+                </form>
+                <div class="clearfix"></div>
+                <!--下拉的菜单-->
+                <div id="box-1" class="hidden-box hidden-loc-index">
+                    <ul id="listall">
+                        <li>热卖爆款</li>
+                        <li>今日推荐</li>
+                        <li>秋装新品</li>
+                        <li>T恤</li>
+                        <li>连衣裙</li>
+                        <li>衬衫雪纺</li>
+                        <li>半身裙</li>
+
+                    </ul>
+                </div>
+                <!--下拉的菜单end-->
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img src="../../static/img/_/shop-intro.png" alt="">
+    </div>
+
+    <div class="default-list">
+        <div class="title">
+            <h1>Must have+</h1>
+            <h2>畅销夏日装备</h2>
+        </div>
+        <div class="goods-list">
+            <ul class="yui3-g" id="goods-list">
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="yui3-u-1-4">
+                    <div class="list-wrap">
+                        <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                        <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                        <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                        <div class="cu"><em><span>促</span>满一件可参加超值换购</em></div>
+                        <div class="operate">
+                            <a href="success-cart.html" target="_blank"
+                               class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                            <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="shop-part">
+            <img src="../../static/img/_/shop-part.png" alt="">
+        </div>
+        <!--tab lists-->
+        <div class="tab-content">
+            <div class="title">
+                <h1>All Best+</h1>
+                <h2>全部新品</h2>
+            </div>
+            <div id="tab-one" class="tab-pane active">
+                <ul class="yui3-g" id="tab-list">
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-u-1-4">
+                        <div class="list-wrap">
+                            <div class="p-img"><img src="../../static/img/_/t.jpg" alt=''></div>
+                            <div class="price"><strong><em>¥</em> <i>139.00</i></strong></div>
+                            <div class="attr"><em>Apple苹果iPhone 6s 32G金色 移动联通电信4G手机</em></div>
+                            <div class='cu'><em><span>促</span>满一件可参加超值换购</em></div>
+                            <div class="operate">
+                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
+                                <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="tab-two" class="tab-pane">2</div>
+            <div id="tab-three" class="tab-pane">3</div>
+        </div>
+        <!--tab list end-->
+    </div>
+
+
+    <!--回到顶部-->
+    <div class="cd-top">
+        <div class="top">
+            <img src="../../static/img/_/gotop.png"/>
+            <b>TOP</b>
+        </div>
+        <div class="code" id="code">
+            <span><img src="../../static/img/_/code.png"/></span>
+        </div>
+        <div class="erweima">
+            <img src="../../static/img/_/erweima.jpg" alt="">
+            <s></s>
+        </div>
+    </div>
+</div>
+
+<!-- 底部栏位 -->
+<!--页面底部-->
+<div th:include="user/footer :: footer"></div>
+<!--页面底部END-->
+
+</html>

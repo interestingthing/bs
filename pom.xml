@@ -9,7 +9,7 @@
     <groupId>personal</groupId>
     <artifactId>wgxcb</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -35,11 +35,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!-- json-->
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <!--json-->
+        <!--https://mvnrepository.com/artifact/com.alibaba/fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -171,7 +182,7 @@
         <!--<dependency>-->
         <!--<groupId>io.github.openfeign</groupId>-->
         <!--<artifactId>feign-httpclient</artifactId>-->
-        <!--<version>9.5.1</version>-->
+        <!--<version>9.5.2</version>-->
         <!--</dependency>-->
         <!--Sending a request via tracing feign client [org.springframework.cloud.sleuth.instrument.web.client.feign.TracingFeignClient@557406d4] and the delegate [feign.httpclient.ApacheHttpClient@26e9b161]-->
         <!-- hystrix -->
@@ -240,15 +251,15 @@
         </dependency>
         <!-- 文件上传组件 -->
         <!--<dependency>-->
-            <!--<groupId>org.csource.fastdfs</groupId>-->
-            <!--<artifactId>fastdfs</artifactId>-->
-            <!--<version>1.2</version>-->
+        <!--<groupId>org.csource.fastdfs</groupId>-->
+        <!--<artifactId>fastdfs</artifactId>-->
+        <!--<version>2.2</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>commons-fileupload</groupId>-->
-            <!--<artifactId>commons-fileupload</artifactId>-->
-            <!--<version>${commons-fileupload.version}</version>-->
+        <!--<groupId>commons-fileupload</groupId>-->
+        <!--<artifactId>commons-fileupload</artifactId>-->
+        <!--<version>${commons-fileupload.version}</version>-->
         <!--</dependency>-->
     </dependencies>
 
@@ -485,6 +496,13 @@
                 </includes>
                 <!-- <filtering>false</filtering> -->
             </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!-- <filtering>false</filtering> -->
+            </resource>
         </resources>
         <plugins>
             <!-- mvn mybatis-generator:generate -->
@@ -511,7 +529,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--TODO-->
-                    <mainClass>WGXCBApplication</mainClass>
+                    <mainClass>personal.bs.WGXCBApplication</mainClass>
                     <executable>true</executable>
                 </configuration>
             </plugin>

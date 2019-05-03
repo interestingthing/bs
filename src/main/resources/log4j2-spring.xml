@@ -112,6 +112,11 @@
             <appender-ref ref="Console"/>
         </logger>
 
+        <logger name="personal" level="debug" additivity="false" includeLocation="true">
+            <appender-ref ref="DbLog"/>
+            <appender-ref ref="Console"/>
+        </logger>
+
         <root level="info" includeLocation="true">
             <appender-ref ref="Console"/>
         </root>

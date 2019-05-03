@@ -6,7 +6,7 @@ spring:
     time-zone: GMT+8
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wgxcb?useUnicode=true&characterEncoding=UTF-8&useAffectedRows=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/wgxcb?useUnicode=true&characterEncoding=UTF-8&useAffectedRows=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 12345678
     type: com.alibaba.druid.pool.DruidDataSource
@@ -24,21 +24,38 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 'x'
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp
+#      suffix: .jsp
   thymeleaf:
     enabled: true
-    mode: HTML5
+    mode: HTML
     cache: false
     prefix: classpath:/templates/
     suffix: .html
 
+#  devtools:
+#    restart:
+#      additional-paths: src/main/java
+#      enabled: false
+
+
+
 server:
   port: 8080
+#  servlet:
+#    jsp:
+#      class-name: org.apache.catalina.servlets.DefaultServlet
 management:
   endpoints:
     web:
       exposure:
         include: '*'
       base-path: /
+  server:
+    port: 9000
+
 
 #logging:
 #  level:
@@ -56,6 +73,8 @@ mybatis:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:mapper/*Mapper.xml
-
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+  type-handlers-package:
 FILE_SERVER_URL: http://192.168.2.150/
 
