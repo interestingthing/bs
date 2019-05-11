@@ -1,8 +1,10 @@
 package personal.bs.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import personal.bs.domain.po.TypePO;
 import personal.bs.domain.vo.PageResult;
 import personal.bs.domain.vo.Result;
@@ -10,8 +12,9 @@ import personal.bs.service.TypeService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/itemCat")
 public class TypeController {
 
@@ -24,6 +27,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/findAll")
+    @ResponseBody
     public List<TypePO> findAll() {
         return typeService.findAll();
     }
@@ -35,6 +39,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/findPage")
+    @ResponseBody
     public PageResult findPage(int page, int rows) {
         return typeService.findPage(page, rows);
     }
@@ -46,6 +51,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/add")
+    @ResponseBody
     public Result add(@RequestBody TypePO typePO) {
         try {
             typeService.add(typePO);
@@ -63,6 +69,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/update")
+    @ResponseBody
     public Result update(@RequestBody TypePO typePO) {
         try {
             typeService.update(typePO);
@@ -80,6 +87,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/findOne")
+    @ResponseBody
     public TypePO findOne(Integer id) {
         return typeService.findOne(id);
     }
@@ -91,6 +99,7 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/delete")
+    @ResponseBody
     public Result delete(Integer[] ids) {
         try {
             typeService.delete(ids);
@@ -109,12 +118,24 @@ public class TypeController {
      * @return
      */
     @RequestMapping("/search")
+    @ResponseBody
     public PageResult search(@RequestBody TypePO typePO, int page, int rows) {
         return typeService.findPage(typePO, page, rows);
     }
 
     @RequestMapping("/findByParentId")
+    @ResponseBody
     public List<TypePO> findByParentId(Integer parentId) {
         return typeService.findByParentId(parentId);
     }
+
+    @RequestMapping("/showTypeList")
+    @ResponseBody
+    public Map showTypeList(Model model) {
+
+        Map map = typeService.showTypeList();
+        model.addAttribute("map", map);
+        return map;
+    }
+
 }

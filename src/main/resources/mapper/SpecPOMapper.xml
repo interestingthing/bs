@@ -190,11 +190,4 @@
             name as text
         from spec
     </select>
-
-    <select id="selectOptionList" resultType="java.util.Map">
-        select
-            id,
-            name as text
-        from spec
-    </select>
 </mapper>

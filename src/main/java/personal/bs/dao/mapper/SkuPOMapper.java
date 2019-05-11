@@ -49,10 +49,16 @@ public interface SkuPOMapper {
     @Insert({
         "insert into sku (spu_id, img_url, ",
         "price, stock_count, ",
-        "spu_spec_ids)",
+        "spu_spec_ids, type, ",
+        "is_default, spec, ",
+        "store, type_id, store_id, ",
+        "title)",
         "values (#{spuId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=DECIMAL}, #{stockCount,jdbcType=INTEGER}, ",
-        "#{spuSpecIds,jdbcType=VARCHAR})"
+        "#{spuSpecIds,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, ",
+        "#{isDefault,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR}, ",
+        "#{store,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
+        "#{title,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(SkuPO record);
@@ -81,7 +87,8 @@ public interface SkuPOMapper {
      */
     @Select({
         "select",
-        "id, spu_id, img_url, price, stock_count, spu_spec_ids",
+        "id, spu_id, img_url, price, stock_count, spu_spec_ids, type, is_default, spec, ",
+        "store, type_id, store_id, title",
         "from sku",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -124,7 +131,14 @@ public interface SkuPOMapper {
           "img_url = #{imgUrl,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=DECIMAL},",
           "stock_count = #{stockCount,jdbcType=INTEGER},",
-          "spu_spec_ids = #{spuSpecIds,jdbcType=VARCHAR}",
+          "spu_spec_ids = #{spuSpecIds,jdbcType=VARCHAR},",
+          "type = #{type,jdbcType=VARCHAR},",
+          "is_default = #{isDefault,jdbcType=VARCHAR},",
+          "spec = #{spec,jdbcType=VARCHAR},",
+          "store = #{store,jdbcType=VARCHAR},",
+          "type_id = #{typeId,jdbcType=INTEGER},",
+          "store_id = #{storeId,jdbcType=INTEGER},",
+          "title = #{title,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SkuPO record);

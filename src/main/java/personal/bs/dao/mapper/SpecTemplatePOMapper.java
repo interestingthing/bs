@@ -47,10 +47,10 @@ public interface SpecTemplatePOMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into spec_template (spec_ids, spec_value_id, ",
-        "name, extend_attributes)",
-        "values (#{specIds,jdbcType=VARCHAR}, #{specValueId,jdbcType=INTEGER}, ",
-        "#{name,jdbcType=VARCHAR}, #{extendAttributes,jdbcType=VARCHAR})"
+        "insert into spec_template (spec_value_ids, name, ",
+        "extend_attributes)",
+        "values (#{specValueIds,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
+        "#{extendAttributes,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(SpecTemplatePO record);
@@ -79,7 +79,7 @@ public interface SpecTemplatePOMapper {
      */
     @Select({
         "select",
-        "id, spec_ids, spec_value_id, name, extend_attributes",
+        "id, spec_value_ids, name, extend_attributes",
         "from spec_template",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -118,8 +118,7 @@ public interface SpecTemplatePOMapper {
      */
     @Update({
         "update spec_template",
-        "set spec_ids = #{specIds,jdbcType=VARCHAR},",
-          "spec_value_id = #{specValueId,jdbcType=INTEGER},",
+        "set spec_value_ids = #{specValueIds,jdbcType=VARCHAR},",
           "name = #{name,jdbcType=VARCHAR},",
           "extend_attributes = #{extendAttributes,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"

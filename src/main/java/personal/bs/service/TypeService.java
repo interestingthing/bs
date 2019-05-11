@@ -5,10 +5,10 @@ import personal.bs.domain.po.TypePO;
 import personal.bs.domain.vo.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务层接口
- *
  */
 public interface TypeService {
 
@@ -72,4 +72,7 @@ public interface TypeService {
      * @return
      */
     public List<TypePO> findByParentId(Integer parentId);
+
+    public Map showTypeList();
+
 }

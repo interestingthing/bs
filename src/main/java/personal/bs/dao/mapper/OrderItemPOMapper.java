@@ -48,9 +48,9 @@ public interface OrderItemPOMapper {
      */
     @Insert({
         "insert into order_item (trade_num, sku_id, ",
-        "num)",
+        "num, store_id)",
         "values (#{tradeNum,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, ",
-        "#{num,jdbcType=INTEGER})"
+        "#{num,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(OrderItemPO record);
@@ -79,7 +79,7 @@ public interface OrderItemPOMapper {
      */
     @Select({
         "select",
-        "id, trade_num, sku_id, num",
+        "id, trade_num, sku_id, num, store_id",
         "from order_item",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -120,7 +120,8 @@ public interface OrderItemPOMapper {
         "update order_item",
         "set trade_num = #{tradeNum,jdbcType=INTEGER},",
           "sku_id = #{skuId,jdbcType=INTEGER},",
-          "num = #{num,jdbcType=INTEGER}",
+          "num = #{num,jdbcType=INTEGER},",
+          "store_id = #{storeId,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(OrderItemPO record);

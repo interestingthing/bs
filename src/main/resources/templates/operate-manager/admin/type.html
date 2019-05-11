@@ -58,8 +58,8 @@
                     <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
                             class="fa fa-trash-o"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-default" title="刷新" ng-click="findByParentId(parentId)"><i
-                            class="fa fa-check"></i> 刷新
+                    <button type="button" class="btn btn-default" title="刷新" ng-click="findByParentId(pid)"> <i
+                            class="fa fa-check" ng-value="pid"></i> 刷新
                     </button>
 
                 </div>
@@ -72,7 +72,9 @@
             <thead>
             <tr>
                 <th class="" style="padding-right:0px">
-                    <input type="checkbox" class="icheckbox_square-blue">
+                    <input type="checkbox" class="icheckbox_square-blue"
+
+                    ng-click="$('input[type=checkbox]')">
                 </th>
                 <th class="sorting_asc">分类ID</th>
                 <th class="sorting">分类名称</th>

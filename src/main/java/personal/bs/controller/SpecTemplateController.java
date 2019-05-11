@@ -1,11 +1,13 @@
 package personal.bs.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import personal.bs.domain.po.SpecTemplatePO;
 import personal.bs.domain.vo.PageResult;
+import personal.bs.domain.vo.SpecTemplateDto;
+import personal.bs.domain.po.SpecTemplatePO;
 import personal.bs.domain.vo.Result;
 import personal.bs.service.SpecTemplateService;
 
@@ -46,11 +48,15 @@ public class SpecTemplateController {
     /**
      * 增加
      *
-     * @param specTemplatePO
+     * @param specTemplateDto
      * @return
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody SpecTemplatePO specTemplatePO) {
+    public Result add(@RequestBody SpecTemplateDto specTemplateDto) {
+        SpecTemplatePO specTemplatePO = new SpecTemplatePO();
+        specTemplatePO.setName(specTemplateDto.getName());
+        specTemplatePO.setSpecValueIds(JSON.toJSON(specTemplateDto.getSpecValueIds()).toString());
+        specTemplatePO.setExtendAttributes(JSON.toJSON(specTemplateDto.getExtendAttributes()).toString());
         try {
             specTemplateService.add(specTemplatePO);
             return new Result(true, "增加成功");

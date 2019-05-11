@@ -44,7 +44,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    UserPO findOne(Long id);
+    UserPO findOne(Integer id);
 
 
     /**
@@ -52,7 +52,7 @@ public interface UserService {
      *
      * @param ids
      */
-    void delete(Long[] ids);
+    void delete(Integer[] ids);
 
     /**
      * 分页

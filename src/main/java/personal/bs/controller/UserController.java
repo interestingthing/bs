@@ -78,7 +78,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping("/add")
+    @PostMapping("/add")
     @ResponseBody
     public Result add(@Validated @RequestBody UserPO user) {
         //校验验证码是否正确
@@ -126,7 +126,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @ResponseBody
     public Result update(@RequestBody UserPO user) {
         try {
@@ -146,7 +146,7 @@ public class UserController {
      */
     @RequestMapping("/findOne")
     @ResponseBody
-    public UserPO findOne(Long id) {
+    public UserPO findOne(Integer id) {
         return userService.findOne(id);
     }
 
@@ -158,7 +158,7 @@ public class UserController {
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public Result delete(Long[] ids) {
+    public Result delete(Integer[] ids) {
         try {
             userService.delete(ids);
             return new Result(true, "删除成功");
@@ -175,7 +175,7 @@ public class UserController {
      * @param rows
      * @return
      */
-    @RequestMapping("/search")
+    @PostMapping("/search")
     @ResponseBody
     public PageResult search(@RequestBody UserPO user, int page, int rows) {
         return userService.findPage(user, page, rows);

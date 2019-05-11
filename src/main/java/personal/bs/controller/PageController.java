@@ -7,13 +7,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import personal.bs.service.TypeService;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 @Controller
 @Slf4j
 public class PageController {
 
+    @Resource
+    TypeService typeService;
+
     /**
-     * 主页
+     * 项目默认主页
+     *
+     * @return
+     */
+    @GetMapping("/")
+    public String index() {
+        return "forward:/user/index";
+    }
+
+    /**
+     * 用户主页
+     *
+     * @param username
+     * @param model
+     * @return
+     */
+    @GetMapping("user/index")
+    public String jumpIndex(@SessionAttribute(value = "username", required = false) String username, Model model) {
+        if (StringUtils.isNotBlank(username)) {
+            model.addAttribute("username", username);
+        }
+        Map map = typeService.showTypeList();
+        model.addAttribute("map", map);
+        return "user/index";
+    }
+
+    /**
+     * 用户页面
      *
      * @param page
      * @param username
@@ -28,15 +62,8 @@ public class PageController {
         return "user/" + page;
     }
 
-    /**
-     * 默认主页
-     *
-     * @return
-     */
-    @GetMapping("/")
-    public String index() {
-        return "user/index";
-    }
+
+
 
     /**
      * 运营商主页

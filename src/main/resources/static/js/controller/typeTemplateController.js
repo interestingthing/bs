@@ -1,5 +1,5 @@
  //控制层 
-app.controller('typeTemplateController' ,function($scope,$controller,typeTemplateService,brandService,specificationService){	
+app.controller('typeTemplateController' ,function($scope,$controller,typeTemplateService,specificationService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -10,7 +10,10 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 				$scope.list=response;
 			}			
 		);
-	}    
+	}
+    // $('input[type=checkbox]').each(function(i,data){
+    //
+	// });
 	
 	//分页
 	$scope.findPage=function(page,rows){			
@@ -28,9 +31,8 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 			function(response){
 				$scope.entity= response;
 				//转换字符串为json对象（集合）
-				$scope.entity.brandIds=  JSON.parse($scope.entity.brandIds);
-				$scope.entity.specIds= JSON.parse($scope.entity.specIds);
-				$scope.entity.customAttributeItems = JSON.parse($scope.entity.customAttributeItems);
+				$scope.entity.specValueIds= JSON.parse($scope.entity.specValueIds);
+				$scope.entity.extendAttributes = JSON.parse($scope.entity.extendAttributes);
 				
 			}
 		);				
@@ -60,11 +62,11 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 	//批量删除 
 	$scope.dele=function(){			
 		//获取选中的复选框			
-		typeTemplateService.dele( $scope.selectIds ).success(
+		typeTemplateService.dele( $scope.specValueIds ).success(
 			function(response){
 				if(response.success){
 					$scope.reloadList();//刷新列表
-					$scope.selectIds=[];
+					$scope.specValueIds=[];
 				}						
 			}		
 		);				
@@ -81,17 +83,7 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 			}			
 		);
 	}
-	
-	$scope.brandList={data:[]};//品牌列表
-    
-	//读取品牌列表
-	$scope.findBrandList=function(){
-		brandService.selectOptionList().success(
-			function(response){
-				$scope.brandList={data:response};
-			}
-		);		
-	}
+
 	
 	$scope.specList={data:[]};//规格列表
 	
@@ -106,11 +98,11 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 	
 	//增加扩展属性行
 	$scope.addTableRow=function(){
-		$scope.entity.customAttributeItems.push({});
+		$scope.entity.extendAttributes.push({});
 	}
 	//删除扩展属性行
 	$scope.deleTableRow=function(index){
-		$scope.entity.customAttributeItems.splice( index,1);
+		$scope.entity.extendAttributes.splice( index,1);
 	}
 	
 });	

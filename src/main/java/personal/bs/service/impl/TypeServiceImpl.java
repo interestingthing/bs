@@ -12,7 +12,9 @@ import personal.bs.domain.vo.PageResult;
 import personal.bs.service.TypeService;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务实现层
@@ -123,4 +125,26 @@ public class TypeServiceImpl implements TypeService {
         return typePOMapper.selectByExample(example);
     }
 
+
+    @Override
+    public Map showTypeList() {
+        TypePOExample typePOExample = new TypePOExample();
+
+
+        TypePOExample.Criteria criteria = typePOExample.createCriteria();
+        criteria.andPidEqualTo(0);
+        List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
+
+        LinkedHashMap<TypePO, List<TypePO>> map = new LinkedHashMap<>();
+        typePOS.forEach(typePO -> {
+            TypePOExample typePOExample1 = new TypePOExample();
+
+
+            TypePOExample.Criteria criteria1 = typePOExample1.createCriteria();
+            criteria1.andPidEqualTo(typePO.getId());
+            List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample1);
+            map.put(typePO, typePOS1);
+        });
+        return map;
+    }
 }

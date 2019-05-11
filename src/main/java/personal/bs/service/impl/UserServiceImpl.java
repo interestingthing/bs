@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserPO findOne(Long id) {
+    public UserPO findOne(Integer id) {
         return userPOMapper.selectByPrimaryKey(id.intValue());
     }
 
@@ -100,8 +100,8 @@ public class UserServiceImpl implements UserService {
      * 批量删除
      */
     @Override
-    public void delete(Long[] ids) {
-        for (Long id : ids) {
+    public void delete(Integer[] ids) {
+        for (Integer id : ids) {
             userPOMapper.deleteByPrimaryKey(id.intValue());
         }
     }

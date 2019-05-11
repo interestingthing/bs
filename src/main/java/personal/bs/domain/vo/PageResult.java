@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 分页返回的实体类
+ * @author jt
  *
  */
 public class PageResult implements Serializable{

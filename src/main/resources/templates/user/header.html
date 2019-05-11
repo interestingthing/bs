@@ -7,12 +7,14 @@
                 <ul class="fl">
                     <li class="f-item">欢迎您！&nbsp;&nbsp;</li>
                     <div class="f-item" th:if="${username}">
-                    <li class="f-item" th:if="${username}" th:text="${username}"></li>
-                    <li class="f-item">&nbsp;&nbsp;<a th:href="@{/user/logout}" target="_blank">注销</a>&nbsp;&nbsp;</li>
+                        <li class="f-item" th:if="${username}" th:text="${username}"></li>
+                        <li class="f-item">&nbsp;&nbsp;<a th:href="@{/user/logout}" target="_blank">注销</a>&nbsp;&nbsp;
+                        </li>
                     </div>
 
                     <div class="f-item" th:unless="${username}">
-                        <li class="f-item">&nbsp;&nbsp;请<a href="/user/login.html" target="_blank">登录</a>&nbsp;&nbsp;</li>
+                        <li class="f-item">&nbsp;&nbsp;请<a href="/user/login.html" target="_blank">登录</a>&nbsp;&nbsp;
+                        </li>
                         <span><a href="register.html" target="_blank">免费注册</a></span>
                     </div>
                 </ul>
@@ -53,6 +55,7 @@
     <script type="text/javascript" src="../../static/js/plugins/angularjs/angular.min.js"></script>
     <!-- 引入分页相关的JS和CSS -->
     <script type="text/javascript" src="../../static/js/base.js"></script>
+    <script type="text/javascript" src="../../static/js/controller/baseController.js"></script>
     <script type="text/javascript" src="../../static/js/service/contentService.js"></script>
     <script type="text/javascript" src="../../static/js/controller/contentController.js"></script>
 

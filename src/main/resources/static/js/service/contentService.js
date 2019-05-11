@@ -1,6 +1,8 @@
 //服务层
 app.service('contentService',function($http){
-	    	
+    this.showTypeList=function(){
+        return $http.get('../itemCat/showTypeList');
+    }
 	//读取列表数据绑定到表单中
 	this.findAll=function(){
 		return $http.get('../content/findAll');

@@ -20,6 +20,9 @@ import personal.bs.domain.vo.Result;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 异常处理器
+ */
 @ControllerAdvice(annotations = {Controller.class})
 @Slf4j
 public class CommonExceptionHandler {

@@ -4,7 +4,6 @@ package personal.bs.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class SpecTemplateServiceImpl implements SpecTemplateService {
 
-    @Autowired
+    @Resource
     private SpecTemplatePOMapper typeTemplateMapper;
 
     /**
@@ -101,8 +100,8 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
             if (typeTemplate.getName() != null && typeTemplate.getName().length() > 0) {
                 criteria.andNameLike("%" + typeTemplate.getName() + "%");
             }
-            if (typeTemplate.getSpecIds() != null && typeTemplate.getSpecIds().length() > 0) {
-                criteria.andSpecIdsLike("%" + typeTemplate.getSpecIds() + "%");
+            if (typeTemplate.getSpecValueIds() != null && typeTemplate.getSpecValueIds().length() > 0) {
+                criteria.andSpecValueIdsLike("%" + typeTemplate.getSpecValueIds() + "%");
             }
 
             if (typeTemplate.getExtendAttributes() != null && typeTemplate.getExtendAttributes().length() > 0) {
@@ -113,13 +112,13 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
 
         Page<SpecTemplatePO> page = (Page<SpecTemplatePO>) typeTemplateMapper.selectByExample(example);
 
-        //缓存处理
-        saveToRedis();
+        //TODO 缓存处理
+        //saveToRedis();
 
         return new PageResult(page.getTotal(), page.getResult());
     }
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
     /**
@@ -130,23 +129,24 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
         for (SpecTemplatePO template : templateList) {
             //得到规格列表
             List<Map> specList = findSpecList(template.getId());
-            redisTemplate.boundHashOps("specList").put(template.getId(), specList);
+
+            //redisTemplate.boundHashOps("specList").put(template.getId(), specList);
 
         }
-        System.out.println("缓存品牌列表");
 
     }
 
 
     @Resource
-    private SpecValuePOMapper specificationOptionMapper;
+    private SpecValuePOMapper specValuePOMapper;
 
     @Override
     public List<Map> findSpecList(Integer id) {
         //根据ID查询到模板对象
         SpecTemplatePO typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
         // 获得规格的数据spec_ids
-        String specIds = typeTemplate.getSpecIds();// [{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]
+        String specIds = typeTemplate.getSpecValueIds();
+        // [{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]
         // 将specIds的字符串转成JSON的List<Map>
         List<Map> list = JSON.parseArray(specIds, Map.class);
         // 获得每条记录:
@@ -157,7 +157,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
             SpecValuePOExample.Criteria criteria = example.createCriteria();
             criteria.andSpecIdEqualTo((Integer) map.get("id"));
 
-            List<SpecValuePO> specOptionList = specificationOptionMapper.selectByExample(example);
+            List<SpecValuePO> specOptionList = specValuePOMapper.selectByExample(example);
 
             map.put("options", specOptionList);
             //{"id":27,"text":"网络",options:[{颜色：xxx,网络:移动2G}]}
