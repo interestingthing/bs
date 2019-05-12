@@ -2,17 +2,19 @@ package personal.bs.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import personal.bs.domain.vo.PageResult;
-import personal.bs.domain.vo.SpecTemplateDto;
 import personal.bs.domain.po.SpecTemplatePO;
+import personal.bs.domain.vo.PageResult;
 import personal.bs.domain.vo.Result;
+import personal.bs.domain.vo.SpecTemplateDto;
 import personal.bs.service.SpecTemplateService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * controller
@@ -123,4 +125,13 @@ public class SpecTemplateController {
         return specTemplateService.findPage(SpecTemplatePO, page, rows);
     }
 
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList() {
+        return specTemplateService.selectOptionList();
+    }
+
+    @GetMapping("/findSpecList")
+    public List<Map> findSpecList(Integer id) {
+        return specTemplateService.findSpecList(id);
+    }
 }

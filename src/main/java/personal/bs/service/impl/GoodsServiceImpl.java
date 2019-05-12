@@ -4,14 +4,13 @@ package personal.bs.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import personal.bs.dao.mapper.SkuPOMapper;
-import personal.bs.dao.mapper.SpuPOMapper;
-import personal.bs.dao.mapper.StorePOMapper;
-import personal.bs.dao.mapper.TypePOMapper;
+import personal.bs.dao.mapper.*;
 import personal.bs.domain.po.*;
 import personal.bs.domain.vo.Goods;
+import personal.bs.domain.vo.GoodsDescDto;
 import personal.bs.domain.vo.PageResult;
 import personal.bs.service.GoodsService;
 
@@ -23,6 +22,7 @@ import java.util.Map;
 
 @Service
 @Transactional
+@Slf4j
 public class GoodsServiceImpl implements GoodsService {
 
     @Resource
@@ -46,8 +46,8 @@ public class GoodsServiceImpl implements GoodsService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
-//	@Resource
-//	private SpuPODescMapper goodsDescMapper;
+    @Resource
+    private TbGoodsDescMapper goodsDescMapper;
 
     @Resource
     private SkuPOMapper skuPOMapper;
@@ -64,34 +64,44 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public void add(Goods goods) {
-        goods.getSpuPO().setStatus("0");
+        goods.getGoods().setStatus("0");
         // 设置审核的状态
 
-        spuPOMapper.insert(goods.getSpuPO());
+        int insert = spuPOMapper.insert(goods.getGoods());
         // 插入商品信息
 
-        //goods.getSpuPODesc().setGoodsId(goods.getSpuPO().getId());
+        log.warn("插入Spu{}", goods.getGoods().getId());
+        goods.getGoodsDesc().setSpuid(goods.getGoods().getId());
 
-        //TODO goodsDescMapper.insert(goods.getSpuPODesc());
+        GoodsDescDto goodsDesc = goods.getGoodsDesc();
+        TbGoodsDesc tbGoodsDesc = TbGoodsDesc.builder().spuid(goods.getGoods().getId()).
+                customAttributeItems(goodsDesc.getCustomAttributeItems().toString())
+                .introduction(goodsDesc.getIntroduction())
+                .itemImages(goodsDesc.getItemImages().toString())
+                .packageList(goodsDesc.getPackageList())
+                .saleService(goodsDesc.getSaleService())
+                .specificationItems(goodsDesc.getSpecificationItems().toString()).build();
+
+        log.warn("插入Spu{}", goods.getGoods().getId());
+        goodsDescMapper.insert(tbGoodsDesc);
         // 插入商品的扩展信息
 
         setItemList(goods);
     }
 
     private void setItemList(Goods goods) {
-        if ("1".equals(goods.getSpuPO().getStatus())) {
+        if ("1".equals(goods.getGoods().getStatus())) {
             // 启用规格
             // 保存SKU列表的信息:
             for (SkuPO item : goods.getSkuPOList()) {
                 // 设置SKU的数据：
-                item.setTitle(item.getTitle());
-                String title = goods.getSpuPO().getName();
+                String title = goods.getGoods().getName();
                 Map<String, String> map = JSON.parseObject(item.getSpec(), Map.class);
                 //Map<String,String> map = item.getSpec();
                 for (String key : map.keySet()) {
                     title += " " + map.get(key);
                 }
-                //item.set(title);
+                item.setTitle(title);
 
                 setValue(goods, item);
 
@@ -101,9 +111,9 @@ public class GoodsServiceImpl implements GoodsService {
             // 没有启用规格
             SkuPO item = new SkuPO();
 
-            item.setTitle(goods.getSpuPO().getName());
+            item.setTitle(goods.getGoods().getName());
 
-            item.setPrice(goods.getSpuPO().getPrice());
+            item.setPrice(goods.getGoods().getPrice());
 
             item.setStockCount(999);
 
@@ -125,17 +135,18 @@ public class GoodsServiceImpl implements GoodsService {
 //        }
 
         // 保存2级分类的ID:
-        item.setTypeId(goods.getSpuPO().getType2Id());
+        item.setTypeId(goods.getGoods().getType2Id());
 //		item.set(new Date());
 //		item.setUpdateTime(new Date());
         // 设置商品ID
-        item.setSpuId(goods.getSpuPO().getId());
-        item.setStoreId(goods.getSpuPO().getStoreId());
+        item.setSpuId(goods.getGoods().getId());
+        item.setStoreId(goods.getGoods().getStoreId());
 
-        TypePO itemCat = typePOMapper.selectByPrimaryKey(goods.getSpuPO().getType2Id());
+        TypePO itemCat = typePOMapper.selectByPrimaryKey(goods.getGoods().getType2Id());
         item.setType(itemCat.getName());
 
-        StorePO seller = storePOMapper.selectByPrimaryKey(goods.getSpuPO().getStoreId());
+        StorePO seller = storePOMapper.selectByPrimaryKey(goods.getGoods().getStoreId());
+
         item.setStore(seller.getName());
     }
 
@@ -145,8 +156,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void update(Goods goods) {
         // 修改商品信息
-        goods.getSpuPO().setStatus("0");
-        spuPOMapper.updateByPrimaryKey(goods.getSpuPO());
+        goods.getGoods().setStatus("0");
+        spuPOMapper.updateByPrimaryKey(goods.getGoods());
         // 修改商品扩展信息:
         //goodsDescMapper.updateByPrimaryKey(goods.getSpuPODesc());
         // 修改SKU信息:
@@ -154,7 +165,7 @@ public class GoodsServiceImpl implements GoodsService {
         // 删除SKU的信息:
         SkuPOExample example = new SkuPOExample();
         SkuPOExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(goods.getSpuPO().getId());
+        criteria.andIdEqualTo(goods.getGoods().getId());
         skuPOMapper.deleteByExample(example);
         // 保存SKU的信息
         setItemList(goods);
@@ -171,10 +182,19 @@ public class GoodsServiceImpl implements GoodsService {
         Goods goods = new Goods();
         // 查询商品表的信息
         SpuPO tbGoods = spuPOMapper.selectByPrimaryKey(id);
-        goods.setSpuPO(tbGoods);
+        goods.setGoods(tbGoods);
         // 查询商品扩展表的信息
-//        SpuPODesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(id);
-//        goods.setGoodsDesc(tbGoodsDesc);
+        TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(id);
+        System.out.println(tbGoodsDesc);
+        GoodsDescDto goodsDesc = goods.getGoodsDesc();
+        goodsDesc.builder().spuid(goodsDesc.getSpuid()).
+                customAttributeItems(null).
+                introduction(tbGoodsDesc.getIntroduction())
+                .itemImages(null)
+                .packageList(tbGoodsDesc.getPackageList())
+                .saleService(tbGoodsDesc.getSaleService())
+                .specificationItems(null).build();
+        goods.setGoodsDesc(goodsDesc);
 
         // 查询SKU表的信息:
         SkuPOExample example = new SkuPOExample();
@@ -270,6 +290,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public PageResult searchByTypeId(Integer typeId, int pageNum, int rows) {
+        PageHelper.startPage(pageNum, rows);
 
         SpuPOExample spuPOExample = new SpuPOExample();
         spuPOExample.or().andType1IdEqualTo(typeId);

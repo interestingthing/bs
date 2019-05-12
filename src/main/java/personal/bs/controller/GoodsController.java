@@ -55,6 +55,9 @@ public class GoodsController {
     @ResponseBody
     public Result add(@RequestBody Goods goods) {
         try {
+//            todo获取商家ID
+//            String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+            goods.getGoods().setStoreId(0);
             goodsService.add(goods);
             return new Result(true, "增加成功");
         } catch (Exception e) {
@@ -159,7 +162,7 @@ public class GoodsController {
      */
     @GetMapping("/search")
     public PageResult searchByTypeId(Model model,Integer typeId,
-                                     @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                     @RequestParam(name = "page", defaultValue = "1", required = false) int page,
                                      @RequestParam(name = "rows", defaultValue = "20", required = false) int rows) {
 
         return goodsService.searchByTypeId(typeId, page, rows);

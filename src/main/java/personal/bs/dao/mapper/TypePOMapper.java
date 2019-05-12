@@ -47,8 +47,10 @@ public interface TypePOMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into type (name, pid)",
-        "values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER})"
+        "insert into type (name, pid, ",
+        "template_id)",
+        "values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, ",
+        "#{templateId,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(TypePO record);
@@ -77,7 +79,7 @@ public interface TypePOMapper {
      */
     @Select({
         "select",
-        "id, name, pid",
+        "id, name, pid, template_id",
         "from type",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -117,7 +119,8 @@ public interface TypePOMapper {
     @Update({
         "update type",
         "set name = #{name,jdbcType=VARCHAR},",
-          "pid = #{pid,jdbcType=INTEGER}",
+          "pid = #{pid,jdbcType=INTEGER},",
+          "template_id = #{templateId,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TypePO record);

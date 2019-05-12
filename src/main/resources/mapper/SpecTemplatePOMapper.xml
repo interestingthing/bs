@@ -208,4 +208,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectOptionList" resultType="java.util.Map">
+    select
+      id,
+      name as text
+    from spec_template
+  </select>
 </mapper>

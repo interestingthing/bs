@@ -1,6 +1,8 @@
 package personal.bs.dao.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -124,4 +126,6 @@ public interface SpecTemplatePOMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SpecTemplatePO record);
+
+    List<Map> selectOptionList();
 }

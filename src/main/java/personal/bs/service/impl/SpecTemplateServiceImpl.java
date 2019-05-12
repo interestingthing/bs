@@ -30,14 +30,14 @@ import java.util.Map;
 public class SpecTemplateServiceImpl implements SpecTemplateService {
 
     @Resource
-    private SpecTemplatePOMapper typeTemplateMapper;
+    private SpecTemplatePOMapper specTemplatePOMapper;
 
     /**
      * 查询全部
      */
     @Override
     public List<SpecTemplatePO> findAll() {
-        return typeTemplateMapper.selectByExample(null);
+        return specTemplatePOMapper.selectByExample(null);
     }
 
     /**
@@ -46,7 +46,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
     @Override
     public PageResult findPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        Page<SpecTemplatePO> page = (Page<SpecTemplatePO>) typeTemplateMapper.selectByExample(null);
+        Page<SpecTemplatePO> page = (Page<SpecTemplatePO>) specTemplatePOMapper.selectByExample(null);
         return new PageResult(page.getTotal(), page.getResult());
     }
 
@@ -55,7 +55,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
      */
     @Override
     public void add(SpecTemplatePO typeTemplate) {
-        typeTemplateMapper.insert(typeTemplate);
+        specTemplatePOMapper.insert(typeTemplate);
     }
 
 
@@ -64,7 +64,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
      */
     @Override
     public void update(SpecTemplatePO typeTemplate) {
-        typeTemplateMapper.updateByPrimaryKey(typeTemplate);
+        specTemplatePOMapper.updateByPrimaryKey(typeTemplate);
     }
 
     /**
@@ -75,7 +75,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
      */
     @Override
     public SpecTemplatePO findOne(Integer id) {
-        return typeTemplateMapper.selectByPrimaryKey(id);
+        return specTemplatePOMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -84,7 +84,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
     @Override
     public void delete(Integer[] ids) {
         for (Integer id : ids) {
-            typeTemplateMapper.deleteByPrimaryKey(id);
+            specTemplatePOMapper.deleteByPrimaryKey(id);
         }
     }
 
@@ -110,7 +110,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
 
         }
 
-        Page<SpecTemplatePO> page = (Page<SpecTemplatePO>) typeTemplateMapper.selectByExample(example);
+        Page<SpecTemplatePO> page = (Page<SpecTemplatePO>) specTemplatePOMapper.selectByExample(example);
 
         //TODO 缓存处理
         //saveToRedis();
@@ -143,7 +143,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
     @Override
     public List<Map> findSpecList(Integer id) {
         //根据ID查询到模板对象
-        SpecTemplatePO typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+        SpecTemplatePO typeTemplate = specTemplatePOMapper.selectByPrimaryKey(id);
         // 获得规格的数据spec_ids
         String specIds = typeTemplate.getSpecValueIds();
         // [{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]
@@ -165,4 +165,8 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
         return list;
     }
 
+    @Override
+    public List<Map> selectOptionList() {
+        return specTemplatePOMapper.selectOptionList();
+    }
 }

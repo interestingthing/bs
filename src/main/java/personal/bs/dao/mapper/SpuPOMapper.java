@@ -48,18 +48,16 @@ public interface SpuPOMapper {
      */
     @Insert({
         "insert into spu (name, type1_id, ",
-        "description, store_id, ",
-        "sale_num, upload_date, ",
-        "status, type2_id, ",
-        "pic, spec_template_id, ",
+        "store_id, sale_num, ",
+        "upload_date, status, ",
+        "type2_id, pic, spec_template_id, ",
         "caption, default_sku_id, ",
         "price, is_enable_spec, ",
         "is_delete)",
         "values (#{name,jdbcType=VARCHAR}, #{type1Id,jdbcType=INTEGER}, ",
-        "#{description,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, ",
-        "#{saleNum,jdbcType=INTEGER}, #{uploadDate,jdbcType=TIMESTAMP}, ",
-        "#{status,jdbcType=VARCHAR}, #{type2Id,jdbcType=INTEGER}, ",
-        "#{pic,jdbcType=VARCHAR}, #{specTemplateId,jdbcType=INTEGER}, ",
+        "#{storeId,jdbcType=INTEGER}, #{saleNum,jdbcType=INTEGER}, ",
+        "#{uploadDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, ",
+        "#{type2Id,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}, #{specTemplateId,jdbcType=INTEGER}, ",
         "#{caption,jdbcType=VARCHAR}, #{defaultSkuId,jdbcType=INTEGER}, ",
         "#{price,jdbcType=DECIMAL}, #{isEnableSpec,jdbcType=VARCHAR}, ",
         "#{isDelete,jdbcType=VARCHAR})"
@@ -91,8 +89,8 @@ public interface SpuPOMapper {
      */
     @Select({
         "select",
-        "id, name, type1_id, description, store_id, sale_num, upload_date, status, type2_id, ",
-        "pic, spec_template_id, caption, default_sku_id, price, is_enable_spec, is_delete",
+        "id, name, type1_id, store_id, sale_num, upload_date, status, type2_id, pic, ",
+        "spec_template_id, caption, default_sku_id, price, is_enable_spec, is_delete",
         "from spu",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -133,7 +131,6 @@ public interface SpuPOMapper {
         "update spu",
         "set name = #{name,jdbcType=VARCHAR},",
           "type1_id = #{type1Id,jdbcType=INTEGER},",
-          "description = #{description,jdbcType=VARCHAR},",
           "store_id = #{storeId,jdbcType=INTEGER},",
           "sale_num = #{saleNum,jdbcType=INTEGER},",
           "upload_date = #{uploadDate,jdbcType=TIMESTAMP},",

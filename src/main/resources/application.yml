@@ -38,7 +38,7 @@ spring:
     suffix: .html
   data:
     solr:
-      host: http://localhost:8983/solr/wgxcb
+      host: http://localhost:8983/solr
 
 
 #  devtools:

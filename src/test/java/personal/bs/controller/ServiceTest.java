@@ -11,8 +11,10 @@ import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import personal.bs.TestRunAppication;
+import personal.bs.dao.mapper.SpuPOMapper;
 import personal.bs.dao.mapper.TypePOMapper;
 import personal.bs.domain.po.SkuPO;
+import personal.bs.domain.po.SpuPO;
 import personal.bs.domain.po.TypePO;
 import personal.bs.domain.po.TypePOExample;
 
@@ -37,6 +39,8 @@ public class ServiceTest {
     @Resource
     TypePOMapper typePOMapper;
 
+    @Resource
+    SpuPOMapper spuPOMapper;
     /**
      * 测试事务回滚
      * 在基类ServiceTest上面加注解@Transactional,
@@ -74,6 +78,23 @@ public class ServiceTest {
         SkuPO skuPO = new SkuPO();
         solrTemplate.saveBean("",skuPO);
         solrTemplate.commit("");
+
+    }
+
+    @Test
+    public void testreturnid(){
+
+        SpuPO spuPO = new SpuPO();
+        spuPO.setType1Id(2);
+        int insert = spuPOMapper.insert(spuPO);
+        System.out.println(insert);
+        System.out.println(spuPO.getId());
+        System.out.println("================");
+        SpuPO spuPO1 = new SpuPO();
+        spuPO1.setType1Id(2);
+        int insert1 = spuPOMapper.insert(spuPO1);
+        System.out.println(insert1);
+        System.out.println(spuPO1.getId());
 
     }
 

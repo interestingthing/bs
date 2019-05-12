@@ -69,4 +69,6 @@ public interface SpecTemplateService {
 
     //根据模板ID查询规格列表
     public List<Map> findSpecList(Integer id);
+
+    List<Map> selectOptionList();
 }
