@@ -194,123 +194,63 @@ public class TbGoodsDescExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andSpuIdIsNull() {
+            addCriterion("spu_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andSpuIdIsNotNull() {
+            addCriterion("spu_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andSpuIdEqualTo(Integer value) {
+            addCriterion("spu_id =", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andSpuIdNotEqualTo(Integer value) {
+            addCriterion("spu_id <>", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andSpuIdGreaterThan(Integer value) {
+            addCriterion("spu_id >", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andSpuIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("spu_id >=", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andSpuIdLessThan(Integer value) {
+            addCriterion("spu_id <", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andSpuIdLessThanOrEqualTo(Integer value) {
+            addCriterion("spu_id <=", value, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andSpuIdIn(List<Integer> values) {
+            addCriterion("spu_id in", values, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andSpuIdNotIn(List<Integer> values) {
+            addCriterion("spu_id not in", values, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andSpuIdBetween(Integer value1, Integer value2) {
+            addCriterion("spu_id between", value1, value2, "spuId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidIsNull() {
-            addCriterion("spuId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidIsNotNull() {
-            addCriterion("spuId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidEqualTo(Integer value) {
-            addCriterion("spuId =", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidNotEqualTo(Integer value) {
-            addCriterion("spuId <>", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidGreaterThan(Integer value) {
-            addCriterion("spuId >", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("spuId >=", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidLessThan(Integer value) {
-            addCriterion("spuId <", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidLessThanOrEqualTo(Integer value) {
-            addCriterion("spuId <=", value, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidIn(List<Integer> values) {
-            addCriterion("spuId in", values, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidNotIn(List<Integer> values) {
-            addCriterion("spuId not in", values, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidBetween(Integer value1, Integer value2) {
-            addCriterion("spuId between", value1, value2, "spuid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuidNotBetween(Integer value1, Integer value2) {
-            addCriterion("spuId not between", value1, value2, "spuid");
+        public Criteria andSpuIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("spu_id not between", value1, value2, "spuId");
             return (Criteria) this;
         }
 

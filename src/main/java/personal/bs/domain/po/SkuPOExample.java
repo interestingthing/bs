@@ -2,6 +2,7 @@ package personal.bs.domain.po;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SkuPOExample {
@@ -505,76 +506,6 @@ public class SkuPOExample {
             return (Criteria) this;
         }
 
-        public Criteria andSpuSpecIdsIsNull() {
-            addCriterion("spu_spec_ids is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsIsNotNull() {
-            addCriterion("spu_spec_ids is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsEqualTo(String value) {
-            addCriterion("spu_spec_ids =", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsNotEqualTo(String value) {
-            addCriterion("spu_spec_ids <>", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsGreaterThan(String value) {
-            addCriterion("spu_spec_ids >", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsGreaterThanOrEqualTo(String value) {
-            addCriterion("spu_spec_ids >=", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsLessThan(String value) {
-            addCriterion("spu_spec_ids <", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsLessThanOrEqualTo(String value) {
-            addCriterion("spu_spec_ids <=", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsLike(String value) {
-            addCriterion("spu_spec_ids like", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsNotLike(String value) {
-            addCriterion("spu_spec_ids not like", value, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsIn(List<String> values) {
-            addCriterion("spu_spec_ids in", values, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsNotIn(List<String> values) {
-            addCriterion("spu_spec_ids not in", values, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsBetween(String value1, String value2) {
-            addCriterion("spu_spec_ids between", value1, value2, "spuSpecIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpuSpecIdsNotBetween(String value1, String value2) {
-            addCriterion("spu_spec_ids not between", value1, value2, "spuSpecIds");
-            return (Criteria) this;
-        }
-
         public Criteria andTypeIsNull() {
             addCriterion("type is null");
             return (Criteria) this;
@@ -1045,13 +976,188 @@ public class SkuPOExample {
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLikeInsensitive(String value) {
-            addCriterion("upper(img_url) like", value.toUpperCase(), "imgUrl");
+        public Criteria andSaleNumIsNull() {
+            addCriterion("sale_num is null");
             return (Criteria) this;
         }
 
-        public Criteria andSpuSpecIdsLikeInsensitive(String value) {
-            addCriterion("upper(spu_spec_ids) like", value.toUpperCase(), "spuSpecIds");
+        public Criteria andSaleNumIsNotNull() {
+            addCriterion("sale_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumEqualTo(Integer value) {
+            addCriterion("sale_num =", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumNotEqualTo(Integer value) {
+            addCriterion("sale_num <>", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumGreaterThan(Integer value) {
+            addCriterion("sale_num >", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sale_num >=", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumLessThan(Integer value) {
+            addCriterion("sale_num <", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumLessThanOrEqualTo(Integer value) {
+            addCriterion("sale_num <=", value, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumIn(List<Integer> values) {
+            addCriterion("sale_num in", values, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumNotIn(List<Integer> values) {
+            addCriterion("sale_num not in", values, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumBetween(Integer value1, Integer value2) {
+            addCriterion("sale_num between", value1, value2, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("sale_num not between", value1, value2, "saleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateIsNull() {
+            addCriterion("uploadDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateIsNotNull() {
+            addCriterion("uploadDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateEqualTo(Date value) {
+            addCriterion("uploadDate =", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateNotEqualTo(Date value) {
+            addCriterion("uploadDate <>", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateGreaterThan(Date value) {
+            addCriterion("uploadDate >", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateGreaterThanOrEqualTo(Date value) {
+            addCriterion("uploadDate >=", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateLessThan(Date value) {
+            addCriterion("uploadDate <", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateLessThanOrEqualTo(Date value) {
+            addCriterion("uploadDate <=", value, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateIn(List<Date> values) {
+            addCriterion("uploadDate in", values, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateNotIn(List<Date> values) {
+            addCriterion("uploadDate not in", values, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateBetween(Date value1, Date value2) {
+            addCriterion("uploadDate between", value1, value2, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploaddateNotBetween(Date value1, Date value2) {
+            addCriterion("uploadDate not between", value1, value2, "uploaddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIsNull() {
+            addCriterion("comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIsNotNull() {
+            addCriterion("comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentEqualTo(Integer value) {
+            addCriterion("comment =", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotEqualTo(Integer value) {
+            addCriterion("comment <>", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentGreaterThan(Integer value) {
+            addCriterion("comment >", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment >=", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentLessThan(Integer value) {
+            addCriterion("comment <", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentLessThanOrEqualTo(Integer value) {
+            addCriterion("comment <=", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIn(List<Integer> values) {
+            addCriterion("comment in", values, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotIn(List<Integer> values) {
+            addCriterion("comment not in", values, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentBetween(Integer value1, Integer value2) {
+            addCriterion("comment between", value1, value2, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment not between", value1, value2, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgUrlLikeInsensitive(String value) {
+            addCriterion("upper(img_url) like", value.toUpperCase(), "imgUrl");
             return (Criteria) this;
         }
 

@@ -35,7 +35,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="wgxcb" ng-controller="goodsController"
-      ng-init="selectItemCat1List()">
+      ng-init="selectItemCat1List();findOne();">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -95,12 +95,6 @@
                         <div class="col-md-10 data">
                             <input type="text" class="form-control" ng-model="entity.goods.goodsName" placeholder="商品名称"
                                    value="">
-                        </div>
-
-                        <div class="col-md-2 title">品牌</div>
-                        <div class="col-md-10 data">
-                            <select class="form-control" ng-model="entity.goods.brandId"
-                                    ng-options="brand.id as brand.text for brand in typeTemplate.brandIds"></select>
                         </div>
 
                         <div class="col-md-2 title">副标题</div>
@@ -207,14 +201,22 @@
 
                         <div class="row data-type">
 
+                            <!--[
+                            {"id":8,"spuId":13,"imgUrl":null,"price":111.00,"type":"床品套件","spec":"{\"颜色\":\"黑色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"1"},
+                            {"id":9,"spuId":13,"imgUrl":null,"price":11.00,"type":"床品套件","spec":"{\"颜色\":\"蓝色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":999,"status":"1"},
+                            {"id":10,"spuId":13,"imgUrl":null,"price":1.00,"type":"床品套件","spec":"{\"颜色\":\"红色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"0"}]-->
+
+                            <!--{"options":[{"id":6,"orders":1,"specId":1,"value":"黑色"},{"id":7,"orders":3,"specId":1,"value":"蓝色"},{"id":8,"orders":2,"specId":1,"value":"红色"}],"id":1,"text":"颜色"}-->
                             <div ng-repeat="pojo in specList">
                                 <div class="col-md-2 title">{{pojo.text}}</div>
                                 <div class="col-md-10 data">
-					                               
+
                                 <span ng-repeat="option in pojo.options">
-                                    <input type="checkbox"
+                                    <input type="checkbox" ng-value=""
+                                           ng-checked="checkAttributeValue(pojo.text,option.value)"
                                            ng-click="updateSpecAttribute($event,pojo.text,option.value);createItemList()">{{option.value}}
                                 </span>
+
 
                                 </div>
                             </div>
@@ -279,7 +281,7 @@
     </div>
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary" ng-click="add()"><i class="fa fa-save"></i>保存</button>
-        <button class="btn btn-default">返回列表</button>
+        <a href="goods.html" class="btn btn-default">返回列表</a>
     </div>
 
 </section>

@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import personal.bs.domain.po.SkuPO;
 import personal.bs.domain.po.SpuPO;
-import personal.bs.domain.vo.Goods;
+import personal.bs.domain.dto.GoodsDto;
+import personal.bs.domain.vo.GoodsVO;
 import personal.bs.domain.vo.PageResult;
 import personal.bs.domain.vo.Result;
 import personal.bs.service.GoodsService;
@@ -48,17 +49,17 @@ public class GoodsController {
     /**
      * 增加
      *
-     * @param goods
+     * @param goodsDto
      * @return
      */
     @PostMapping("/add")
     @ResponseBody
-    public Result add(@RequestBody Goods goods) {
+    public Result add(@RequestBody GoodsDto goodsDto) {
         try {
-//            todo获取商家ID
+            //todo 获取商家ID
 //            String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-            goods.getGoods().setStoreId(0);
-            goodsService.add(goods);
+            goodsDto.getGoods().setStoreId(0);
+            goodsService.add(goodsDto);
             return new Result(true, "增加成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,14 +70,14 @@ public class GoodsController {
     /**
      * 修改
      *
-     * @param goods
+     * @param goodsDto
      * @return
      */
     @PostMapping("/update")
     @ResponseBody
-    public Result update(@RequestBody Goods goods) {
+    public Result update(@RequestBody GoodsDto goodsDto) {
         try {
-            goodsService.update(goods);
+            goodsService.update(goodsDto);
             return new Result(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +93,7 @@ public class GoodsController {
      */
     @RequestMapping("/findOne")
     @ResponseBody
-    public Goods findOne(Integer id) {
+    public GoodsVO findOne(Integer id) {
         return goodsService.findOne(id);
     }
 
@@ -150,6 +151,11 @@ public class GoodsController {
     @PostMapping("/search")
     @ResponseBody
     public PageResult search(@RequestBody SpuPO goods, int page, int rows) {
+        //TODO 获取商家ID
+        //String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+        //添加查询条件
+        goods.setStoreId(0);
+
         return goodsService.findPage(goods, page, rows);
     }
 

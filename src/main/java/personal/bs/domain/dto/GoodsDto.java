@@ -1,10 +1,9 @@
-package personal.bs.domain.vo;
+package personal.bs.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import personal.bs.domain.po.SkuPO;
 import personal.bs.domain.po.SpuPO;
-import personal.bs.domain.po.TbGoodsDesc;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Goods implements Serializable {
+public class GoodsDto implements Serializable {
 
     //商品SPU基本信息
     private SpuPO goods;
@@ -25,7 +24,8 @@ public class Goods implements Serializable {
     private GoodsDescDto goodsDesc;
 
     //SKU列表
-    private List<SkuPO> skuPOList;
+    @JsonProperty("itemList")
+    private List<SkuPODto> skuPOList;
 
 
 }

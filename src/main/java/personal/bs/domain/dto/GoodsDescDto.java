@@ -1,4 +1,4 @@
-package personal.bs.domain.vo;
+package personal.bs.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.elasticsearch.cluster.ClusterState;
-import org.springframework.data.annotation.Id;
+import personal.bs.domain.vo.CustomAttributeItems;
+import personal.bs.domain.vo.SpecSku;
 
 import java.io.Serializable;
 import java.util.List;

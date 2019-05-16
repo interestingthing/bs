@@ -129,8 +129,6 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Map showTypeList() {
         TypePOExample typePOExample = new TypePOExample();
-
-
         TypePOExample.Criteria criteria = typePOExample.createCriteria();
         criteria.andPidEqualTo(0);
         List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
@@ -138,8 +136,6 @@ public class TypeServiceImpl implements TypeService {
         LinkedHashMap<TypePO, List<TypePO>> map = new LinkedHashMap<>();
         typePOS.forEach(typePO -> {
             TypePOExample typePOExample1 = new TypePOExample();
-
-
             TypePOExample.Criteria criteria1 = typePOExample1.createCriteria();
             criteria1.andPidEqualTo(typePO.getId());
             List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample1);

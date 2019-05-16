@@ -49,16 +49,18 @@ public interface SkuPOMapper {
     @Insert({
         "insert into sku (spu_id, img_url, ",
         "price, stock_count, ",
-        "spu_spec_ids, type, ",
-        "is_default, spec, ",
-        "store, type_id, store_id, ",
-        "title)",
+        "type, is_default, ",
+        "spec, store, type_id, ",
+        "store_id, title, ",
+        "sale_num, uploadDate, ",
+        "comment)",
         "values (#{spuId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=DECIMAL}, #{stockCount,jdbcType=INTEGER}, ",
-        "#{spuSpecIds,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, ",
-        "#{isDefault,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR}, ",
-        "#{store,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
-        "#{title,jdbcType=VARCHAR})"
+        "#{type,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, ",
+        "#{spec,jdbcType=VARCHAR}, #{store,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, ",
+        "#{storeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
+        "#{saleNum,jdbcType=INTEGER}, #{uploaddate,jdbcType=TIMESTAMP}, ",
+        "#{comment,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(SkuPO record);
@@ -87,8 +89,8 @@ public interface SkuPOMapper {
      */
     @Select({
         "select",
-        "id, spu_id, img_url, price, stock_count, spu_spec_ids, type, is_default, spec, ",
-        "store, type_id, store_id, title",
+        "id, spu_id, img_url, price, stock_count, type, is_default, spec, store, type_id, ",
+        "store_id, title, sale_num, uploadDate, comment",
         "from sku",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -131,14 +133,16 @@ public interface SkuPOMapper {
           "img_url = #{imgUrl,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=DECIMAL},",
           "stock_count = #{stockCount,jdbcType=INTEGER},",
-          "spu_spec_ids = #{spuSpecIds,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=VARCHAR},",
           "is_default = #{isDefault,jdbcType=VARCHAR},",
           "spec = #{spec,jdbcType=VARCHAR},",
           "store = #{store,jdbcType=VARCHAR},",
           "type_id = #{typeId,jdbcType=INTEGER},",
           "store_id = #{storeId,jdbcType=INTEGER},",
-          "title = #{title,jdbcType=VARCHAR}",
+          "title = #{title,jdbcType=VARCHAR},",
+          "sale_num = #{saleNum,jdbcType=INTEGER},",
+          "uploadDate = #{uploaddate,jdbcType=TIMESTAMP},",
+          "comment = #{comment,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SkuPO record);

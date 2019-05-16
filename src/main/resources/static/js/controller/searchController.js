@@ -1,16 +1,18 @@
 app.controller('searchController',function($scope,$location,searchService){
 	
 	//定义搜索对象的结构  category:商品分类
-	$scope.searchMap={'keywords':'','category':'','brand':'','spec':{},'price':'','pageNo':1,'pageSize':40,'sort':'','sortField':''};
+	$scope.searchMap={'keywords':'','category':'','spec':{},'price':'','pageNo':1,'pageSize':40,'sort':'','sortField':''};
 	
 	//搜索
 	$scope.search=function(){
-		$scope.searchMap.pageNo= parseInt($scope.searchMap.pageNo);//转换为数字
+		$scope.searchMap.pageNo= parseInt($scope.searchMap.pageNo);
+		//转换为数字
 		searchService.search($scope.searchMap).success(
 			function(response){
 				$scope.resultMap=response;		
 				
-				buildPageLabel();//构建分页栏			
+				buildPageLabel();
+				//构建分页栏
 				//$scope.searchMap.pageNo=1;//查询后显示第一页
 			}
 		);		
@@ -53,7 +55,7 @@ app.controller('searchController',function($scope,$location,searchService){
 	//添加搜索项  改变searchMap的值
 	$scope.addSearchItem=function(key,value){
 		
-		if(key=='category' || key=='brand' || key=='price'){//如果用户点击的是分类或品牌
+		if(key=='category' || key=='price'){//如果用户点击的是分类或品牌
 			$scope.searchMap[key]=value;
 			
 		}else{//用户点击的是规格
@@ -106,20 +108,16 @@ app.controller('searchController',function($scope,$location,searchService){
 		
 		$scope.search();//查询
 	}
-	
-	//判断关键字是否是品牌
-	$scope.keywordsIsBrand=function(){		
-		for(var i=0;i< $scope.resultMap.brandList.length;i++){			
-			if( $scope.searchMap.keywords.indexOf( $scope.resultMap.brandList[i].text )>=0  ){
-				return true;				
-			}			
-		}
-		return false;
-	}
+
 	
 	//加载关键字
 	$scope.loadkeywords=function(){
-		$scope.searchMap.keywords= $location.search()['keywords'];
+
+        if (typeof($location.search()['keywords']) != "undefined")
+		    $scope.searchMap.keywords= $location.search()['keywords'];
+        if (typeof($location.search()['category']) != "undefined")
+            $scope.searchMap.category= $location.search()['category'];
+
 		$scope.search();//查询
 	}
 	

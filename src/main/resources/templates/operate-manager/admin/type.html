@@ -69,14 +69,14 @@
         </div>
 
 
+        {{selectIds}}
         <!--数据列表-->
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
                 <th class="" style="padding-right:0px">
                     <input type="checkbox" class="icheckbox_square-blue"
-
-                           ng-click="$('input[type=checkbox]')">
+                           ng-click="swapCheck()">
                 </th>
                 <th class="sorting_asc">分类ID</th>
                 <th class="sorting">分类名称</th>

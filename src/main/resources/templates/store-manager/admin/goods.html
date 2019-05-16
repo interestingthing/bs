@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <!-- 页面meta -->
@@ -15,9 +15,25 @@
     <script src="../../../static/js/plugins/jquery/jquery-2.2.3.min.js"></script>
     <script src="../../../static/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
+
+    <script type="text/javascript" src="../../../static/js/plugins/angularjs/angular.min.js"></script>
+    <!-- 分页组件开始 -->
+    <script type="text/javascript" src="../../../static/js/base.js"></script>
+    <script src="../../../static/js/plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../../../static/js/plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+    <script type="text/javascript" src="../../../static/js/base_pagination.js"></script>
+    <script type="text/javascript" src="../../../static/js/service/goodsService.js"></script>
+    <script type="text/javascript" src="../../../static/js/service/itemCatService.js"></script>
+    <script type="text/javascript" src="../../../static/js/service/uploadService.js"></script>
+    <script type="text/javascript" src="../../../static/js/service/typeTemplateService.js"></script>
+    <script type="text/javascript" src="../../../static/js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../../../static/js/controller/goodsController.js"></script>
+
 </head>
 
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" ng-app="wgxcb"
+      ng-controller="goodsController" ng-init="findItemCatList()">
 <!-- .box-body -->
 
 <div class="box-header with-border">
@@ -34,8 +50,12 @@
             <div class="form-group form-inline">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新建</button>
-                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                    <button type="button" class="btn btn-default" title="提交审核"><i class="fa fa-check"></i> 提交审核</button>
+                    <button type="button" class="btn btn-default" ng-click="dele()" title="删除"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="updateStatus('1')" title="提交审核"><i
+                            class="fa fa-check"></i> 提交审核
+                    </button>
                     <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i
                             class="fa fa-ban"></i> 屏蔽
                     </button>
@@ -65,19 +85,33 @@
             <thead>
             <tr>
                 <th class="" style="padding-right:0px">
-                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                    <input type="checkbox" class="icheckbox_square-blue" ng-click="swapCheck()">
                 </th>
                 <th class="sorting_asc">商品ID</th>
                 <th class="sorting">商品名称</th>
                 <th class="sorting">商品价格</th>
                 <th class="sorting">一级分类</th>
                 <th class="sorting">二级分类</th>
-                <th class="sorting">三级分类</th>
                 <th class="sorting">状态</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
+                <tr ng-repeat="entity in list">
+                    <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+                    <td>{{entity.id}}</td>
+                    <td>{{entity.goodsName}}</td>
+                    <td>{{entity.price}}</td>
+                    <td>{{itemCatList[entity.category1Id]}}</td>
+                    <td>{{itemCatList[entity.category2Id]}}</td>
+                    <td>
+                        {{status[entity.auditStatus]}}
+                    </td>
+                    <td class="text-center">
+                        <a href="goods_edit.html#?id={{entity.id}}" class="btn bg-olive btn-xs">修改</a>
+                    </td>
+                </tr>
+
             <tr>
                 <td><input type="checkbox"></td>
                 <td>1</td>
@@ -85,7 +119,6 @@
                 <td>1090</td>
                 <td>数码</td>
                 <td>手机</td>
-                <td>国产手机</td>
                 <td>
 		                                  	<span>
 		                                  		未申请
@@ -111,7 +144,7 @@
 
     </div>
     <!-- 数据表格 /-->
-
+    <tm-pagination conf="paginationConf"></tm-pagination>
 
 </div>
 <!-- /.box-body -->

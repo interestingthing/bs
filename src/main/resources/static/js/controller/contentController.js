@@ -3,6 +3,14 @@ app.controller('contentController', function ($scope, $controller, contentServic
 
     $controller('baseController', {$scope: $scope});//继承
 
+    //搜索跳转
+    $scope.search = function () {
+        console.log(typeof($scope.keywords) != "undefined");
+        if (typeof($scope.keywords) != "undefined")
+            location.href = "search.html#?keywords=" + $scope.keywords;
+        // location.href="http://localhost:9104/search.html#?keywords="+$scope.keywords;
+    }
+
     $scope.showTypeList = function () {
         contentService.showTypeList().success(
             function (response) {
@@ -76,13 +84,13 @@ app.controller('contentController', function ($scope, $controller, contentServic
     $scope.searchEntity = {};//定义搜索对象
 
     //搜索
-    $scope.search = function (page, rows) {
-        contentService.search(page, rows, $scope.searchEntity).success(
-            function (response) {
-                $scope.list = response.rows;
-                $scope.paginationConf.totalItems = response.total;//更新总记录数
-            }
-        );
-    }
+    // $scope.search = function (page, rows) {
+    //     contentService.search(page, rows, $scope.searchEntity).success(
+    //         function (response) {
+    //             $scope.list = response.rows;
+    //             $scope.paginationConf.totalItems = response.total;//更新总记录数
+    //         }
+    //     );
+    // }
 
 });	

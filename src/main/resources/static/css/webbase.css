@@ -5,6 +5,10 @@ body, html {
     font: 12px "宋体";
     color: #666
 }
+/*.f-item a:link {color: #333333 ;text-decoration:none;}*/
+/*.f-item a:visited {color: #333333;text-decoration:none;}*/
+/*.f-item a:hover {color: #333333;text-decoration:none;}*/
+/*.f-item a:active {color: #333333;text-decoration:none;}*/
 
 .py-container {
     width: 1200px;
@@ -173,7 +177,7 @@ ul.brand-list li {
 
 .logo-bd {
     display: block;
-    background: url(../../static/img/Logo.png) no-repeat;
+    /*background: url(../../static/img/Logo.png) no-repeat;*/
     width: 175px;
     height: 55px;
     margin: 25px auto

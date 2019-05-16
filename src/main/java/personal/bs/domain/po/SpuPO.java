@@ -84,6 +84,10 @@ public class SpuPO implements Serializable {
      *
      * @mbg.generated
      */
+
+   // $scope.status = ['未审核','审核中' ,'已审核', '审核未通过', '关闭'];
+
+    @JsonProperty("auditStatus")
     private String status;
 
     /**

@@ -3,7 +3,8 @@ package personal.bs.service;
 
 import personal.bs.domain.po.SkuPO;
 import personal.bs.domain.po.SpuPO;
-import personal.bs.domain.vo.Goods;
+import personal.bs.domain.dto.GoodsDto;
+import personal.bs.domain.vo.GoodsVO;
 import personal.bs.domain.vo.PageResult;
 
 import java.util.List;
@@ -34,13 +35,13 @@ public interface GoodsService {
     /**
      * 增加
      */
-    public void add(Goods goods);
+    public void add(GoodsDto goodsDto);
 
 
     /**
      * 修改
      */
-    public void update(Goods goods);
+    public void update(GoodsDto goodsDto);
 
 
     /**
@@ -49,7 +50,7 @@ public interface GoodsService {
      * @param id
      * @return
      */
-    public Goods findOne(Integer id);
+    public GoodsVO findOne(Integer id);
 
 
     /**

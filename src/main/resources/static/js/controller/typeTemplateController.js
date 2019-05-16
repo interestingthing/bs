@@ -11,10 +11,7 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 			}			
 		);
 	}
-    // $('input[type=checkbox]').each(function(i,data){
-    //
-	// });
-	
+
 	//分页
 	$scope.findPage=function(page,rows){			
 		typeTemplateService.findPage(page,rows).success(
@@ -62,11 +59,11 @@ app.controller('typeTemplateController' ,function($scope,$controller,typeTemplat
 	//批量删除 
 	$scope.dele=function(){			
 		//获取选中的复选框			
-		typeTemplateService.dele( $scope.specValueIds ).success(
+		typeTemplateService.dele( $scope.selectIds ).success(
 			function(response){
 				if(response.success){
 					$scope.reloadList();//刷新列表
-					$scope.specValueIds=[];
+					$scope.selectIds=[];
 				}						
 			}		
 		);				

@@ -30,6 +30,23 @@ app.controller('baseController', function ($scope) {
         }
     }
 
+    $scope.isCheckAll = false;
+    $scope.swapCheck = function () {
+        if ($scope.isCheckAll) {
+            $("td input[type='checkbox']").each(function () {
+                this.checked = false;
+            });
+            $scope.selectIds = [];
+            $scope.isCheckAll = false;
+        } else {
+            $("td input[type='checkbox']").each(function () {
+                this.checked = true;
+                $scope.selectIds.push(Number($(this).parent().next().text()));
+            });
+            $scope.isCheckAll = true;
+        }
+    }
+
     $scope.getValueFromJsonByKey = function (jsonString, key) {
         // console.log(typeof jsonString);
         var json = JSON.parse(jsonString);

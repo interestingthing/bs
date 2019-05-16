@@ -15,6 +15,18 @@
     <script src="../../../static/js/plugins/jquery/jquery-2.2.3.min.js"></script>
     <script src="../../../static/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- 分页组件开始 -->
+    <script src="../../../static/js/plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../../../static/js/plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+
+    <script type="text/javascript" src="../../../static/js/base_pagination.js"></script>
+
+    <script type="text/javascript" src="../../../static/js/plugins/angularjs/angular.min.js">  </script>
+    <script type="text/javascript" src="../../../static/js/service/sellerService.js">  </script>
+    <script type="text/javascript" src="../../../static/js/controller/baseController.js">  </script>
+    <script type="text/javascript" src="../../../static/js/controller/sellerController.js">  </script>
+
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -51,7 +63,7 @@
                 <thead>
                 <tr>
                     <th class="" style="padding-right:0px">
-                        <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                        <input type="checkbox" class="icheckbox_square-blue"                            ng-click="swapCheck()">
                     </th>
                     <th class="sorting_asc">商家ID</th>
                     <th class="sorting">公司名称</th>
@@ -72,24 +84,6 @@
                     <td>13402312232</td>
                     <td>
                         <span>未审核</span>
-
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn bg-olive btn-xs" data-toggle="modal"
-                                data-target="#sellerModal">详情
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>2</td>
-                    <td>黑瞎子苹果专卖店</td>
-                    <td>黑瞎子</td>
-                    <td>孙大鹏</td>
-                    <td>13622244111</td>
-                    <td>
-
-                        <span>审核通过</span>
 
                     </td>
                     <td class="text-center">

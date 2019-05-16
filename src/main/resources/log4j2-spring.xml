@@ -99,7 +99,11 @@
             <appender-ref ref="ApiLog"/>
             <appender-ref ref="ErrorLog"/>
         </logger>
-
+        <logger name="org.springframework.data.solr.core" level="debug" additivity="false" includeLocation="true">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="ApiLog"/>
+            <appender-ref ref="ErrorLog"/>
+        </logger>
         <logger name="org.mybatis" level="info" additivity="false" includeLocation="true">
             <appender-ref ref="ErrorLog"/>
             <!--本地只吧日志打印到控制台-->

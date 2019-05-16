@@ -160,11 +160,15 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
             List<SpecValuePO> specOptionList = specValuePOMapper.selectByExample(example);
 
             map.put("options", specOptionList);
-            //{"id":27,"text":"网络",options:[{颜色：xxx,网络:移动2G}]}
+            //{"id":27,"text":"手机",options:[{颜色：xxx,网络:移动2G}]}
         }
         return list;
     }
 
+    /**
+     * 查询所有的模版列表
+     * @return
+     */
     @Override
     public List<Map> selectOptionList() {
         return specTemplatePOMapper.selectOptionList();

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import personal.bs.service.GoodsService;
 import personal.bs.service.TypeService;
 
 import javax.annotation.Resource;
@@ -18,6 +19,9 @@ public class PageController {
 
     @Resource
     TypeService typeService;
+
+    @Resource
+    private GoodsService goodsService;
 
     /**
      * 项目默认主页
@@ -63,8 +67,6 @@ public class PageController {
     }
 
 
-
-
     /**
      * 运营商主页
      *
@@ -84,5 +86,17 @@ public class PageController {
     public String storeManager(@PathVariable("page") String page) {
         return "store-manager/admin/" + page;
     }
+
+//    @GetMapping("/operate/good_edit.html")
+//    public String operateEditGoods(Integer id,Model model) {
+//        Goods goods = goodsService.findOne(id);
+//        model.addAttribute()
+//        return "operate-manager/admin/" + page;
+//    }
+//
+//    @GetMapping("/store/good_edit.html")
+//    public String storeEditGoods(@PathVariable("page") String page) {
+//        return "operate-manager/admin/" + page;
+//    }
 
 }
