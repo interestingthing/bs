@@ -47,20 +47,18 @@ public interface OrderPOMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into order (address_id, user_id, ",
-        "order_status, order_num, ",
-        "create_time, pay_time, ",
-        "pay_type, trade_num, ",
-        "delivery_id, invoice_id, ",
-        "pay_status, order_money, ",
-        "pay_money)",
-        "values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, ",
-        "#{orderStatus,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, ",
-        "#{payType,jdbcType=VARCHAR}, #{tradeNum,jdbcType=INTEGER}, ",
-        "#{deliveryId,jdbcType=INTEGER}, #{invoiceId,jdbcType=INTEGER}, ",
-        "#{payStatus,jdbcType=VARCHAR}, #{orderMoney,jdbcType=VARCHAR}, ",
-        "#{payMoney,jdbcType=VARCHAR})"
+        "insert into order (order_id, user_id, ",
+        "store_id, address_id, ",
+        "create_time, status, ",
+        "pay_time, pay_type, ",
+        "pay_status, sum_money, ",
+        "pay_money, usernick)",
+        "values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, ",
+        "#{storeId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, ",
+        "#{payTime,jdbcType=TIMESTAMP}, #{payType,jdbcType=VARCHAR}, ",
+        "#{payStatus,jdbcType=VARCHAR}, #{sumMoney,jdbcType=DOUBLE}, ",
+        "#{payMoney,jdbcType=DOUBLE}, #{usernick,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(OrderPO record);
@@ -89,8 +87,8 @@ public interface OrderPOMapper {
      */
     @Select({
         "select",
-        "id, address_id, user_id, order_status, order_num, create_time, pay_time, pay_type, ",
-        "trade_num, delivery_id, invoice_id, pay_status, order_money, pay_money",
+        "id, order_id, user_id, store_id, address_id, create_time, status, pay_time, ",
+        "pay_type, pay_status, sum_money, pay_money, usernick",
         "from order",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -129,19 +127,18 @@ public interface OrderPOMapper {
      */
     @Update({
         "update order",
-        "set address_id = #{addressId,jdbcType=INTEGER},",
+        "set order_id = #{orderId,jdbcType=VARCHAR},",
           "user_id = #{userId,jdbcType=INTEGER},",
-          "order_status = #{orderStatus,jdbcType=VARCHAR},",
-          "order_num = #{orderNum,jdbcType=INTEGER},",
+          "store_id = #{storeId,jdbcType=INTEGER},",
+          "address_id = #{addressId,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "status = #{status,jdbcType=VARCHAR},",
           "pay_time = #{payTime,jdbcType=TIMESTAMP},",
           "pay_type = #{payType,jdbcType=VARCHAR},",
-          "trade_num = #{tradeNum,jdbcType=INTEGER},",
-          "delivery_id = #{deliveryId,jdbcType=INTEGER},",
-          "invoice_id = #{invoiceId,jdbcType=INTEGER},",
           "pay_status = #{payStatus,jdbcType=VARCHAR},",
-          "order_money = #{orderMoney,jdbcType=VARCHAR},",
-          "pay_money = #{payMoney,jdbcType=VARCHAR}",
+          "sum_money = #{sumMoney,jdbcType=DOUBLE},",
+          "pay_money = #{payMoney,jdbcType=DOUBLE},",
+          "usernick = #{usernick,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(OrderPO record);

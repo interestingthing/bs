@@ -4,9 +4,15 @@ package personal.bs.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sun.xml.internal.bind.v2.TODO;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import personal.bs.dao.mapper.*;
 import personal.bs.domain.dto.GoodsDescDto;
 import personal.bs.domain.dto.GoodsDto;
@@ -17,9 +23,10 @@ import personal.bs.domain.vo.PageResult;
 import personal.bs.service.GoodsService;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.*;
 
 
 @Service
@@ -29,6 +36,88 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Resource
     private SpuPOMapper spuPOMapper;
+
+
+    @Autowired
+    private FreeMarkerConfigurer freeMarkerConfigurer;
+
+    //TODO @Value("${pagedir}")
+    private String pagedir;
+
+
+    @Resource
+    private SpuPOMapper goodsMapper;
+
+    @Resource
+    private TbGoodsDescMapper goodsDescMapper;
+
+    @Resource
+    private TypePOMapper itemCatMapper;
+
+    @Resource
+    private SkuPOMapper itemMapper;
+
+    @Override
+    public boolean genItemHtml(Integer goodsId) {
+
+        Configuration configuration = freeMarkerConfigurer.getConfiguration();
+
+        try {
+            Template template = configuration.getTemplate("item.ftl");
+            //创建数据模型
+            Map dataModel=new HashMap<>();
+            //1.商品主表数据
+            SpuPO goods = goodsMapper.selectByPrimaryKey(goodsId);
+            dataModel.put("goods", goods);
+            //2.商品扩展表数据
+            TbGoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(goodsId);
+            dataModel.put("goodsDesc", goodsDesc);
+            //3.读取商品分类
+
+            String itemCat1 = itemCatMapper.selectByPrimaryKey(goods.getType1Id()).getName();
+            String itemCat2 = itemCatMapper.selectByPrimaryKey(goods.getType2Id()).getName();
+            dataModel.put("itemCat1", itemCat1);
+            dataModel.put("itemCat2", itemCat2);
+
+            //4.读取SKU列表
+            SkuPOExample example=new SkuPOExample();
+            SkuPOExample.Criteria criteria = example.createCriteria();
+            criteria.andSpuIdEqualTo(goodsId);//SPU ID
+            //criteria.("1");//状态有效
+            example.setOrderByClause("is_default desc");
+            //按是否默认字段进行降序排序，目的是返回的结果第一条为默认SKU
+
+            List<SkuPO> itemList = itemMapper.selectByExample(example);
+            dataModel.put("itemList", itemList);
+
+            Writer out=new FileWriter(pagedir+goodsId+".html");
+
+            template.process(dataModel, out);
+            //输出
+            out.close();
+            return true;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean deleteItemHtml(Integer[] goodsIds) {
+        try {
+            for(Integer goodsId:goodsIds){
+                new File(pagedir+goodsId+".html").delete();
+            }
+            return true;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * 查询全部
@@ -48,8 +137,6 @@ public class GoodsServiceImpl implements GoodsService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
-    @Resource
-    private TbGoodsDescMapper goodsDescMapper;
 
     @Resource
     private SkuPOMapper skuPOMapper;
@@ -123,7 +210,6 @@ public class GoodsServiceImpl implements GoodsService {
             SkuPO item = new SkuPO();
 
             item.setTitle(goodsDto.getGoods().getName());
-
             item.setPrice(goodsDto.getGoods().getPrice());
 
             item.setStockCount(999);
@@ -291,7 +377,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         SkuPOExample example = new SkuPOExample();
         SkuPOExample.Criteria criteria = example.createCriteria();
-        //TODO criteria.ANDS(status);//状态
+        //criteria.(status);
+        // 状态
         criteria.andSpuIdIn(Arrays.asList(goodsIds));
         //指定条件：SPUID集合
         return skuPOMapper.selectByExample(example);

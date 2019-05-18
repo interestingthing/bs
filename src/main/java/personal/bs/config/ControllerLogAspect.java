@@ -1,6 +1,7 @@
 package personal.bs.config;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 
@@ -51,13 +55,31 @@ public class ControllerLogAspect {
 //            headers+=headerName+" = "+request.getHeader(headerName)+"\n";
 //        }
 //        log.info("headers = {}",headers);
+        Object[] args = pjp.getArgs();
+        Object[] arguments  = new Object[args.length];
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof ServletRequest || args[i] instanceof ServletResponse || args[i] instanceof MultipartFile) {
+                //ServletRequest不能序列化，从入参里排除，否则报异常：java.lang.IllegalStateException: It is illegal to call this method if the current request is not in asynchronous mode (i.e. isAsyncStarted() returns false)
+                //ServletResponse不能序列化 从入参里排除，否则报异常：java.lang.IllegalStateException: getOutputStream() has already been called for this response
+                continue;
+            }
+            arguments[i] = args[i];
+        }
+        String paramter = "";
+        if (arguments != null) {
+            try {
+                paramter = JSONObject.toJSONString(arguments);
+            } catch (Exception e) {
+                paramter = arguments.toString();
+            }
+        }
 
         //开始时间
         long startTime = System.currentTimeMillis();
         String startTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTime);
         log.info("START===>request_url= {} {}{},request_method={}，request_param={}，begin_time={}",
                 method, url, (param == null ? "" : "?" + param), ("{" + pjp.getTarget().getClass().getSimpleName() + "#"
-                        + pjp.getSignature().getName() + "}"), JSON.toJSONString(pjp.getArgs()), startTimeStr);
+                        + pjp.getSignature().getName() + "}"), JSON.toJSONString(paramter), startTimeStr);
         //执行代码
         Object result = pjp.proceed();
         //结束时间
@@ -65,10 +87,12 @@ public class ControllerLogAspect {
         String endTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTime);
         //总共用时
         long cousumeTime = endTime - startTime;
+
+
         log.info("END===>request_url= {} {}{}，request_method={}，consume_time={}ms，request_param={},response_result={}，" +
                         "begin_time={}，end_time={}", method, url, (param == null ? "" : "?" + param), ("{" +
                         pjp.getTarget().getClass().getSimpleName() + "#" + pjp.getSignature().getName() + "}"), cousumeTime,
-                JSON.toJSONString(pjp.getArgs()), JSON.toJSONString(result),
+                JSON.toJSONString(paramter), JSON.toJSONString(result),
                 startTimeStr, endTimeStr);
         return result;
     }

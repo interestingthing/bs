@@ -57,7 +57,7 @@
                     <div class="yui3-u Center navArea">
                         <ul class="nav" th:each="m:${map}">
                             <li class="f-item">
-                                <a th:href="@{'search.html#?category='+${m['key']['name']}}"
+                                <a th:href="@{'/user/search.html#?category='+${m['key']['name']}}"
                                    th:text="${m['key']['name']}"></a></li>
                             <!--<li class="f-item">寝室类</li>-->
                             <!--<li class="f-item">餐厨类</li>-->
@@ -84,14 +84,14 @@
 
                     <!--{"id":2,"name":"粗布类","pid":0}:[{"id":4,"name":"寝室类","pid":2}]-->
                     <div th:each="m:${map}" class="item bo">
-                        <h3><a th:href="@{'search.html#?category='+${m['key']['name']}}"
+                        <h3><a th:href="@{'/user/search.html#?category='+${m['key']['name']}}"
                                th:text="${m['key']['name']}"></a></h3>
                         <div class="item-list clearfix">
                             <div class="subitem">
                                 <dl class="fore1">
                                     <dd>
                                         <em th:each="l : ${m['value']}"><a
-                                                th:href="@{'search.html#?category='+${l['name']}}"
+                                                th:href="@{'/user/search.html#?category='+${l['name']}}"
                                                 th:text="${l['name']}">枕类</a></em>
                                     </dd>
                                 </dl>
@@ -112,7 +112,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="active item">
-                            <a href="http://baidu2.wypxj.com/">
+                            <a href="#">
                                 <img src="../../static/img/bac.gif"/>
                             </a>
                         </div>

@@ -13,7 +13,7 @@
 }
 
 .logo {
-    background: url(../../static/img/icons.png) no-repeat;
+    /*background: url(../../static/img/icons.png) no-repeat;*/
     width: 182px;
     height: 78px;
     position: absolute;

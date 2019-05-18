@@ -47,10 +47,12 @@ public interface OrderItemPOMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into order_item (trade_num, sku_id, ",
-        "num, store_id)",
-        "values (#{tradeNum,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, ",
-        "#{num,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER})"
+        "insert into order_item (order_id, sku_id, ",
+        "num, store_id, title, ",
+        "price, sum)",
+        "values (#{orderId,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, ",
+        "#{num,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
+        "#{price,jdbcType=DOUBLE}, #{sum,jdbcType=DOUBLE})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(OrderItemPO record);
@@ -79,7 +81,7 @@ public interface OrderItemPOMapper {
      */
     @Select({
         "select",
-        "id, trade_num, sku_id, num, store_id",
+        "id, order_id, sku_id, num, store_id, title, price, sum",
         "from order_item",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -118,10 +120,13 @@ public interface OrderItemPOMapper {
      */
     @Update({
         "update order_item",
-        "set trade_num = #{tradeNum,jdbcType=INTEGER},",
+        "set order_id = #{orderId,jdbcType=VARCHAR},",
           "sku_id = #{skuId,jdbcType=INTEGER},",
           "num = #{num,jdbcType=INTEGER},",
-          "store_id = #{storeId,jdbcType=INTEGER}",
+          "store_id = #{storeId,jdbcType=INTEGER},",
+          "title = #{title,jdbcType=VARCHAR},",
+          "price = #{price,jdbcType=DOUBLE},",
+          "sum = #{sum,jdbcType=DOUBLE}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(OrderItemPO record);

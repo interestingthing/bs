@@ -68,7 +68,7 @@ public class SkuPODto implements Serializable {
      * @mbg.generated
      */
     @Field("sku_price")
-    private BigDecimal price;
+    private Double price;
 
     /**
      * Database Column Remarks:

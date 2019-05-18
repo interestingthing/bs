@@ -122,7 +122,7 @@ public class SpecTemplateServiceImpl implements SpecTemplateService {
     private RedisTemplate redisTemplate;
 
     /**
-     * TODO 将品牌列表与规格列表放入缓存
+     * TODO 将规格列表放入缓存
      */
     private void saveToRedis() {
         List<SpecTemplatePO> templateList = findAll();

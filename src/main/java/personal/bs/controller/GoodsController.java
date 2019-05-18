@@ -20,6 +20,13 @@ import java.util.List;
 @RequestMapping("/goods")
 public class GoodsController {
 
+    //TODO 完成商品审核导入索引库
+    //TODO 完成商品删除移除索引库
+    //TODO 完成商品审核生成商品详细页
+    //TODO 完成商品删除完成删除商品详细页
+    //TODO
+    //TODO
+
     @Resource
     private GoodsService goodsService;
 

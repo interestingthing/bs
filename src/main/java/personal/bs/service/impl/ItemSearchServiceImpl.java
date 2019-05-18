@@ -235,7 +235,6 @@ public class ItemSearchServiceImpl implements ItemSearchService {
     SpecTemplatePOMapper specTemplatePOMapper;
 
     /**
-     * TODO 根据商品分类名称查询规格列表
      *
      * @param category 商品分类名称
      * @return

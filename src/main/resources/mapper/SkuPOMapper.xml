@@ -9,7 +9,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="spu_id" jdbcType="INTEGER" property="spuId" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="stock_count" jdbcType="INTEGER" property="stockCount" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="is_default" jdbcType="VARCHAR" property="isDefault" />
@@ -182,7 +182,7 @@
         #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+        #{price,jdbcType=DOUBLE},
       </if>
       <if test="stockCount != null">
         #{stockCount,jdbcType=INTEGER},
@@ -246,7 +246,7 @@
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
+        price = #{record.price,jdbcType=DOUBLE},
       </if>
       <if test="record.stockCount != null">
         stock_count = #{record.stockCount,jdbcType=INTEGER},
@@ -295,7 +295,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       spu_id = #{record.spuId,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
+      price = #{record.price,jdbcType=DOUBLE},
       stock_count = #{record.stockCount,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
       is_default = #{record.isDefault,jdbcType=VARCHAR},
@@ -325,7 +325,7 @@
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+        price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="stockCount != null">
         stock_count = #{stockCount,jdbcType=INTEGER},

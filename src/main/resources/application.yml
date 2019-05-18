@@ -37,8 +37,8 @@ spring:
   data:
     solr:
       host: http://localhost:8983/solr
-
-
+  redis:
+    port: 6379
 #  devtools:
 #    restart:
 #      additional-paths: src/main/java

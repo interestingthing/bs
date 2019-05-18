@@ -17,6 +17,20 @@ import java.util.List;
 public interface GoodsService {
 
     /**
+     * 生成商品详细页
+     * @param goodsId
+     * @return
+     */
+    public boolean genItemHtml(Integer goodsId);
+
+    /**
+     * 删除商品详细页
+     * @param goodsIds
+     * @return
+     */
+    public boolean deleteItemHtml(Integer[] goodsIds);
+
+    /**
      * 返回全部列表
      *
      * @return

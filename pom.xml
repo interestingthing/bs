@@ -551,7 +551,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!--TODO-->
                     <mainClass>personal.bs.WGXCBApplication</mainClass>
                     <executable>true</executable>
                 </configuration>

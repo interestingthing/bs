@@ -84,9 +84,9 @@
         <!--<table schema="" tableName="spu_desc" domainObjectName="TbGoodsDesc">-->
         <!--&lt;!&ndash;<generatedKey column="spu_id" sqlStatement="JDBC" identity="true"/>&ndash;&gt;-->
         <!--</table>-->
-        <!--<table schema="" tableName="spu" domainObjectName="SpuPO">-->
-        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
-        <!--</table>-->
+        <table schema="" tableName="spu" domainObjectName="SpuPO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
         <!--<table schema="" tableName="spec" domainObjectName="SpecPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->

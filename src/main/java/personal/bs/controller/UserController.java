@@ -14,7 +14,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: chenjingang  2019/4/19 17:37
@@ -26,6 +28,18 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @GetMapping("/showName")
+    @ResponseBody
+    public Map showName(){
+        Map map = new HashMap();
+        // 获得用户名信息:
+//
+        map.put("username", "admin");
+
+        return map;
+    }
+
 
     @GetMapping("findUserByUsername")
     @ResponseBody
@@ -58,6 +72,7 @@ public class UserController {
         UserPO userPO = userService.findUserByUsernameAndPassword(user);
         if (userPO != null) {
             HttpSession session = request.getSession();
+//            session.invalidate();
             session.setAttribute("username", userPO.getUsername());
             session.setAttribute("id", userPO.getId());
 
@@ -69,7 +84,7 @@ public class UserController {
     @GetMapping("logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "/user/index";
+        return "redirect:/user/index";
     }
 
     /**
