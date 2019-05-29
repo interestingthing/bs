@@ -1,17 +1,22 @@
 package personal.bs.controller;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import personal.bs.domain.po.UserPO;
+import personal.bs.domain.vo.Cart;
 import personal.bs.domain.vo.PageResult;
 import personal.bs.domain.vo.Result;
+import personal.bs.service.CartService;
 import personal.bs.service.UserService;
+import personal.bs.utils.CookieUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,14 +34,16 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Resource
+    CartService cartService;
+
     @GetMapping("/showName")
     @ResponseBody
-    public Map showName(){
+    public Map showName(@SessionAttribute(value = "username", required = false) String username, @SessionAttribute(value = "userId", required = false) Integer id) {
         Map map = new HashMap();
         // 获得用户名信息:
-//
-        map.put("username", "admin");
-
+        map.put("username", username);
+        map.put("userId", id);
         return map;
     }
 
@@ -68,14 +75,20 @@ public class UserController {
 
     @PostMapping("login")
     @ResponseBody
-    public Result login(@Validated @RequestBody UserPO user, HttpServletRequest request) {
+    public Result login(@Validated @RequestBody UserPO user, HttpServletRequest request, HttpServletResponse response) {
         UserPO userPO = userService.findUserByUsernameAndPassword(user);
         if (userPO != null) {
             HttpSession session = request.getSession();
-//            session.invalidate();
             session.setAttribute("username", userPO.getUsername());
-            session.setAttribute("id", userPO.getId());
-
+            session.setAttribute("userId", userPO.getId());
+            //登陆之后将用户在cookie中的购物车同步至redis存储
+            String cartListString = CookieUtil.getCookieValue(request, "cartList", "UTF-8");
+            if (cartListString == null || cartListString.equals("")) {
+                cartListString = "[]";
+            }
+            List<Cart> cartList_cookie = JSON.parseArray(cartListString, Cart.class);
+            cartService.saveCartListToRedis(userPO.getId(), cartList_cookie);
+            CookieUtil.deleteCookie(request, response, "cartList");
             return new Result(true, "登录成功");
         }
         return new Result(false, "账户名与密码不匹配，请重新输入");
@@ -96,13 +109,6 @@ public class UserController {
     @PostMapping("/add")
     @ResponseBody
     public Result add(@Validated @RequestBody UserPO user) {
-        //校验验证码是否正确
-        //boolean checkSmsCode = userService.checkSmsCode(user.getPhone(), smscode);
-//        if (!checkSmsCode) {
-//            return new Result(false, "验证码不正确！");
-//        }
-        user.setCreated(new Date());
-        user.setUpdated(new Date());
         try {
             userService.add(user);
             return new Result(true, "增加成功");

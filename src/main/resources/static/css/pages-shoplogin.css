@@ -13,15 +13,15 @@
 }
 
 .logo {
-    background: url(../../static/img/icons.png) no-repeat;
-    width: 182px;
-    height: 78px;
-    position: absolute;
-    background-position: -367px 0
+    margin-top: 10px;
+    background: url(../../static/img/logo/logo.png) no-repeat;
+    display: block;
+    width: 283px;
+    height: 75px
 }
 
 .login {
-    background: url(../../static/img/_/y24.png) no-repeat;
+    /*background: url(../../static/img/_/y24.png) no-repeat;*/
     height: 520px
 }
 

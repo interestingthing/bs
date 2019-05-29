@@ -9,9 +9,8 @@ import java.util.List;
 /**
  * 服务层接口
  *
- * @author Administrator
  */
-public interface SellerService {
+public interface StoreService {
 
     /**
      * 返回全部列表
@@ -32,13 +31,13 @@ public interface SellerService {
     /**
      * 增加
      */
-    public void add(StorePO seller);
+    public void add(StorePO storePO);
 
 
     /**
      * 修改
      */
-    public void update(StorePO seller);
+    public void update(StorePO storePO);
 
 
     /**
@@ -64,8 +63,8 @@ public interface SellerService {
      * @param pageSize 每页记录数
      * @return
      */
-    public PageResult findPage(StorePO seller, int pageNum, int pageSize);
+    public PageResult findPage(StorePO storePO, int pageNum, int pageSize);
 
 
-    public void updateStatus(String sellerId, String status);
+    public void updateStatus(Integer storeId, String status);
 }

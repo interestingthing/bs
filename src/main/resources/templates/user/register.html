@@ -18,13 +18,17 @@
 </head>
 
 <body ng-app="wgxcb" ng-controller="userController">
+<div th:include="user/header :: header"></div>
+<div class="py-container">
+    <a href="/user/index" class="logo"></a>
+</div>
 <div class="register py-container ">
     <!--head-->
-    <div th:include="user/header :: header"></div>
 
     <!--register-->
     <div class="registerArea">
-        <h3>注册新用户<span class="go">我有账号，<a href="login.html" target="_blank">去登录</a></span></h3>
+
+        <h3>注册新用户<span class="go">我有账号，<a href="login.html">去登录</a></span></h3>
         <div class="info">
             <form name="register" class="sui-form form-horizontal" novalidate>
                 <div class="control-group">
@@ -50,7 +54,7 @@
                     <div class="controls">
                         <input type="password" name="password" ng-model="password" placeholder="再次确认密码"
                                class="input-xfat input-xlarge">
-                        <span style="color:#f05050" ng-show='register.password.$dirty&&register.password.$error.unique'>两次输入密码不一致，请重新输入！</span>
+                        <span style="color:#f05050" ng-show='register.password.$dirty&&register.password.$error.unique'>两次密码不一致，请重新输入！</span>
 
                     </div>
                 </div>
@@ -84,7 +88,7 @@
                     <div class="controls btn-reg">
                         <input type="submit" value="完成注册" ng-click="reg()"
 
-                               class="sui-btn btn-block btn-xlarge btn-danger" target="_blank"/>
+                               class="sui-btn btn-block btn-xlarge btn-danger"/>
                     </div>
                     <!-- ng-disabled="register.username.$error.required"&&register.password.$error.required&&&lt;!&ndash;register.phone.$error.required&ndash;&gt;-->
                 </div>
@@ -93,8 +97,9 @@
         </div>
     </div>
     <!--foot-->
-    <div th:include="user/footer :: footer"></div>
+
 </div>
+<div th:include="user/footer :: footer"></div>
 
 
 <script type="text/javascript" src="../../static/js/plugins/jquery/jquery.min.js"></script>

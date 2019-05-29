@@ -47,8 +47,18 @@ public interface StorePOMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into store (name, user_id)",
-        "values (#{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})"
+        "insert into store (name, nickname, ",
+        "password, telephone, ",
+        "addressDetail, linkmanName, ",
+        "linkmanMobile, licenseNumber, ",
+        "legalPerson, status, ",
+        "create_time, loginname)",
+        "values (#{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, ",
+        "#{password,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, ",
+        "#{addressdetail,jdbcType=VARCHAR}, #{linkmanname,jdbcType=VARCHAR}, ",
+        "#{linkmanmobile,jdbcType=VARCHAR}, #{licensenumber,jdbcType=VARCHAR}, ",
+        "#{legalperson,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{loginname,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(StorePO record);
@@ -77,7 +87,8 @@ public interface StorePOMapper {
      */
     @Select({
         "select",
-        "id, name, user_id",
+        "id, name, nickname, password, telephone, addressDetail, linkmanName, linkmanMobile, ",
+        "licenseNumber, legalPerson, status, create_time, loginname",
         "from store",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -117,7 +128,17 @@ public interface StorePOMapper {
     @Update({
         "update store",
         "set name = #{name,jdbcType=VARCHAR},",
-          "user_id = #{userId,jdbcType=INTEGER}",
+          "nickname = #{nickname,jdbcType=VARCHAR},",
+          "password = #{password,jdbcType=VARCHAR},",
+          "telephone = #{telephone,jdbcType=VARCHAR},",
+          "addressDetail = #{addressdetail,jdbcType=VARCHAR},",
+          "linkmanName = #{linkmanname,jdbcType=VARCHAR},",
+          "linkmanMobile = #{linkmanmobile,jdbcType=VARCHAR},",
+          "licenseNumber = #{licensenumber,jdbcType=VARCHAR},",
+          "legalPerson = #{legalperson,jdbcType=VARCHAR},",
+          "status = #{status,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "loginname = #{loginname,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(StorePO record);

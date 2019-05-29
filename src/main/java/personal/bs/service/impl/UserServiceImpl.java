@@ -34,11 +34,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void add(UserPO user) {
-
-        user.setCreated(new Date());//用户注册时间
-        user.setUpdated(new Date());//修改时间
-        user.setPassword(DigestUtils.md5Hex(user.getPassword()));//密码加密
-
+        //用户注册时间
+        user.setCreated(new Date());
+        //修改时间
+        user.setUpdated(new Date());
+        //普通用户为0、运营商为1
+        user.setRole("0");
+        //密码加密
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         userPOMapper.insert(user);
     }
 

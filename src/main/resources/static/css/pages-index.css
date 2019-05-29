@@ -549,8 +549,8 @@ ul.brand-list li {
 .sort .all-sort-list2 .item-list {
     display: none;
     position: absolute;
-    width: 734px;
-    min-height: 460px;
+    width: 500px;
+    min-height: 390px;
     _height: 200px;
     background: #f7f7f7;
     left: 210px;

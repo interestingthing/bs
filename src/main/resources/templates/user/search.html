@@ -34,7 +34,7 @@
             <div class="py-container">
                 <div class="yui3-g Logo">
                     <div class="yui3-u Left logoArea">
-                        <a title="wgxcb" href="index.html" target="_blank"><h1>武功县粗布平台</h1></a>
+                        <a href="/user/index" class="fl logo"></a>
                     </div>
                     <div class="yui3-u Center searchArea">
                         <div class="search">
@@ -54,7 +54,7 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" >
                                     <span>我的购物车</span>
                                     <i class="shopnum">0</i>
                                 </a>
@@ -72,16 +72,20 @@
                     </div>
                     <div class="yui3-u Center navArea">
                         <ul class="nav">
-                            <li class="f-item"><a href="/">粗布类</a></li>
-                            <li class="f-item">寝室类</li>
-                            <li class="f-item">餐厨类</li>
-                            <li class="f-item">卫浴类</li>
-                            <li class="f-item">居家装饰类</li>
-                            <li class="f-item">家居服类</li>
-                            <li class="f-item">儿童类</li>
-                            <!--<li class="f-item">-->
-                            <!--<a href="seckill-index.html" target="_blank">秒杀</a>-->
-                            <!--</li>-->
+                            <li class="f-item">
+                                <a href="/user/search.html#?category=服装">服装</a></li>
+
+                        </ul>
+                        <ul class="nav">
+                            <li class="f-item">
+                                <a href="/user/search.html#?category=家纺">家纺</a></li>
+
+
+                        </ul>
+                        <ul class="nav">
+                            <li class="f-item">
+                                <a href="/user/search.html#?category=鞋类箱包">鞋类箱包</a></li>
+
                         </ul>
                     </div>
                     <div class="yui3-u Right"></div>
@@ -215,10 +219,10 @@
                     <li class="yui3-u-1-5" ng-repeat="item in resultMap.rows">
                         <div class="list-wrap">
                             <div class="p-img">
-                                <!--<a href="http://localhost:9105/{{item.id}}.html" target="_blank"><img-->
+                                <!--<a href="http://localhost:9105/{{item.id}}.html" ><img-->
                                 <!--src="{{item.image}}"/></a>-->
 
-                                <a href="http://localhost:9105/{{item.id}}.html" target="_blank"><img
+                                <a href="http://localhost:9105/{{item.id}}.html" ><img
                                         src="../../static/img/2.jpg"/></a>
                             </div>
                             <div class="price">
@@ -238,7 +242,7 @@
                                 <i class="payNum">{{item.saleNum}}人付款</i>
                             </div>
                             <div class="operate">
-                                <a target="_blank" class="sui-btn btn-bordered btn-danger"
+                                <a  class="sui-btn btn-bordered btn-danger"
                                    ng-click="addToCart(item.id,'1');">加入购物车</a>
                             </div>
                         </div>

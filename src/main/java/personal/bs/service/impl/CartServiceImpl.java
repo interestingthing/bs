@@ -35,6 +35,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void saveCartListToRedis(Integer id, List<Cart> cartList) {
         redisTemplate.boundHashOps("cartList").put(id, cartList);
+
     }
 
     @Override

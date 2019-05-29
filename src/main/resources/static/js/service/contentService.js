@@ -11,7 +11,7 @@ app.service('contentService',function($http){
 	this.findPage=function(page,rows){
 		return $http.get('../content/findPage?page='+page+'&rows='+rows);
 	}
-	//查询实体
+	//查询实体btn-danger
 	this.findOne=function(id){
 		return $http.get('../content/findOne?id='+id);
 	}

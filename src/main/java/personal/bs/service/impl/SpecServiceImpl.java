@@ -74,25 +74,22 @@ public class SpecServiceImpl implements SpecService {
     /**
      * 修改
      */
-    @Override
-    public void update(Specification specification) {
-        // 修改规格
-        specPOMapper.updateByPrimaryKey(specification.getSpecPO());
-
-        // 先删除规格选项，再添加规格选项
-        SpecValuePOExample example = new SpecValuePOExample();
-        SpecValuePOExample.Criteria criteria = example.createCriteria();
-        criteria.andSpecIdEqualTo(specification.getSpecPO().getId());
-        this.specValuePOMapper.deleteByExample(example);
-
-        // 保存规格选项
-        for (SpecValuePO specificationOption : specification.getSpecValuePOList()) {
-            // 设置规格的ID:
-            specificationOption.setSpecId(specification.getSpecPO().getId());
-
-            this.specValuePOMapper.insert(specificationOption);
-        }
+@Override
+public void update(Specification specification) {
+    // 修改规格
+    specPOMapper.updateByPrimaryKey(specification.getSpecPO());
+    // 先删除规格选项，再添加规格选项
+    SpecValuePOExample example = new SpecValuePOExample();
+    SpecValuePOExample.Criteria criteria = example.createCriteria();
+    criteria.andSpecIdEqualTo(specification.getSpecPO().getId());
+    this.specValuePOMapper.deleteByExample(example);
+    // 保存规格选项
+    for (SpecValuePO specValuePO : specification.getSpecValuePOList()) {
+        // 设置规格的ID:
+        specValuePO.setSpecId(specification.getSpecPO().getId());
+        this.specValuePOMapper.insert(specValuePO);
     }
+}
 
     /**
      * 根据ID获取实体
@@ -135,23 +132,20 @@ public class SpecServiceImpl implements SpecService {
     }
 
 
-    @Override
-    public PageResult findPage(SpecPO spec, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-
-        SpecPOExample example = new SpecPOExample();
-        SpecPOExample.Criteria criteria = example.createCriteria();
-
-        if (spec != null) {
-            if (spec.getName() != null && spec.getName().length() > 0) {
-                criteria.andNameLike("%" + spec.getName() + "%");
-            }
-
+@Override
+public PageResult findPage(SpecPO spec, int pageNum, int pageSize) {
+    PageHelper.startPage(pageNum, pageSize);
+    SpecPOExample example = new SpecPOExample();
+    SpecPOExample.Criteria criteria = example.createCriteria();
+    if (spec != null) {
+        if (spec.getName() != null && spec.getName().length() > 0) {
+            criteria.andNameLike("%" + spec.getName() + "%");
         }
 
-        Page<SpecPO> page = (Page<SpecPO>) specPOMapper.selectByExample(example);
-        return new PageResult(page.getTotal(), page.getResult());
     }
+    Page<SpecPO> page = (Page<SpecPO>) specPOMapper.selectByExample(example);
+    return new PageResult(page.getTotal(), page.getResult());
+}
 
     @Override
     public List<Map> selectOptionList() {

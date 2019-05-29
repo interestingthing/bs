@@ -1,14 +1,15 @@
 .logoArea {
     height: 78px;
-    border-bottom: 2px solid #c81523
+    border-bottom: 2px solid #c81523;
+    padding-top: 10px;
 }
 
 .logo {
-    background: url(../../static/img/icons.png) no-repeat;
-    width: 182px;
-    height: 78px;
-    position: absolute;
-    background-position: -367px 0
+    margin-top: 10px;
+    background: url(../../static/img/logo/logo.png) no-repeat;
+    display: block;
+    width: 283px;
+    height: 75px
 }
 
 .registerArea {

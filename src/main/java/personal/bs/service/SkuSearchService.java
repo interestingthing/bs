@@ -1,9 +1,11 @@
 package personal.bs.service;
 
+import personal.bs.domain.po.SkuPO;
+
 import java.util.List;
 import java.util.Map;
 
-public interface ItemSearchService {
+public interface SkuSearchService {
 
 	
 	/**
@@ -15,9 +17,8 @@ public interface ItemSearchService {
 	
 	/**
 	 * 导入列表
-	 * @param list
 	 */
-	public void importList(List list);
+	public void importToSolr(List<SkuPO> list);
 	
 	/**
 	 * 删除商品列表

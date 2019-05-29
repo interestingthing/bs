@@ -11,9 +11,10 @@ import java.util.List;
  */
 @Data
 public class Cart implements Serializable {
-
-    private Integer sellerId;//商家ID
-    private String sellerName;//商家名称
+    //商家ID
+    private Integer sellerId;
+    //商家名称
+    private String sellerName;
 
     private List<OrderItemPO> orderItemList;
     //购物车明细集合

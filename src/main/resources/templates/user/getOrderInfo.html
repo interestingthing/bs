@@ -12,6 +12,9 @@
 
     <script type="text/javascript" src="../../static/js/plugins/angularjs/angular.min.js"></script>
     <script type="text/javascript" src="../../static/js/base.js"></script>
+    <script type="text/javascript" src="../../static/js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../../static/js/service/loginService.js"></script>
+
     <script type="text/javascript" src="../../static/js/service/cartService.js"></script>
     <script type="text/javascript" src="../../static/js/controller/cartController.js"></script>
 
@@ -23,11 +26,11 @@
 <div class="cart py-container">
     <!--logoArea-->
     <div class="logoArea">
-        <div class="fl logo"><span class="title">结算页</span></div>
+        <div class="fl logo"><span class="title"></span></div>
         <div class="fr search">
             <form class="sui-form form-inline">
                 <div class="input-append">
-                    <input type="text" class="input-error input-xxlarge" placeholder="品优购自营"/>
+                    <input type="text" class="input-error input-xxlarge" placeholder="wgxcb自营"/>
                     <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
                 </div>
             </form>
@@ -181,21 +184,6 @@
                 </div>
                 <div class="hr"></div>
             </div>
-            <div class="linkInfo">
-                <div class="step-tit">
-                    <h5>发票信息</h5>
-                </div>
-                <div class="step-cont">
-                    <span>普通发票（电子）</span>
-                    <span>个人</span>
-                    <span>明细</span>
-                </div>
-            </div>
-            <div class="cardInfo">
-                <div class="step-tit">
-                    <h5>使用优惠/抵用</h5>
-                </div>
-            </div>
         </div>
     </div>
     <div class="order-summary">
@@ -204,14 +192,7 @@
                 <span><i class="number">{{totalValue.totalNum}}</i>件商品，总商品金额</span>
                 <em class="allprice">¥{{totalValue.totalMoney.toFixed(2)}}</em>
             </div>
-            <div class="list">
-                <span>返现：</span>
-                <em class="money">0.00</em>
-            </div>
-            <div class="list">
-                <span>运费：</span>
-                <em class="transport">0.00</em>
-            </div>
+
         </div>
     </div>
     <div class="clearfix trade">
@@ -230,7 +211,6 @@
 <script type="text/javascript" src="../../static/js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../static/js/plugins/jquery.easing/jquery.easing.min.js"></script>
 <script type="text/javascript" src="../../static/js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="components/ui-modules/nav/nav-portal-top.js"></script>
 <script type="text/javascript" src="../../static/js/pages/getOrderInfo.js"></script>
 </body>
 

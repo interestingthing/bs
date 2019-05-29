@@ -72,6 +72,9 @@ public class TypeController {
     @ResponseBody
     public Result update(@RequestBody TypePO typePO) {
         try {
+            if (!typePO.getType_template().isEmpty()) {
+                typePO.setTemplateId(typePO.getType_template().get(0).getId());
+            }
             typeService.update(typePO);
             return new Result(true, "修改成功");
         } catch (Exception e) {

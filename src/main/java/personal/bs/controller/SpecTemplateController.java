@@ -56,7 +56,7 @@ public class SpecTemplateController {
     @RequestMapping("/add")
     public Result add(@RequestBody SpecTemplateDto specTemplateDto) {
         SpecTemplatePO specTemplatePO = new SpecTemplatePO();
-        specTemplatePO.setName(specTemplateDto.getName());
+        specTemplatePO.setName(specTemplateDto.getText());
         specTemplatePO.setSpecValueIds(JSON.toJSON(specTemplateDto.getSpecValueIds()).toString());
         specTemplatePO.setExtendAttributes(JSON.toJSON(specTemplateDto.getExtendAttributes()).toString());
         try {
@@ -71,12 +71,16 @@ public class SpecTemplateController {
     /**
      * 修改
      *
-     * @param specTemplatePO
      * @return
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody SpecTemplatePO specTemplatePO) {
+    public Result update(@RequestBody SpecTemplateDto specTemplateDto) {
         try {
+            SpecTemplatePO specTemplatePO = new SpecTemplatePO();
+            specTemplatePO.setId(specTemplateDto.getId());
+            specTemplatePO.setName(specTemplateDto.getText());
+            specTemplatePO.setSpecValueIds(JSON.toJSON(specTemplateDto.getSpecValueIds()).toString());
+            specTemplatePO.setExtendAttributes(JSON.toJSON(specTemplateDto.getExtendAttributes()).toString());
             specTemplateService.update(specTemplatePO);
             return new Result(true, "修改成功");
         } catch (Exception e) {

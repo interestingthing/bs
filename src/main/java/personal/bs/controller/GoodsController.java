@@ -1,31 +1,26 @@
 package personal.bs.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import personal.bs.domain.dto.GoodsDto;
 import personal.bs.domain.po.SkuPO;
 import personal.bs.domain.po.SpuPO;
-import personal.bs.domain.dto.GoodsDto;
 import personal.bs.domain.vo.GoodsVO;
 import personal.bs.domain.vo.PageResult;
 import personal.bs.domain.vo.Result;
 import personal.bs.service.GoodsService;
+import personal.bs.service.SkuSearchService;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/goods")
 public class GoodsController {
 
-    //TODO 完成商品审核导入索引库
-    //TODO 完成商品删除移除索引库
-    //TODO 完成商品审核生成商品详细页
-    //TODO 完成商品删除完成删除商品详细页
-    //TODO
-    //TODO
 
     @Resource
     private GoodsService goodsService;
@@ -61,11 +56,9 @@ public class GoodsController {
      */
     @PostMapping("/add")
     @ResponseBody
-    public Result add(@RequestBody GoodsDto goodsDto) {
+    public Result add(@RequestBody GoodsDto goodsDto, @SessionAttribute("storeId") Integer storeId) {
         try {
-            //todo 获取商家ID
-//            String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-            goodsDto.getGoods().setStoreId(0);
+            goodsDto.getGoods().setStoreId(storeId);
             goodsService.add(goodsDto);
             return new Result(true, "增加成功");
         } catch (Exception e) {
@@ -121,25 +114,10 @@ public class GoodsController {
     public Result delete(final Integer[] ids) {
 //		try {
         goodsService.delete(ids);
-
+        //TODO 完成商品删除移除索引库、删除商品详细页
         //从索引库中删除
-        //itemSearchService.deleteByGoodsIds(Arrays.asList(ids));
-//			jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
-//
-//				@Override
-//				public Message createMessage(Session session) throws JMSException {
-//					return session.createObjectMessage(ids);
-//				}
-//			});
-//
-//			//删除每个服务器上的商品详细页
-//			jmsTemplate.send(topicPageDeleteDestination, new MessageCreator() {
-//
-//				@Override
-//				public Message createMessage(Session session) throws JMSException {
-//					return session.createObjectMessage(ids);
-//				}
-//			});
+        skuSearchService.deleteByGoodsIds(Arrays.asList(ids));
+//	    //TODO 删除服务器上的商品详细页
 
         return new Result(true, "删除成功");
 //		} catch (Exception e) {
@@ -157,11 +135,8 @@ public class GoodsController {
      */
     @PostMapping("/search")
     @ResponseBody
-    public PageResult search(@RequestBody SpuPO goods, int page, int rows) {
-        //TODO 获取商家ID
-        //String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-        //添加查询条件
-        goods.setStoreId(0);
+    public PageResult search(@RequestBody SpuPO goods, int page, int rows, @SessionAttribute("storeId") Integer storeId) {
+        goods.setStoreId(storeId);
 
         return goodsService.findPage(goods, page, rows);
     }
@@ -174,74 +149,42 @@ public class GoodsController {
      * @return
      */
     @GetMapping("/search")
-    public PageResult searchByTypeId(Model model,Integer typeId,
+    public PageResult searchByTypeId(Model model, Integer typeId,
                                      @RequestParam(name = "page", defaultValue = "1", required = false) int page,
                                      @RequestParam(name = "rows", defaultValue = "20", required = false) int rows) {
 
         return goodsService.searchByTypeId(typeId, page, rows);
     }
-    //@Resource(timeout=100000)
-    //private ItemSearchService itemSearchService;
-//
-//    @Resource
-//    private Destination queueSolrDestination;//用于导入solr索引库的消息目标（点对点）
-//
-//    @Resource
-//    private Destination topicPageDestination;//用于生成商品详细页的消息目标(发布订阅)
+
+    @Resource
+    SkuSearchService skuSearchService;
 
     @RequestMapping("/updateStatus")
     @ResponseBody
-    public Result updateStatus(Integer[] ids, String status) {
-        try {
-            goodsService.updateStatus(ids, status);
-
-            if ("1".equals(status)) {//如果是审核通过
-                //*****导入到索引库
-                //得到需要导入的SKU列表
-                List<SkuPO> itemList = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
-                //导入到solr
-                //itemSearchService.importList(itemList);
-                final String jsonString = JSON.toJSONString(itemList);//转换为json传输
-
-//                jmsTemplate.send(queueSolrDestination, new MessageCreator() {
-//
-//                    @Override
-//                    public Message createMessage(Session session) throws JMSException {
-//
-//                        return session.createTextMessage(jsonString);
-//                    }
-//                });
-
-                //****生成商品详细页
-//                for (final Integer goodsId : ids) {
-//                    //	itemPageService.genItemHtml(goodsId);
-//                    jmsTemplate.send(topicPageDestination, new MessageCreator() {
-//
-//                        @Override
-//                        public Message createMessage(Session session) throws JMSException {
-//                            return session.createTextMessage(goodsId + "");
-//                        }
-//                    });
-//                }
-
+public Result updateStatus(Integer[] ids, String status) {
+    try {
+        //完成商品审核导入索引库、生成商品详细页
+        goodsService.updateStatus(ids, status);
+        if ("1".equals(status)) {
+            //如果是审核通过导入到索引库
+            List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
+            skuSearchService.importToSolr(skuPOS);
+            for (Integer id : ids) {
+                goodsService.genSkuHtml(id);
             }
 
-            return new Result(true, "修改状态成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false, "修改状态失败");
         }
+        return new Result(true, "修改状态成功");
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new Result(false, "修改状态失败");
     }
-
-    //@Resource(timeout=40000)
-    //private ItemPageService itemPageService;
+}
 
     @RequestMapping("/genHtml")
     @ResponseBody
     public void genHtml(Integer goodsId) {
-
-        //itemPageService.genItemHtml(goodsId);
-
+        goodsService.genSkuHtml(goodsId);
     }
 
 }

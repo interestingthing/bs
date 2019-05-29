@@ -239,31 +239,28 @@ app.controller('goodsController', function ($scope, $controller,$location, goods
     }
 
 
-    //创建SKU列表
-    $scope.createItemList = function () {
-
-        $scope.entity.itemList = [{spec: {}, price: 0, num: 99999, status: '0', isDefault: '0'}];//列表初始化
-
-        var items = $scope.entity.goodsDesc.specificationItems;
-
-        for (var i = 0; i < items.length; i++) {
-            $scope.entity.itemList = addColumn($scope.entity.itemList, items[i].attributeName, items[i].attributeValue);
-        }
-
+//创建SKU列表
+$scope.createItemList = function () {
+    $scope.entity.itemList = [{spec: {}, price: 0, num: 99999, status: '0', isDefault: '0'}];//列表初始化
+    var items = $scope.entity.goodsDesc.specificationItems;
+    for (var i = 0; i < items.length; i++) {
+        $scope.entity.itemList = addColumn($scope.entity.itemList, items[i].attributeName, items[i].attributeValue);
     }
+    console.log($scope.entity.itemList);
 
-    addColumn = function (list, columnName, columnValues) {
+}
 
-        var newList = [];
-        for (var i = 0; i < list.length; i++) {
-            var oldRow = list[i];
-            for (var j = 0; j < columnValues.length; j++) {
-                var newRow = JSON.parse(JSON.stringify(oldRow));//深克隆
-                newRow.spec[columnName] = columnValues[j];
-                newList.push(newRow);
-            }
+addColumn = function (list, columnName, columnValues) {
+    var newList = [];
+    for (var i = 0; i < list.length; i++) {
+        var oldRow = list[i];
+        for (var j = 0; j < columnValues.length; j++) {
+            var newRow = JSON.parse(JSON.stringify(oldRow));//深克隆
+            newRow.spec[columnName] = columnValues[j];
+            newList.push(newRow);
         }
-        return newList;
     }
+    return newList;
+}
 
 });

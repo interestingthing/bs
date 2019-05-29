@@ -52,13 +52,15 @@ public interface UserPOMapper {
         "email, created, ",
         "updated, status, ",
         "headPic, qq, account_balance, ",
-        "sex, birthday, last_login_time)",
+        "sex, birthday, last_login_time, ",
+        "role)",
         "values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
         "#{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
         "#{email,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, ",
         "#{updated,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, ",
         "#{headpic,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{accountBalance,jdbcType=INTEGER}, ",
-        "#{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{lastLoginTime,jdbcType=TIMESTAMP})"
+        "#{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{lastLoginTime,jdbcType=TIMESTAMP}, ",
+        "#{role,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(UserPO record);
@@ -88,7 +90,7 @@ public interface UserPOMapper {
     @Select({
         "select",
         "id, username, password, nickname, phone, email, created, updated, status, headPic, ",
-        "qq, account_balance, sex, birthday, last_login_time",
+        "qq, account_balance, sex, birthday, last_login_time, role",
         "from user",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -140,7 +142,8 @@ public interface UserPOMapper {
           "account_balance = #{accountBalance,jdbcType=INTEGER},",
           "sex = #{sex,jdbcType=VARCHAR},",
           "birthday = #{birthday,jdbcType=DATE},",
-          "last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}",
+          "last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},",
+          "role = #{role,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(UserPO record);

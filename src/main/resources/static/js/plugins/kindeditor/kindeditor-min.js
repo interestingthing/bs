@@ -3448,7 +3448,7 @@
                     })
                 });
             b.clickToolbar("about", function () {
-                var a = '<div style="margin:20px;"><div>KindEditor ' + Ha + '</div><div>Copyright &copy; <a href="http://www.kindsoft.net/" target="_blank">kindsoft.net</a> All rights reserved.</div></div>';
+                var a = '<div style="margin:20px;"><div>KindEditor ' + Ha + '</div><div>Copyright &copy; <a href="http://www.kindsoft.net/" >kindsoft.net</a> All rights reserved.</div></div>';
                 b.createDialog({name: "about", width: 350, title: b.lang("about"), body: a})
             });
             b.plugin.getSelectedLink = function () {

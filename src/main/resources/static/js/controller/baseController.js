@@ -7,6 +7,7 @@ app.controller('baseController', function ($scope) {
         $scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
     }
 
+
     //分页控件配置
     $scope.paginationConf = {
         currentPage: 1,
@@ -30,16 +31,47 @@ app.controller('baseController', function ($scope) {
         }
     }
 
+    $scope.updateSelectionByStoreId = function ($event, id) {
+        if ($event.target.checked) {//如果是被选中,则增加到数组
+            $scope.selectIds = [];
+            console.log("开始1");
+            //var goods = $(this).closest(".one-shop").find(".GoodsCheck");
+            $(this).closest(".cart-item-list").find("input").each(function () {
+                $(this).checked = true;
+                $scope.selectIds.push(Number("111"));
+            });
+            // $scope.selectIds.push(Number($(this).find("li")[1].text()));
+
+            console.log("结束1");
+
+        } else {
+            console.log("开始2");
+            $(this).parent().next().children().each(function () {
+                $(this).find("input[type='checkbox']").checked = false;
+            });
+            $scope.selectIds = [];
+            console.log("结束2");
+        }
+    }
+
     $scope.isCheckAll = false;
     $scope.swapCheck = function () {
         if ($scope.isCheckAll) {
             $("td input[type='checkbox']").each(function () {
                 this.checked = false;
             });
+            $("li input[type='checkbox']").each(function () {
+                this.checked = false;
+            });
             $scope.selectIds = [];
             $scope.isCheckAll = false;
         } else {
+            $scope.selectIds = [];
             $("td input[type='checkbox']").each(function () {
+                this.checked = true;
+                $scope.selectIds.push(Number($(this).parent().next().text()));
+            });
+            $("li input[type='checkbox']").each(function () {
                 this.checked = true;
                 $scope.selectIds.push(Number($(this).parent().next().text()));
             });
@@ -53,11 +85,11 @@ app.controller('baseController', function ($scope) {
         return json[key];
     }
 
-    // $scope.getValueFromJsonArrayByKey = function (jsonString, key) {
-    //     console.log(typeof jsonString);
-    //     var json = JSON.parse(jsonString);
-    //     return json[key];
-    // }
+// $scope.getValueFromJsonArrayByKey = function (jsonString, key) {
+//     console.log(typeof jsonString);
+//     var json = JSON.parse(jsonString);
+//     return json[key];
+// }
 
     $scope.jsonArrayToString = function (jsonString, key) {
 
@@ -84,5 +116,4 @@ app.controller('baseController', function ($scope) {
         }
         return null;
     }
-
-});	
+});

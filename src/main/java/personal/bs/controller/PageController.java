@@ -66,6 +66,11 @@ public class PageController {
         return "user/" + page;
     }
 
+    @GetMapping("/operate/login.html")
+    public String operateLogin() {
+
+        return "operate-manager/admin/login";
+    }
 
     /**
      * 运营商主页
@@ -73,8 +78,24 @@ public class PageController {
      * @return
      */
     @GetMapping("/operate/{page}.html")
-    public String operateManager(@PathVariable("page") String page) {
+    public String operateManager(@PathVariable("page") String page, @SessionAttribute(value = "operateName", required = false) String username, Model model) {
+        if (username == null || username == "") {
+            model.addAttribute("msg", "请登录后操作");
+            return "operate-manager/admin/login";
+        }
+
         return "operate-manager/admin/" + page;
+    }
+
+
+    @GetMapping("/store/login.html")
+    public String storeLogin() {
+        return "store-manager/admin/login";
+    }
+
+    @GetMapping("/store/register.html")
+    public String storeRegister() {
+        return "store-manager/admin/register";
     }
 
     /**
@@ -83,7 +104,11 @@ public class PageController {
      * @return
      */
     @GetMapping("/store/{page}.html")
-    public String storeManager(@PathVariable("page") String page) {
+    public String storeManager(@PathVariable("page") String page, @SessionAttribute(value = "storeName", required = false) String username,Model model) {
+        if (username == null || username == "") {
+            model.addAttribute("msg", "请登录后操作");
+            return "redirect:/store/login.html";
+        }
         return "store-manager/admin/" + page;
     }
 

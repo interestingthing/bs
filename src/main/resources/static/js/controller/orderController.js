@@ -1,8 +1,24 @@
  //控制层 
-app.controller('orderController' ,function($scope,$controller   ,orderService){	
+app.controller('orderController' ,function($scope,$controller,orderService,loginService){
 	
 	$controller('baseController',{$scope:$scope});//继承
-	
+//显示当前用户名
+    $scope.showLoginName = function() {
+        loginService.loginName().success(function(response) {
+            $scope.loginName = response.username;
+            $scope.id = response.userId;
+        })
+    }
+    // //分页查询
+    // $scope.queryByPage = function (pageNo) {
+    //     if (pageNo < 1 || pageNo > $scope.resultMap.totalPages) {
+    //         return;
+    //     }
+    //     $scope.searchEntity.pageNo = pageNo;
+    //     $scope.search();//查询
+    // }1
+
+
     //读取列表数据绑定到表单中  
 	$scope.findAll=function(){
 		orderService.findAll().success(
@@ -65,7 +81,7 @@ app.controller('orderController' ,function($scope,$controller   ,orderService){
 		);				
 	}
 	
-	$scope.searchEntity={};//定义搜索对象 
+    $scope.searchEntity={};
 	
 	//搜索
 	$scope.search=function(page,rows){			

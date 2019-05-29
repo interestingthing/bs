@@ -65,7 +65,7 @@
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-                分类模板名称：<input ng-model="searchEntity.name">
+                分类模板名称：<input ng-model="searchEntity.text">
                 <button class="btn btn-default" ng-click="reloadList()">查询</button>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <tr ng-repeat="entity in list">
                 <td><input type="checkbox" ng-click="updateSelection($event, entity.id)"></td>
                 <td>{{entity.id}}</td>
-                <td>{{entity.name}}</td>
+                <td>{{entity.text}}</td>
                 <td>{{jsonArrayToString(entity.specValueIds,'text')}}</td>
                 <td>{{jsonArrayToString(entity.extendAttributes,'text')}}</td>
                 <td class="text-center">
@@ -124,7 +124,7 @@
                 <table class="table table-bordered table-striped" width="800px">
                     <tr>
                         <td>商品类型</td>
-                        <td><input class="form-control" placeholder="商品类型" ng-model="entity.name"></td>
+                        <td><input class="form-control" placeholder="商品类型" ng-model="entity.text"></td>
                     </tr>
                     <tr>
                         <td>关联规格</td>

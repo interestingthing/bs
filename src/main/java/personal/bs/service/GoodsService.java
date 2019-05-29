@@ -21,7 +21,7 @@ public interface GoodsService {
      * @param goodsId
      * @return
      */
-    public boolean genItemHtml(Integer goodsId);
+    public boolean genSkuHtml(Integer goodsId);
 
     /**
      * 删除商品详细页

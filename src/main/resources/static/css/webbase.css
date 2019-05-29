@@ -5,6 +5,7 @@ body, html {
     font: 12px "宋体";
     color: #666
 }
+
 /*.f-item a:link {color: #333333 ;text-decoration:none;}*/
 /*.f-item a:visited {color: #333333;text-decoration:none;}*/
 /*.f-item a:hover {color: #333333;text-decoration:none;}*/
@@ -124,12 +125,20 @@ ul.brand-list li {
     height: 105px
 }
 
+.logo {
+    margin-top: 10px;
+    background: url(../../static/img/logo/logo.png) no-repeat;
+    display: block;
+    width: 283px;
+    height: 75px
+}
+
 .NavList {
     height: 45px
 }
 
 .SortList {
-    height: 460px
+    height: 352px
 }
 
 .space {
@@ -5577,7 +5586,7 @@ pre code, .sui-pre code, pre .sui-code, .sui-pre .sui-code {
 
 .sui-form .control-label {
     display: block;
-    line-height: 24px
+    line-height: 30px
 }
 
 .sui-form legend + .control-group {
@@ -5591,7 +5600,7 @@ pre code, .sui-pre code, pre .sui-code, .sui-pre .sui-code {
 }
 
 .sui-form.form-horizontal .control-label {
-    width: 96px;
+    width: 150px;
     text-align: right;
     display: table-cell;
     vertical-align: middle
@@ -5611,7 +5620,7 @@ pre code, .sui-pre code, pre .sui-code, .sui-pre .sui-code {
 }
 
 .sui-form.form-horizontal .controls:first-child {
-    *padding-left: 96px
+    *padding-left: 120px
 }
 
 .sui-form.form-horizontal .help-block {

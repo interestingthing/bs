@@ -4,7 +4,7 @@
 
 .loginArea {
     height: 487px;
-    background-color: #7e00ff
+    /*background-color: #fffdee;*/
 }
 
 .copyright {
@@ -13,25 +13,38 @@
 }
 
 .logo {
-    /*background: url(../../static/img/icons.png) no-repeat;*/
-    width: 182px;
-    height: 78px;
-    position: absolute;
-    background-position: -367px 0
+    margin-top: 10px;
+    background: url(../../static/img/logo/logo.png) no-repeat;
+    display: block;
+    width: 283px;
+    height: 75px
 }
 
 .login {
-    background: url(../../static/img/loginbg.png) no-repeat;
+    /*background: url(../../static/img/loginbg.png) no-repeat;*/
     height: 487px
 }
 
 .loginform {
+
     width: 380px;
-    background: #fff;
-    float: right;
+    /*background: #fff;*/
+    /*float: right;*/
     top: 45px;
     position: relative;
     padding: 20px
+}
+
+.center-in-center {
+    margin: auto;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*-webkit-transform: translate(-50%, -50%);*/
+    /*-moz-transform: translate(-50%, -50%);*/
+    /*-ms-transform: translate(-50%, -50%);*/
+    /*-o-transform: translate(-50%, -50%);*/
+    /*transform: translate(-50%, -50%);*/
 }
 
 img {

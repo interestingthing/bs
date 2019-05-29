@@ -13,9 +13,10 @@ import org.springframework.stereotype.Service;
 import personal.bs.dao.mapper.SpecTemplatePOMapper;
 import personal.bs.dao.mapper.TypePOMapper;
 import personal.bs.domain.po.SkuPO;
+import personal.bs.domain.po.SkuPOExample;
 import personal.bs.domain.po.TypePO;
 import personal.bs.domain.po.TypePOExample;
-import personal.bs.service.ItemSearchService;
+import personal.bs.service.SkuSearchService;
 import personal.bs.service.SpecTemplateService;
 
 import javax.annotation.Resource;
@@ -23,7 +24,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class ItemSearchServiceImpl implements ItemSearchService {
+public class SkuSearchServiceImpl implements SkuSearchService {
 
     @Resource
     private SolrTemplate solrTemplate;
@@ -55,7 +56,6 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                 map.putAll(searchSpecList(categoryList.get(0)));
             }
         }
-
         return map;
     }
 
@@ -137,13 +137,11 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         query.setOffset(Long.valueOf((pageNo - 1) * pageSize));
         //每页记录数
         query.setRows(pageSize);
-
         //1.6 排序
         String sortValue = (String) searchMap.get("sort");
         //升序ASC 降序DESC
         String sortField = (String) searchMap.get("sortField");
         //排序字段
-
         if (StringUtils.isNotBlank(sortValue)) {
             if (sortValue.equals("ASC")) {
                 Sort sort = new Sort(Sort.Direction.ASC, "sku_" + sortField);
@@ -154,21 +152,12 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                 query.addSort(sort);
             }
         }
-
-
-        //***********  获取高亮结果集  ***********
-        //高亮页对象
+        // 获取高亮结果集
         HighlightPage<SkuPO> page = solrTemplate.queryForHighlightPage("wgxcb", query, SkuPO.class);
-        //高亮入口集合(每条记录的高亮入口)
         List<HighlightEntry<SkuPO>> entryList = page.getHighlighted();
         for (HighlightEntry<SkuPO> entry : entryList) {
             //获取高亮列表(高亮域的个数)
             List<HighlightEntry.Highlight> highlightList = entry.getHighlights();
-			/*
-			for(Highlight h:highlightList){
-				List<String> sns = h.getSnipplets();//每个域有可能存储多值
-				System.out.println(sns);				
-			}*/
             if (highlightList.size() > 0 && highlightList.get(0).getSnipplets().size() > 0) {
                 SkuPO item = entry.getEntity();
                 item.setTitle(highlightList.get(0).getSnipplets().get(0));
@@ -257,17 +246,25 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
 
     @Override
-    public void importList(List list) {
+    public void importToSolr(List<SkuPO> list) {
+        ArrayList<SkuPO> solrSkuPOS = new ArrayList<>();
+        System.out.println("===商品列表===");
+        for (SkuPO item : list) {
+            //将spec字段中的json字符串转换为map
+            Map<String, String> specMap = JSON.parseObject(item.getSpec(), Map.class);
+            item.setSpecMap(specMap);
+            solrSkuPOS.add(item);
+        }
         solrTemplate.saveBeans("wgxcb", list);
         solrTemplate.commit("wgxcb");
     }
 
 
     @Override
-    public void deleteByGoodsIds(List goodsIds) {
+    public void deleteByGoodsIds(List spuIds) {
 
         Query query = new SimpleQuery("*:*");
-        Criteria criteria = new Criteria("spu_id").in(goodsIds);
+        Criteria criteria = new Criteria("spu_id").in(spuIds);
         query.addCriteria(criteria);
         solrTemplate.delete("wgxcb", query);
         solrTemplate.commit("wgxcb");

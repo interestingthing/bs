@@ -4,12 +4,10 @@ package personal.bs.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.sun.xml.internal.bind.v2.TODO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -34,9 +32,6 @@ import java.util.*;
 @Slf4j
 public class GoodsServiceImpl implements GoodsService {
 
-    @Resource
-    private SpuPOMapper spuPOMapper;
-
 
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
@@ -44,61 +39,58 @@ public class GoodsServiceImpl implements GoodsService {
     //TODO @Value("${pagedir}")
     private String pagedir;
 
+    @Resource
+    private StorePOMapper storePOMapper;
 
     @Resource
-    private SpuPOMapper goodsMapper;
+    private SpuPOMapper spuPOMapper;
 
     @Resource
     private TbGoodsDescMapper goodsDescMapper;
 
     @Resource
-    private TypePOMapper itemCatMapper;
+    private TypePOMapper typePOMapper;
 
     @Resource
-    private SkuPOMapper itemMapper;
+    private SkuPOMapper skuPOMapper;
 
     @Override
-    public boolean genItemHtml(Integer goodsId) {
-
+    public boolean genSkuHtml(Integer spuId) {
         Configuration configuration = freeMarkerConfigurer.getConfiguration();
-
         try {
             Template template = configuration.getTemplate("item.ftl");
             //创建数据模型
-            Map dataModel=new HashMap<>();
+            Map dataModel = new HashMap<>();
             //1.商品主表数据
-            SpuPO goods = goodsMapper.selectByPrimaryKey(goodsId);
+            SpuPO goods = spuPOMapper.selectByPrimaryKey(spuId);
             dataModel.put("goods", goods);
             //2.商品扩展表数据
-            TbGoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(goodsId);
+            TbGoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(spuId);
             dataModel.put("goodsDesc", goodsDesc);
             //3.读取商品分类
-
-            String itemCat1 = itemCatMapper.selectByPrimaryKey(goods.getType1Id()).getName();
-            String itemCat2 = itemCatMapper.selectByPrimaryKey(goods.getType2Id()).getName();
+            String itemCat1 = typePOMapper.selectByPrimaryKey(goods.getType1Id()).getName();
+            String itemCat2 = typePOMapper.selectByPrimaryKey(goods.getType2Id()).getName();
             dataModel.put("itemCat1", itemCat1);
             dataModel.put("itemCat2", itemCat2);
-
             //4.读取SKU列表
-            SkuPOExample example=new SkuPOExample();
+            SkuPOExample example = new SkuPOExample();
             SkuPOExample.Criteria criteria = example.createCriteria();
-            criteria.andSpuIdEqualTo(goodsId);//SPU ID
+            //SPU ID
+            criteria.andSpuIdEqualTo(spuId);
             //criteria.("1");//状态有效
-            example.setOrderByClause("is_default desc");
             //按是否默认字段进行降序排序，目的是返回的结果第一条为默认SKU
+            example.setOrderByClause("is_default desc");
 
-            List<SkuPO> itemList = itemMapper.selectByExample(example);
+            List<SkuPO> itemList = skuPOMapper.selectByExample(example);
             dataModel.put("itemList", itemList);
 
-            Writer out=new FileWriter(pagedir+goodsId+".html");
+            Writer out = new FileWriter(pagedir + spuId + ".html");
 
             template.process(dataModel, out);
             //输出
             out.close();
             return true;
-
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return false;
         }
@@ -108,8 +100,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public boolean deleteItemHtml(Integer[] goodsIds) {
         try {
-            for(Integer goodsId:goodsIds){
-                new File(pagedir+goodsId+".html").delete();
+            for (Integer goodsId : goodsIds) {
+                new File(pagedir + goodsId + ".html").delete();
             }
             return true;
         } catch (Exception e) {
@@ -138,23 +130,14 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
 
-    @Resource
-    private SkuPOMapper skuPOMapper;
-
-    @Resource
-    private TypePOMapper typePOMapper;
-
-
-    @Resource
-    private StorePOMapper storePOMapper;
-
     /**
      * 增加
      */
     @Override
     public void add(GoodsDto goodsDto) {
-        goodsDto.getGoods().setStatus("0");
         // 设置审核的状态
+        goodsDto.getGoods().setStatus("0");
+        goodsDto.getGoods().setSaleNum(0);
         goodsDto.getGoods().setUploadDate(new Date());
         int insert = spuPOMapper.insert(goodsDto.getGoods());
         // 插入商品信息
@@ -188,12 +171,12 @@ public class GoodsServiceImpl implements GoodsService {
                 // 设置SKU的数据：
                 String title = goodsDto.getGoods().getName();
 
-//                Map<String, String> map = JSON.parseObject(item.getSpec().toString(), Map.class);
-//                //Map<String,String> map = item.getSpec();
-//                for (String key : map.keySet()) {
-//                    title += " " + map.get(key);
-//                }
-//                item.setTitle(title);
+                Map<String, String> map = JSON.parseObject(item.getSpec().toString(), Map.class);
+//                Map<String,String> map = item.getSpec();
+                for (String key : map.keySet()) {
+                    title += " " + map.get(key);
+                }
+                item.setTitle(title);
 
 
                 SkuPO skuPO = SkuPO.builder().id(item.getId()).imgUrl(item.getImgUrl())
@@ -203,6 +186,8 @@ public class GoodsServiceImpl implements GoodsService {
                         .type(item.getType()).typeId(item.getTypeId()).build();
                 addSkuPro(goodsDto, skuPO);
 
+                skuPO.setSaleNum(0);
+                skuPO.setUploaddate(new Date());
                 skuPOMapper.insert(skuPO);
             }
         } else {
@@ -246,7 +231,7 @@ public class GoodsServiceImpl implements GoodsService {
 
         StorePO seller = storePOMapper.selectByPrimaryKey(goodsDto.getGoods().getStoreId());
 
-        item.setStore(seller.getName());
+        item.setStore(seller.getNickname());
     }
 
     /**
@@ -308,9 +293,9 @@ public class GoodsServiceImpl implements GoodsService {
     public void delete(Integer[] ids) {
         for (Integer id : ids) {
 //			spuPOMapper.deleteByPrimaryKey(id);
-            SpuPO tbGoods = spuPOMapper.selectByPrimaryKey(id);
-            tbGoods.setIsDelete("1");
-            spuPOMapper.updateByPrimaryKey(tbGoods);
+            SpuPO spuPO = spuPOMapper.selectByPrimaryKey(id);
+            spuPO.setIsDelete("1");
+            spuPOMapper.updateByPrimaryKey(spuPO);
         }
     }
 

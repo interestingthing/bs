@@ -72,21 +72,21 @@
         <!--<table schema="" tableName="user" domainObjectName="UserPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
-        <!--<table schema="" tableName="order" domainObjectName="OrderPO">-->
+        <!--<table schema="" tableName="orders" domainObjectName="OrderPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
         <!--<table schema="" tableName="order_item" domainObjectName="OrderItemPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
         <!--<table schema="" tableName="sku" domainObjectName="SkuPO">-->
-            <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
         <!--<table schema="" tableName="spu_desc" domainObjectName="TbGoodsDesc">-->
         <!--&lt;!&ndash;<generatedKey column="spu_id" sqlStatement="JDBC" identity="true"/>&ndash;&gt;-->
         <!--</table>-->
-        <table schema="" tableName="spu" domainObjectName="SpuPO">
-            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
-        </table>
+        <!--<table schema="" tableName="spu" domainObjectName="SpuPO">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--</table>-->
         <!--<table schema="" tableName="spec" domainObjectName="SpecPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
@@ -96,9 +96,9 @@
         <!--<table schema="" tableName="spec_template" domainObjectName="SpecTemplatePO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
-        <!--<table schema="" tableName="store" domainObjectName="StorePO">-->
-        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
-        <!--</table>-->
+        <table schema="" tableName="store" domainObjectName="StorePO">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
         <!--<table schema="" tableName="type" domainObjectName="TypePO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->

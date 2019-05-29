@@ -5674,7 +5674,7 @@ _plugin('core', function(K) {
 	self.clickToolbar('about', function() {
 		var html = '<div style="margin:20px;">' +
 			'<div>KindEditor ' + _VERSION + '</div>' +
-			'<div>Copyright &copy; <a href="http://www.kindsoft.net/" target="_blank">kindsoft.net</a> All rights reserved.</div>' +
+			'<div>Copyright &copy; <a href="http://www.kindsoft.net/" >kindsoft.net</a> All rights reserved.</div>' +
 			'</div>';
 		self.createDialog({
 			name : 'about',
@@ -7417,7 +7417,7 @@ KindEditor.plugin('insertfile', function(K) {
 	self.clickToolbar(name, function() {
 		self.plugin.fileDialog({
 			clickFn : function(url, title) {
-				var html = '<a class="ke-insertfile" href="' + url + '" data-ke-src="' + url + '" target="_blank">' + title + '</a>';
+				var html = '<a class="ke-insertfile" href="' + url + '" data-ke-src="' + url + '" >' + title + '</a>';
 				self.insertHtml(html).hideDialog().focus();
 			}
 		});

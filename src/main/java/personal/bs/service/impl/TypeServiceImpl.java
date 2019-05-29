@@ -82,7 +82,13 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public void delete(Integer[] ids) {
         for (Integer id : ids) {
+            TypePOExample typePOExample = new TypePOExample();
+            TypePOExample.Criteria criteria = typePOExample.createCriteria();
+            criteria.andPidEqualTo(id);
+
+            typePOMapper.deleteByExample(typePOExample);
             typePOMapper.deleteByPrimaryKey(id);
+
         }
     }
 
@@ -97,6 +103,9 @@ public class TypeServiceImpl implements TypeService {
         if (typePO != null) {
             if (typePO.getName() != null && typePO.getName().length() > 0) {
                 criteria.andNameLike("%" + typePO.getName() + "%");
+            }
+            if (typePO.getPid() != null ) {
+                criteria.andPidEqualTo(typePO.getPid());
             }
 
         }
@@ -134,6 +143,7 @@ public class TypeServiceImpl implements TypeService {
         List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
 
         LinkedHashMap<TypePO, List<TypePO>> map = new LinkedHashMap<>();
+
         typePOS.forEach(typePO -> {
             TypePOExample typePOExample1 = new TypePOExample();
             TypePOExample.Criteria criteria1 = typePOExample1.createCriteria();

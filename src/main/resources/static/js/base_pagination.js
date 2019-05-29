@@ -1,1 +1,1 @@
-var app=angular.module('wgxcb',['pagination']);
+var app = angular.module('wgxcb', ['pagination']);

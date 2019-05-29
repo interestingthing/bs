@@ -2,14 +2,14 @@ app.controller('searchController', function ($http, $scope, $location, searchSer
 
     //定义搜索对象的结构  category:商品分类
     $scope.searchMap = {
-        'keywords': '',
-        'category': '',
-        'spec': {},
-        'price': '',
-        'pageNo': 1,
-        'pageSize': 40,
-        'sort': '',
-        'sortField': ''
+        'keywords': '', //搜索关键字
+        'category': '', //商品类别
+        'spec': {},     //规格选项
+        'price': '',    //价格区间
+        'pageNo': 1,    //当前页面
+        'pageSize': 10,  //每页显示的数量
+        'sort': '',     //生序还是降序
+        'sortField': '' //排序字段
     };
 
     $scope.addToCart = function (itemId, num) {

@@ -1,5 +1,8 @@
 //购物车服务层
 app.service('cartService',function($http){
+    this.del = function (skuId) {
+        return $http.get('../cart/del?skuId='+skuId);
+    }
 	//购物车列表
 	this.findCartList=function(){
 		return $http.get('../cart/findCartList');

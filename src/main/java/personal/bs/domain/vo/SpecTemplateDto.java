@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 public class SpecTemplateDto {
 
+    private Integer id;
     /**
      * extendAttributes : [{"text":"123"},{"text":"123"}]
      * name : 规格名称
@@ -21,7 +22,7 @@ public class SpecTemplateDto {
      */
 //[{“name”:”规格名称”,”extendAttributes”:[“规格选项1”,“规格选项2”.... ]  } , ....  ]
 
-    private String name;
+    private String text;
     /**
      * 扩展属性
      */

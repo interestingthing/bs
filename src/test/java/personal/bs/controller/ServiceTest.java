@@ -118,27 +118,19 @@ public class ServiceTest {
 
     @Test
     public void importItemData() {
-
+        solrTemplate.delete("wgxcb", new SimpleQuery("*:*"));
+        solrTemplate.commit("wgxcb");
         SkuPOExample example = new SkuPOExample();
         SkuPOExample.Criteria criteria = example.createCriteria();
-//        criteria.andStatusEqualTo("1");//已审核
+   //     criteria.andStatusEqualTo("1");//已审核
         List<SkuPO> itemList = skuPOMapper.selectByExample(example);
-        ArrayList<SolrSkuPO> solrSkuPOS = new ArrayList<>();
+        ArrayList<SkuPO> solrSkuPOS = new ArrayList<>();
         System.out.println("===商品列表===");
         for (SkuPO item : itemList) {
             Map<String, String> specMap = JSON.parseObject(item.getSpec(), Map.class);
             //将spec字段中的json字符串转换为map
-            //给带注解的字段赋值
-            System.out.println(item.getTitle());
-            SolrSkuPO solrSkuPO = SolrSkuPO.builder()
-                    .id(item.getId()).spuId(item.getSpuId())
-                    .imgUrl(item.getImgUrl()).price(item.getPrice().toString())
-                    .type(item.getType()).specMap(specMap)
-                    .title(item.getTitle()).store(item.getStore())
-                    .saleNum(item.getSaleNum()).uploaddate(item.getUploaddate())
-                    .comment(item.getComment())
-                    .build();
-            solrSkuPOS.add(solrSkuPO);
+            item.setSpecMap(specMap);
+            solrSkuPOS.add(item);
         }
 
         solrTemplate.saveBeans("wgxcb", solrSkuPOS);
