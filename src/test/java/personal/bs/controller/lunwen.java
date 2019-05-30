@@ -1,26 +1,27 @@
 package personal.bs.controller;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import personal.bs.domain.po.TypePO;
-import personal.bs.domain.po.TypePOExample;
-import personal.bs.domain.po.UserPO;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.LinkedHashMap;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import org.junit.Test;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 /**
  * @Author: chenjingang@gauzi.com  2019/5/29 10:24
  */
 public class lunwen {
-@GetMapping("logout")
-public String logout(HttpServletRequest request) {
-    request.getSession().invalidate();
-    return "redirect:/user/index";
-}
+    @Test
+    public void freeMarkerConfigurer() throws  Exception {
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
+//        configuration.setClassForTemplateLoading();
+//       FreeMarkerConfigurer configuration = new FreeMarkerConfigurer();
+        configuration.setDefaultEncoding("UTF-8");
+        configuration.setClassForTemplateLoading(CreateHtmlByFreemarker);
+//        configuration.setTemplateLoaderPath("/templates/ftl/");
+//        configuration.setConfiguration(configuration);
+        configuration.setTemplateLoader();
+        Template template = configuration.getTemplate("item.ftl");
+
+        System.out.println(template);
+        //return configuration;
+    }
 }

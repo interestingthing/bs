@@ -21,6 +21,12 @@ import java.util.List;
 @RequestMapping("/goods")
 public class GoodsController {
 
+    @GetMapping("genSkuHtml")
+    @ResponseBody
+    public Result genSkuHtml(Integer id) {
+        goodsService.genSkuHtml(id);
+        return new Result();
+    }
 
     @Resource
     private GoodsService goodsService;
@@ -161,25 +167,25 @@ public class GoodsController {
 
     @RequestMapping("/updateStatus")
     @ResponseBody
-public Result updateStatus(Integer[] ids, String status) {
-    try {
-        //完成商品审核导入索引库、生成商品详细页
-        goodsService.updateStatus(ids, status);
-        if ("1".equals(status)) {
-            //如果是审核通过导入到索引库
-            List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
-            skuSearchService.importToSolr(skuPOS);
-            for (Integer id : ids) {
-                goodsService.genSkuHtml(id);
-            }
+    public Result updateStatus(Integer[] ids, String status) {
+        try {
+            //完成商品审核导入索引库、生成商品详细页
+            goodsService.updateStatus(ids, status);
+            if ("1".equals(status)) {
+                //如果是审核通过导入到索引库
+                List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
+                skuSearchService.importToSolr(skuPOS);
+                for (Integer id : ids) {
+                    goodsService.genSkuHtml(id);
+                }
 
+            }
+            return new Result(true, "修改状态成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "修改状态失败");
         }
-        return new Result(true, "修改状态成功");
-    } catch (Exception e) {
-        e.printStackTrace();
-        return new Result(false, "修改状态失败");
     }
-}
 
     @RequestMapping("/genHtml")
     @ResponseBody

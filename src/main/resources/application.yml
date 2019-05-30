@@ -39,6 +39,16 @@ spring:
       host: http://localhost:8983/solr
   redis:
     port: 6379
+  freemarker:
+
+    enabled: true
+
+#    setDefaultEncoding("UTF-8");
+#            freeMarkerConfigurer.setTemplateLoaderPath("/templates/ftl/");
+    template-loader-path: /templates/ftl/
+    content-type: text/html
+
+
 #  devtools:
 #    restart:
 #      additional-paths: src/main/java
@@ -78,3 +88,4 @@ mybatis:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
   type-handlers-package:
 
+pagedir: /Users/chenjingang/Desktop/wgxcb/src/main/resources/templates/skuHtml/

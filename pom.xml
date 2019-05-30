@@ -516,6 +516,7 @@
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.yml</include>
+                    <include>**/*.ftl</include>
                 </includes>
                 <!-- <filtering>false</filtering> -->
             </resource>

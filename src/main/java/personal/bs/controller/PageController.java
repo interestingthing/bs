@@ -112,6 +112,16 @@ public class PageController {
         return "store-manager/admin/" + page;
     }
 
+    /**
+     * 访问商品详情页面
+     * @param page
+     * @param username
+     * @return
+     */
+    @GetMapping("sku/{page}.html")
+    public String skuDetail(@PathVariable("page") Integer page) {
+        return "skuHtml/" + page;
+    }
 //    @GetMapping("/operate/good_edit.html")
 //    public String operateEditGoods(Integer id,Model model) {
 //        Goods goods = goodsService.findOne(id);
