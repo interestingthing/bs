@@ -1,5 +1,5 @@
 //控制层
-app.controller('itemController', function ($scope, $controller, itemService) {
+app.controller('itemController', function ($scope, $http, $controller, itemService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -33,13 +33,16 @@ app.controller('itemController', function ($scope, $controller, itemService) {
 
     //加载默认SKU
     $scope.loadSku = function () {
+
         $scope.sku = skuList[0];
+        console.log($scope.sku);
         $scope.specificationItems = JSON.parse(JSON.stringify($scope.sku.spec));
     }
 
     //匹配两个对象是否相等
+    // spec:{"颜色":"桔色","床单尺寸":"1.2米(160*220cm)"}\
+    // spec:{"颜色":"桔色","床单尺寸":"1.2米(160*220cm)"}
     matchObject = function (map1, map2) {
-
         for (var k in map1) {
             if (map1[k] != map2[k]) {
                 return false;
@@ -51,19 +54,20 @@ app.controller('itemController', function ($scope, $controller, itemService) {
             }
         }
         return true;
-
     }
 
     //根据规格查询sku
     searchSku = function () {
+        var i;
 
-        for (var i = 0; i < skuList.length; i++) {
+        for (i = 0; i < skuList.length; i++) {
             if (matchObject(skuList[i].spec, $scope.specificationItems)) {
                 $scope.sku = skuList[i];
                 return;
             }
         }
-        $scope.sku = {id: 0, title: '-----', price: 0};
+        $scope.sku = {id: i, title: '-----', price: i};
+        console.log($scope.sku);
     }
 
     //添加商品到购物车
@@ -71,9 +75,7 @@ app.controller('itemController', function ($scope, $controller, itemService) {
         //alert('SKUID:'+$scope.sku.id );
 
         $http.get('../cart/addGoodsToCartList?itemId='
-            +$scope.sku.id+'&num='+$scope.num).success(
-        // $http.get('../cart/addGoodsToCartList?itemId='
-        //     + itemId + '&num=' + num).success(
+            + $scope.sku.id + '&num=' + $scope.num).success(
             function (response) {
                 if (response.success) {
                     location.href = 'http://localhost:8080/user/cart.html';

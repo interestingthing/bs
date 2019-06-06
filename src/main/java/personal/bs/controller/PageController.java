@@ -118,7 +118,7 @@ public class PageController {
      * @param username
      * @return
      */
-    @GetMapping("sku/{page}.html")
+    @GetMapping("/sku/{page}.html")
     public String skuDetail(@PathVariable("page") Integer page) {
         return "skuHtml/" + page;
     }

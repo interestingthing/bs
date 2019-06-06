@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import personal.bs.dao.mapper.SpecTemplatePOMapper;
 import personal.bs.dao.mapper.TypePOMapper;
 import personal.bs.domain.po.SkuPO;
-import personal.bs.domain.po.SkuPOExample;
 import personal.bs.domain.po.TypePO;
 import personal.bs.domain.po.TypePOExample;
 import personal.bs.service.SkuSearchService;
@@ -31,6 +30,9 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
     @Resource
     SpecTemplateService specTemplateService;
+
+    @Resource
+    TypePOMapper typePOMapper;
 
     @Override
     public Map search(Map searchMap) {
@@ -86,8 +88,23 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         if (searchMap.get("category") != null && StringUtils.isNotBlank(searchMap.get("category").toString())) {
             //如果用户选择了分类
             FilterQuery filterQuery = new SimpleFilterQuery();
-            Criteria filterCriteria = new Criteria("sku_category").contains(searchMap.get("category").toString());
-            filterQuery.addCriteria(filterCriteria);
+            //如果是一级分类就按照子类别筛选
+            String category = (String) searchMap.get("category");
+            TypePOExample typePOExample = new TypePOExample();
+            TypePOExample.Criteria criteria = typePOExample.createCriteria();
+            criteria.andNameEqualTo(category).andPidEqualTo(0);
+            List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
+            if (!typePOS.isEmpty()) {
+                typePOExample.clear();
+                TypePOExample.Criteria criteria1 = typePOExample.createCriteria();
+                criteria1.andPidEqualTo(typePOS.get(0).getId());
+                List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample);
+                Criteria filterCriteria = new Criteria("sku_category").in(typePOS1);
+                filterQuery.addCriteria(filterCriteria);
+            } else {
+                Criteria filterCriteria = new Criteria("sku_category").in(searchMap.get("category").toString());
+                filterQuery.addCriteria(filterCriteria);
+            }
             query.addFilterQuery(filterQuery);
         }
         //1.3 按规格过滤
@@ -187,6 +204,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
             Criteria criteria = new Criteria("sku_keywords").contains(searchMap.get("keywords").toString());
             query.addCriteria(criteria);
         }
+
         //设置分组选项
         GroupOptions groupOptions = new GroupOptions().addGroupByField("sku_category");
         //group by ...
@@ -208,23 +226,28 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         for (GroupEntry<SkuPO> entry : entryList) {
             list.add(entry.getGroupValue());    //将分组的结果添加到返回值中
         }
+        //如果是一级分类，展示该该一级分类的二级分类与solr中的二级分类求交集
+        String category = (String) searchMap.get("category");
+        TypePOExample typePOExample = new TypePOExample();
+        TypePOExample.Criteria criteria = typePOExample.createCriteria();
+        criteria.andNameEqualTo(category).andPidEqualTo(0);
+        List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
+        if (!typePOS.isEmpty()) {
+            typePOExample.clear();
+            TypePOExample.Criteria criteria1 = typePOExample.createCriteria();
+            criteria1.andPidEqualTo(typePOS.get(0).getId());
+            List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample);
+            list.retainAll(typePOS1);
+        }
         log.info("查询类别列表：{}", list);
         return list;
 
     }
 
-//    @Autowired
-//    private RedisTemplate redisTemplate;
-
-
-    @Resource
-    TypePOMapper typePOMapper;
-
     @Resource
     SpecTemplatePOMapper specTemplatePOMapper;
 
     /**
-     *
      * @param category 商品分类名称
      * @return
      */

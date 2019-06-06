@@ -15,10 +15,6 @@
 						<li class="f-item space"></li>
 						<li class="f-item">wgxcb会员</li>
 						<li class="f-item space"></li>
-						<li class="f-item">企业采购</li>
-						<li class="f-item space"></li>
-						<li class="f-item">关注wgxcb</li>
-						<li class="f-item space"></li>
 						<li class="f-item" id="service">
 							<span>客户服务</span>
 							<ul class="service">
@@ -47,22 +43,10 @@
 							<form action="" class="sui-form form-inline">
 								<!--searchAutoComplete-->
 								<div class="input-append">
-									<input type="text" id="autocomplete" type="text" class="input-error input-xxlarge" />
+									<input id="autocomplete" type="text" class="input-error input-xxlarge" />
 									<button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
 								</div>
 							</form>
-						</div>
-						<div class="hotwords">
-							<ul>
-								<li class="f-item">wgxcb首发</li>
-								<li class="f-item">亿元优惠</li>
-								<li class="f-item">9.9元团购</li>
-								<li class="f-item">每满99减30</li>
-								<li class="f-item">亿元优惠</li>
-								<li class="f-item">9.9元团购</li>
-								<li class="f-item">办公用品</li>
-
-							</ul>
 						</div>
 					</div>
 					<div class="yui3-u Right shopArea">
@@ -74,7 +58,6 @@
 									<i class="shopnum">0</i>
 								</a>
 								<div class="clearfix shopcarlist" id="shopcarlist" style="display:none">
-									<p>"啊哦，你的购物车还没有商品哦！"</p>
 									<p>"啊哦，你的购物车还没有商品哦！"</p>
 								</div>
 							</div>
@@ -90,12 +73,6 @@
 						<ul class="nav">
 							<li class="f-item">服装城</li>
 							<li class="f-item">美妆馆</li>
-							<li class="f-item">品优超市</li>
-							<li class="f-item">全球购</li>
-							<li class="f-item">闪购</li>
-							<li class="f-item">团购</li>
-							<li class="f-item">有趣</li>
-							<li class="f-item"><a href="seckill-index.html" >秒杀</a></li>
 						</ul>
 					</div>
 					<div class="yui3-u Right"></div>

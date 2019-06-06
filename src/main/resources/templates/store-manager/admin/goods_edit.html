@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../../static/js/plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../../../static/js/plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../../../static/css/style.css">
-    <script src="../../../static/js/plugins/jquery/jquery-2.2.3.min.js"></script>
+    <script src="../../../static/jquery/jquery-3.3.1.js"></script>
     <script src="../../../static/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- 富文本编辑器 -->
@@ -32,6 +32,53 @@
     <script type="text/javascript" src="../../../static/js/controller/goodsController.js"></script>
 
 
+    <style type="text/css">
+        .float {
+            float: left;
+            overflow: hidden;
+            border: 1px solid #CCCCCC;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        img {
+            position: relative;
+        }
+
+        .result {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #file_input {
+            display: none;
+        }
+
+        .delete {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            text-align: center;
+            line-height: 100px;
+            z-index: 10;
+            font-size: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #777;
+            opacity: 0;
+            transition-duration: 0.7s;
+            -webkit-transition-duration: 0.7s;
+        }
+
+        .delete:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+
+    </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="wgxcb" ng-controller="goodsController"
@@ -47,7 +94,7 @@
 
             <!--tab头-->
             <ul class="nav nav-tabs">
-                <li class="active">
+                <li>
                     <a href="#home" data-toggle="tab">商品基本信息</a>
                 </li>
                 <li>
@@ -56,17 +103,18 @@
                 <li>
                     <a href="#customAttribute" data-toggle="tab">扩展属性</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#spec" data-toggle="tab">规格</a>
                 </li>
+                {{imgResult}}
             </ul>
             <!--tab头/-->
 
             <!--tab内容-->
             <div class="tab-content">
 
-                <!--表单内容-->
-                <div class="tab-pane active" id="home">
+                <!--商品基本信息-->
+                <div class="tab-pane" id="home">
                     <div class="row data-type">
                         <div class="col-md-2 title">商品分类</div>
 
@@ -135,33 +183,45 @@
                 </div>
 
                 <!--图片上传-->
-                <div class="tab-pane" id="pic_upload">
+                <div class="tab-pane " id="pic_upload">
                     <div class="row data-type">
                         <!-- 颜色图片 -->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"
-                                    ng-click="image_entity={}" data-toggle="modal"><i class="fa fa-file-o"></i> 新建
-                            </button>
-
-                        </div>
 
                         <table class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                             <tr>
-
-                                <th class="sorting">颜色</th>
-                                <th class="sorting">图片</th>
+                                <th class="sorting" ng-repeat="item in entity.goodsDesc.specificationItems">
+                                    {{item.attributeName}}
+                                </th>
+                                <th class="sorting">图片(1张主图+最多5张细节图)</th>
                                 <th class="sorting">操作</th>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="pojo in entity.goodsDesc.itemImages">
-                                <td>
-                                    {{pojo.color}}
+
+                            <tr ng-repeat="pojo in entity.itemList">
+                                <td ng-repeat="item in entity.goodsDesc.specificationItems">
+                                    {{pojo.spec[item.attributeName]}}
                                 </td>
+
+                                <!--<td>-->
+                                <!--<button id="selectMain">主图(重新选择)</button>-->
+                                <!--<button id="add">细节图片(可以多选)</button>-->
+                                <!--&lt;!&ndash; id="file_input"   ng-click="uploadFile()&ndash;&gt;-->
+                                <!--<button class="btn btn-primary" id="submit" type="button">-->
+                                <!--上传-->
+                                <!--</button>-->
+                                <!--<input type="file" id="file_input" multiple/>-->
+                                <!--<div></div>-->
+                                <!--<img alt="" src="../../../static{{image_entity.imgUrl}}" width="100px"-->
+                                <!--height="100px">-->
+                                <!--</td>-->
                                 <td>
-                                    <img alt="" src="{{pojo.url}}" width="100px" height="100px">
-                                </td>
-                                <td>
+
+                                    <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"
+                                            ng-click="image_entity={}" data-toggle="modal">
+                                        <i class="fa fa-file-o"></i>新建
+                                    </button>
+
                                     <button type="button" class="btn btn-default" title="删除"
                                             ng-click="remove_image_entity($index)"><i class="fa fa-trash-o"></i> 删除
                                     </button>
@@ -187,7 +247,7 @@
                 </div>
 
                 <!--规格-->
-                <div class="tab-pane" id="spec">
+                <div class="tab-pane active" id="spec">
                     <div class="row data-type">
                         <div class="col-md-2 title">是否启用规格</div>
                         <div class="col-md-10 data">
@@ -232,6 +292,8 @@
                                     <th class="sorting" ng-repeat="item in entity.goodsDesc.specificationItems">
                                         {{item.attributeName}}
                                     </th>
+
+                                    <th width="750px" class="sorting">图片(1张主图+最多5张细节图)</th>
                                     <th class="sorting">价格</th>
                                     <th class="sorting">库存</th>
                                     <th class="sorting">是否启用</th>
@@ -242,15 +304,44 @@
                                 <!--itemList:{{entity.itemList}}-->
                                 <!--itemList:[{"spec":{"颜色":"黑色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"1","isDefault":"0"},{"spec":{"颜色":"蓝色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"1","isDefault":"1"},{"spec":{"颜色":"红色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"0","isDefault":"0"}]-->
 
-                                <tr ng-repeat="pojo in entity.itemList">
+                                <tr ng-repeat="pojo in entity.itemList track by $index" repeat-finish="renderFinish()">
                                     <td ng-repeat="item in entity.goodsDesc.specificationItems">
                                         {{pojo.spec[item.attributeName]}}
+                                    </td>
+                                    <td ng-init="p_index=$index">
+                                        <button id="selectMain{{$index}}">主图(重新选择)</button>
+                                        <button id="add{{$index}}">细节图片(可以多选)</button>
+                                        <!-- id="file_input"   ng-click="uploadFile()-->
+                                        <button id="submit{{$index}}" class="btn btn-primary" type="button">
+                                            保存
+                                        </button>
+
+
+                                        <input id="{{$index}}" style="display: none" name="imgUrl" type="text"
+                                               class="form-control"
+                                               ng-model="pojo.imgUrl" placeholder="图片">
+                                        <input id="file_input{{$index}}" style="display: none" type="file" multiple>
+                                        <div></div>
+                                        {{pojo.imgUrl}}
+                                        <div ng-repeat="url in pojo.imgUrl track by $index">
+                                            <div class="float" data-ng-click="deleteImgFromBack({{p_index}},{{$index}})">
+                                                <div data-ng-click="deleteImgFromBack({{p_index}},{{$index}})"
+                                                     class="delete">delete
+                                                </div>
+                                                <div class="result"
+                                                     data-ng-click="deleteImgFromBack({{p_index}},{{$index}})">
+                                                    <img data-ng-click="deleteImgFromBack({{p_index}},{{$index}})"
+                                                         class="subPic" src="../../../static{{url}}" width="100px"
+                                                         height="100px"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <input class="form-control" ng-model="pojo.price" placeholder="价格">
                                     </td>
                                     <td>
-                                        <input class="form-control" ng-model="pojo.num" placeholder="库存数量">
+                                        <input class="form-control" ng-model="pojo.stockCount" placeholder="库存数量">
                                     </td>
                                     <td>
                                         <input type="checkbox" ng-model="pojo.status" ng-true-value="1"
@@ -286,53 +377,6 @@
 </section>
 
 
-<!-- 上传窗口 -->
-<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">上传商品图片</h3>
-            </div>
-            <div class="modal-body">
-
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <td>颜色</td>
-                        <td><input class="form-control" placeholder="颜色" ng-model="image_entity.color"></td>
-                    </tr>
-                    <tr>
-                        <td>商品图片</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="file" id="file"/>
-                                        <button class="btn btn-primary" type="button" ng-click="uploadFile()">
-                                            上传
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <img src="{{image_entity.url}}" width="200px" height="200px">
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="add_image_entity()">
-                    保存
-                </button>
-                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- 正文区域 /-->
 <script type="text/javascript">
     var editor;
@@ -343,6 +387,6 @@
     });
 
 </script>
-</body>
 
+</body>
 </html>

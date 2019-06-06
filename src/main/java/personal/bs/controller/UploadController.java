@@ -5,28 +5,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import personal.bs.domain.vo.Result;
-import personal.bs.utils.FastDFSClient;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class UploadController {
 
-//	@Value("${FILE_SERVER_URL}")
-	private String file_server_url;
+    @Value("${SKU_IMG_PATH}")
+    private String SKU_IMG_PATH;
 
-	@RequestMapping("/upload")
-	public Result upload(MultipartFile file) {
-		String originalFilename = file.getOriginalFilename();
-		String extName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-		try {
-			FastDFSClient client = new FastDFSClient("classpath:config/fdfs_client.conf");
-			String fileId = client.uploadFile(file.getBytes(), extName);
-			//图片完整路径
-			String url = file_server_url + fileId;
-			System.out.println("上传路径："+url);
-			return new Result(true, url);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(true, "上传失败");
-		}
-	}
+    @RequestMapping("/upload")
+    public Result upload(List<MultipartFile> file) {
+        ArrayList<String> urls = new ArrayList<>();
+        for (MultipartFile file1 : file) {
+            String originalFilename = file1.getOriginalFilename();
+            String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String id = UUID.randomUUID().toString().replace("-", "");
+            //图片完整路径
+            String url = "/img/skuImg/" + id + suffix;
+            System.out.println("上传路径：" + url);
+            //将图片保存到static文件夹里
+            try {
+                file1.transferTo(new File(SKU_IMG_PATH + id + suffix));
+                urls.add(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new Result(false, "上传失败");
+            }
+        }
+        return new Result(true, Arrays.toString(urls.toArray()));
+    }
 }

@@ -53,14 +53,14 @@ public interface SkuPOMapper {
         "spec, store, type_id, ",
         "store_id, title, ",
         "sale_num, uploadDate, ",
-        "comment)",
+        "comment, status)",
         "values (#{spuId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=DOUBLE}, #{stockCount,jdbcType=INTEGER}, ",
         "#{type,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, ",
         "#{spec,jdbcType=VARCHAR}, #{store,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, ",
         "#{storeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
         "#{saleNum,jdbcType=INTEGER}, #{uploaddate,jdbcType=TIMESTAMP}, ",
-        "#{comment,jdbcType=INTEGER})"
+        "#{comment,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(SkuPO record);
@@ -90,7 +90,7 @@ public interface SkuPOMapper {
     @Select({
         "select",
         "id, spu_id, img_url, price, stock_count, type, is_default, spec, store, type_id, ",
-        "store_id, title, sale_num, uploadDate, comment",
+        "store_id, title, sale_num, uploadDate, comment, status",
         "from sku",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -142,7 +142,8 @@ public interface SkuPOMapper {
           "title = #{title,jdbcType=VARCHAR},",
           "sale_num = #{saleNum,jdbcType=INTEGER},",
           "uploadDate = #{uploaddate,jdbcType=TIMESTAMP},",
-          "comment = #{comment,jdbcType=INTEGER}",
+          "comment = #{comment,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SkuPO record);

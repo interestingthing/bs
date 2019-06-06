@@ -24,10 +24,6 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 'x'
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/jsp
-#      suffix: .jsp
   thymeleaf:
     enabled: true
     mode: HTML
@@ -40,21 +36,17 @@ spring:
   redis:
     port: 6379
   freemarker:
-
     enabled: true
-
-#    setDefaultEncoding("UTF-8");
-#            freeMarkerConfigurer.setTemplateLoaderPath("/templates/ftl/");
-    template-loader-path: /templates/ftl/
+    template-loader-path: classpath:/templates/ftl/
     content-type: text/html
-
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 #  devtools:
 #    restart:
 #      additional-paths: src/main/java
 #      enabled: false
-
-
 
 server:
   port: 8080
@@ -66,7 +58,6 @@ management:
       base-path: /
   server:
     port: 9000
-
 
 #logging:
 #  level:
@@ -88,4 +79,5 @@ mybatis:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
   type-handlers-package:
 
-pagedir: /Users/chenjingang/Desktop/wgxcb/src/main/resources/templates/skuHtml/
+PAGE_PATH: /Users/chenjingang/Desktop/wgxcb/src/main/resources/templates/skuHtml/
+SKU_IMG_PATH: /Users/chenjingang/Desktop/wgxcb/src/main/resources/static/img/skuImg/

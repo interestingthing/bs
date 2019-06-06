@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +37,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Resource
     private FreeMarkerConfigurer freeMarkerConfigurer;
 
-    @Value("${pagedir}")
-    private String pagedir;
+    @Value("${PAGE_PATH}")
+    private String PAGE_PATH;
 
     @Resource
     private StorePOMapper storePOMapper;
@@ -69,10 +69,10 @@ public class GoodsServiceImpl implements GoodsService {
             TbGoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(spuId);
             dataModel.put("goodsDesc", goodsDesc);
             //3.读取商品分类
-            String itemCat1 = typePOMapper.selectByPrimaryKey(goods.getType1Id()).getName();
-            String itemCat2 = typePOMapper.selectByPrimaryKey(goods.getType2Id()).getName();
-            dataModel.put("itemCat1", itemCat1);
-            dataModel.put("itemCat2", itemCat2);
+            TypePO typePO1 = typePOMapper.selectByPrimaryKey(goods.getType1Id());
+            TypePO typePO2 = typePOMapper.selectByPrimaryKey(goods.getType2Id());
+            dataModel.put("type1", typePO1);
+            dataModel.put("type2", typePO2);
             //4.读取SKU列表
             SkuPOExample example = new SkuPOExample();
             SkuPOExample.Criteria criteria = example.createCriteria();
@@ -85,7 +85,7 @@ public class GoodsServiceImpl implements GoodsService {
             List<SkuPO> itemList = skuPOMapper.selectByExample(example);
             dataModel.put("itemList", itemList);
 
-            Writer out = new FileWriter(pagedir + spuId + ".html");
+            Writer out = new FileWriter(PAGE_PATH + spuId + ".html");
 
             template.process(dataModel, out);
             //输出
@@ -102,7 +102,7 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean deleteItemHtml(Integer[] goodsIds) {
         try {
             for (Integer goodsId : goodsIds) {
-                new File(pagedir + goodsId + ".html").delete();
+                new File(PAGE_PATH + goodsId + ".html").delete();
             }
             return true;
         } catch (Exception e) {
@@ -179,60 +179,68 @@ public class GoodsServiceImpl implements GoodsService {
                 }
                 item.setTitle(title);
 
+                String url = StringUtils.join(item.getImgUrl(), ",");
 
-                SkuPO skuPO = SkuPO.builder().id(item.getId()).imgUrl(item.getImgUrl())
+                SkuPO skuPO = SkuPO.builder().id(item.getId()).imgUrl(url)
                         .isDefault(item.getIsDefault()).price(item.getPrice()).spec(item.getSpec().toJSONString())
                         .spuId(item.getSpuId()).stockCount(item.getStockCount())
                         .store(item.getStore()).storeId(item.getStoreId()).title(item.getTitle())
-                        .type(item.getType()).typeId(item.getTypeId()).build();
+                        .type(item.getType()).typeId(item.getTypeId()).status(item.getStatus()).build();
                 addSkuPro(goodsDto, skuPO);
 
                 skuPO.setSaleNum(0);
                 skuPO.setUploaddate(new Date());
-                skuPOMapper.insert(skuPO);
+
+                if (skuPO.getId() != null) {
+                    skuPOMapper.updateByPrimaryKeySelective(skuPO);
+                } else {
+                    skuPOMapper.insert(skuPO);
+                }
+
             }
         } else {
             // 没有启用规格
             SkuPO item = new SkuPO();
-
             item.setTitle(goodsDto.getGoods().getName());
             item.setPrice(goodsDto.getGoods().getPrice());
-
             item.setStockCount(999);
-
-            //item.set("0");
-
             item.setIsDefault("1");
-
             item.setSpec("{}");
+
             //item.setSpec(new HashMap());
             addSkuPro(goodsDto, item);
+
 
             skuPOMapper.insert(item);
         }
     }
 
-    private void addSkuPro(GoodsDto goodsDto, SkuPO item) {
+    private void addSkuPro(GoodsDto goodsDto, SkuPO skuPO) {
+        if ("1".equals(skuPO.getIsDefault())) {
+            SpuPO goods = goodsDto.getGoods();
+            goods.setDefaultSkuId(skuPO.getId());
+            goodsDto.setGoods(goods);
+        }
         //TODO 图片
-//        List<Map> imageList = JSON.parseArray(goods.getSpuPODesc().getItemImages(), Map.class);
-//        if (imageList.size() > 0) {
-//            item.setImgUrl((String) imageList.get(0).get("url"));
-//        }
+        List<Map<String, String>> imageList = goodsDto.getGoodsDesc().getItemImages();
+        if (imageList.size() > 0) {
+
+            skuPO.setImgUrl(imageList.get(0).get("imgUrl"));
+        }
 
         // 保存2级分类的ID:
-        item.setTypeId(goodsDto.getGoods().getType2Id());
-//		item.set(new Date());
-//		item.setUpdateTime(new Date());
-        // 设置商品ID
-        item.setSpuId(goodsDto.getGoods().getId());
-        item.setStoreId(goodsDto.getGoods().getStoreId());
+        skuPO.setTypeId(goodsDto.getGoods().getType2Id());
+        skuPO.setUploaddate(new Date());
+        // 设置商品spu ID
+        skuPO.setSpuId(goodsDto.getGoods().getId());
+        skuPO.setStoreId(goodsDto.getGoods().getStoreId());
 
         TypePO itemCat = typePOMapper.selectByPrimaryKey(goodsDto.getGoods().getType2Id());
-        item.setType(itemCat.getName());
+        skuPO.setType(itemCat.getName());
 
         StorePO seller = storePOMapper.selectByPrimaryKey(goodsDto.getGoods().getStoreId());
 
-        item.setStore(seller.getNickname());
+        skuPO.setStore(seller.getNickname());
     }
 
     /**
@@ -253,13 +261,13 @@ public class GoodsServiceImpl implements GoodsService {
 
         goodsDescMapper.updateByPrimaryKey(spuDesc);
         // 修改SKU信息:
-        // 先删除，再保存:
-        // 删除SKU的信息:
-        SkuPOExample example = new SkuPOExample();
-        SkuPOExample.Criteria criteria = example.createCriteria();
-        criteria.andSpuIdEqualTo(goodsDto.getGoods().getId());
-        skuPOMapper.deleteByExample(example);
-        // 保存SKU的信息
+//        // 先删除，再保存:
+//        // 删除SKU的信息:
+//        SkuPOExample example = new SkuPOExample();
+//        SkuPOExample.Criteria criteria = example.createCriteria();
+//        criteria.andSpuIdEqualTo(goodsDto.getGoods().getId());
+//        skuPOMapper.deleteByExample(example);
+        // 更新SKU的信息
         setItemList(goodsDto);
     }
 

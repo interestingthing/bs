@@ -37,6 +37,17 @@ public class UserController {
     @Resource
     CartService cartService;
 
+
+    @PostMapping("/changePWD")
+    @ResponseBody
+    public Map changePWD(@SessionAttribute(value = "username", required = false) String username, @SessionAttribute(value = "userId", required = false) Integer id) {
+        Map map = new HashMap();
+        // 获得用户名信息:
+        map.put("username", username);
+        map.put("userId", id);
+        return map;
+    }
+
     @GetMapping("/showName")
     @ResponseBody
     public Map showName(@SessionAttribute(value = "username", required = false) String username, @SessionAttribute(value = "userId", required = false) Integer id) {
