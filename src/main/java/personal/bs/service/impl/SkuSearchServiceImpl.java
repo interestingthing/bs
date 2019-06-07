@@ -20,6 +20,7 @@ import personal.bs.service.SpecTemplateService;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -47,12 +48,15 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         map.putAll(searchList(searchMap));
         //2.分组查询 商品分类列表
         List<String> categoryList = searchCategoryList(searchMap);
+
         map.put("categoryList", categoryList);
 
         //3.查询规格列表
         String category = (String) searchMap.get("category");
         if (!category.equals("")) {
-            map.putAll(searchSpecList(category));
+            if (categoryList.contains(category)) {
+                map.putAll(searchSpecList(category));
+            }
         } else {
             if (categoryList.size() > 0) {
                 map.putAll(searchSpecList(categoryList.get(0)));
@@ -98,7 +102,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
                 typePOExample.clear();
                 TypePOExample.Criteria criteria1 = typePOExample.createCriteria();
                 criteria1.andPidEqualTo(typePOS.get(0).getId());
-                List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample);
+                List<String> typePOS1 = typePOMapper.selectByExample(typePOExample).stream().map(TypePO::getName).collect(Collectors.toList());
                 Criteria filterCriteria = new Criteria("sku_category").in(typePOS1);
                 filterQuery.addCriteria(filterCriteria);
             } else {
@@ -224,7 +228,8 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         List<GroupEntry<SkuPO>> entryList = groupEntries.getContent();
 
         for (GroupEntry<SkuPO> entry : entryList) {
-            list.add(entry.getGroupValue());    //将分组的结果添加到返回值中
+            list.add(entry.getGroupValue());
+            //将分组的结果添加到返回值中
         }
         //如果是一级分类，展示该该一级分类的二级分类与solr中的二级分类求交集
         String category = (String) searchMap.get("category");
@@ -236,7 +241,7 @@ public class SkuSearchServiceImpl implements SkuSearchService {
             typePOExample.clear();
             TypePOExample.Criteria criteria1 = typePOExample.createCriteria();
             criteria1.andPidEqualTo(typePOS.get(0).getId());
-            List<TypePO> typePOS1 = typePOMapper.selectByExample(typePOExample);
+            List<String> typePOS1 = typePOMapper.selectByExample(typePOExample).stream().map(TypePO::getName).collect(Collectors.toList());
             list.retainAll(typePOS1);
         }
         log.info("查询类别列表：{}", list);
@@ -260,9 +265,11 @@ public class SkuSearchServiceImpl implements SkuSearchService {
 
         List<TypePO> typePOS = typePOMapper.selectByExample(typePOExample);
         if (typePOS.size() > 0) {
-            List<Map> specList = specTemplateService.findSpecList(typePOS.get(0).getTemplateId());
-            log.warn("specValueIds{}", JSON.toJSON(specList));
-            map.put("specList", JSON.toJSON(specList));
+            if (typePOS.get(0).getTemplateId() != null) {
+                List<Map> specList = specTemplateService.findSpecList(typePOS.get(0).getTemplateId());
+                log.warn("specValueIds{}", JSON.toJSON(specList));
+                map.put("specList", JSON.toJSON(specList));
+            }
         }
         return map;
     }

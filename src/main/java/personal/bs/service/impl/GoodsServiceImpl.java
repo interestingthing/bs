@@ -83,7 +83,11 @@ public class GoodsServiceImpl implements GoodsService {
             example.setOrderByClause("is_default desc");
 
             List<SkuPO> itemList = skuPOMapper.selectByExample(example);
+           // List<String> imgList = Arrays.asList(itemList.get(0).getImgUrl().split(","));
             dataModel.put("itemList", itemList);
+            log.warn("["+itemList.get(0).getImgUrl()+"]");
+            dataModel.put("img", "["+itemList.get(0).getImgUrl()+"]");
+            //TODO
 
             Writer out = new FileWriter(PAGE_PATH + spuId + ".html");
 

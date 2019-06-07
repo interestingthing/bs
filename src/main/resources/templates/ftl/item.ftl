@@ -38,7 +38,15 @@
 <!--页面顶部 开始-->
 <#include "head.ftl">
 <#--图片列表-->
-<#assign imageList=goodsDesc.itemImages?eval>
+<#--<#list itemList as sku>   -->
+<#-- -->
+<#--    <#if sku_index == 0>-->
+    <#-- </#if>-->
+<#--   -->
+<#--</#list>-->
+<#assign imageList=["/img/skuImg/d8566ce9e1da44e39ed7d6bd719eba0b.jpg","/img/skuImg/8180fecdbdbf4e96afce865068e7c3c7.jpg"]>
+
+<#--<#assign imageList=$(itemList[0].imgUrl)?eval>-->
 <#--扩展属性-->
 <#assign customAttributeList=goodsDesc.customAttributeItems?eval>
 <#--规格-->
@@ -50,10 +58,10 @@
         <div class="crumb-wrap">
             <ul class="sui-breadcrumb">
                 <li>
-                    <a href="/user/search.html#?category='+${type1.name}}">${type1.name}</a>
+                    <a href="/user/search.html#?category='+${type1.name}">${type1.name}</a>
                 </li>
                 <li>
-                    <a href="/user/search.html#?category='+${type2.name}}">${type2.name}</a>
+                    <a href="/user/search.html#?category='+${type2.name}">${type2.name}</a>
                 </li>
             </ul>
         </div>
@@ -66,7 +74,7 @@
                     <div id="preview" class="spec-preview">
 							<span class="jqzoom">
 							 <#if (imageList?size>0)>
-							     <img jqimg="${imageList[0].url}" src="${imageList[0].url}" width="400px"
+							     <img jqimg="../../static${imageList[0]}" src="../../static${imageList[0]}" width="400px"
                                       height="400px"/>
                              </#if>
                             </span>
@@ -78,7 +86,7 @@
                         <div class="items">
                             <ul>
                                <#list imageList as item>
-                                   <li><img src="${item.url}" bimg="${item.url}" onmousemove="preview(this)"/></li>
+                                   <li><img src="../../static${item}" bimg="../../static${item}" onmousemove="preview(this)"/></li>
                                </#list>
                             </ul>
                         </div>

@@ -128,236 +128,124 @@
 			</div>
 		</div>
 	</div>
-</div>
-<!--页面顶部 结束-->
-<div class="py-container">
-    <div id="item">
-        <div class="crumb-wrap">
-            <ul class="sui-breadcrumb">
-                <li>
-                    <a href="#">家纺</a>
-                </li>
-                <li>
-                    <a href="#">床单</a>
-                </li>
-            </ul>
-        </div>
-        <!--product-info-->
-        <div class="product-info">
-            <div class="fl preview-wrap">
-                <!--放大镜效果-->
-                <div class="zoom">
-                    <!--默认第一个预览-->
-                    <div id="preview" class="spec-preview">
-							<span class="jqzoom">
-                            </span>
-                    </div>
-                    <!--下方的缩略图-->
-                    <div class="spec-scroll">
-                        <a class="prev">&lt;</a>
-                        <!--左右按钮-->
-                        <div class="items">
-                            <ul>
-                            </ul>
-                        </div>
-                        <a class="next">&gt;</a>
-                    </div>
-                </div>
-            </div>
-            <div class="fr itemInfo-wrap">
-                <div class="sku-name">
-                    <h4>{{sku.title}}</h4>
-                </div>
-                <div class="summary">
-                    <div class="summary-wrap">
-                        <div class="fl title">
-                            <i>价　　格</i>
-                        </div>
-                        <div class="fl price">
-                            <i>¥</i>
-                            <em>{{sku.price}}</em>
-                            <span>降价通知</span>
-                        </div>
-                        <div class="fr remark">
-                            <i>累计评价</i><em>612188</em>
-                        </div>
-                    </div>
-                    <div class="summary-wrap">
-                        <div class="fl title">
-                            <i>促　　销</i>
-                        </div>
-                        <div class="fl fix-width">
-                            <i class="red-bg">加价购</i>
-                            <em class="t-gray">满999.00另加20.00元，或满1999.00另加30.00元，或满2999.00另加40.00元，即可在购物车换
-                                购热销商品</em>
-                        </div>
-                    </div>
-                </div>
-                <div class="support">
-                    <div class="summary-wrap">
-                        <div class="fl title">
-                            <i>支　　持</i>
-                        </div>
-                    </div>
-                    <div class="summary-wrap">
-                        <div class="fl title">
-                            <i>配 送 至</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix choose">
-                    <div id="specification" class="summary-wrap clearfix">
+</div>FreeMarker template error (DEBUG mode; use RETHROW in production!):
+The following has evaluated to null or missing:
+==> sku  [in template "item.ftl" at line 41, column 20]
 
-                                <dl>
-                                    <dt>
-                                        <div class="fl title">
-                                            <i>颜色</i>
-                                        </div>
-                                    </dt>
-								
-								  <dd><a href="javascript:;"
-                                         class="{{isSelected('颜色','黑色')?'selected':''}}"
-                                         ng-click="selectSpecification('颜色','黑色')">黑色
-                                      <span title="点击取消选择">&nbsp;</span>
-                                  </a></dd>
-								  <dd><a href="javascript:;"
-                                         class="{{isSelected('颜色','蓝色')?'selected':''}}"
-                                         ng-click="selectSpecification('颜色','蓝色')">蓝色
-                                      <span title="点击取消选择">&nbsp;</span>
-                                  </a></dd>
-								  <dd><a href="javascript:;"
-                                         class="{{isSelected('颜色','红色')?'selected':''}}"
-                                         ng-click="selectSpecification('颜色','红色')">红色
-                                      <span title="点击取消选择">&nbsp;</span>
-                                  </a></dd>
-                                </dl>
+----
+Tip: If the failing expression is known to legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
+----
 
-                                <dl>
-                                    <dt>
-                                        <div class="fl title">
-                                            <i>床单尺寸</i>
-                                        </div>
-                                    </dt>
-								
-								  <dd><a href="javascript:;"
-                                         class="{{isSelected('床单尺寸','150*230')?'selected':''}}"
-                                         ng-click="selectSpecification('床单尺寸','150*230')">150*230
-                                      <span title="点击取消选择">&nbsp;</span>
-                                  </a></dd>
-                                </dl>
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #assign imageList = sku.imgUrl?eval  [in template "item.ftl" at line 41, column 1]
+----
 
-                    </div>
-
-                    <div class="summary-wrap">
-                        <div class="fl title">
-                            <div class="control-group">
-                                <div class="controls">
-                                    <input autocomplete="off" ng-model="num" type="text" value="1" minnum="1"
-                                           class="itxt"/>
-                                    <a href="javascript:void(0)" class="increment plus" ng-click="addNum(1)">+</a>
-                                    <a href="javascript:void(0)" class="increment mins" ng-click="addNum(-1)">-</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fl">
-                            <ul class="btn-choose unstyled">
-                                <li>
-                                    <a class="sui-btn  btn-danger addshopcar" ng-click="addToCart()">加入购物车</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--product-detail-->
-        <div class="clearfix product-detail">
-            <div class="fr detail">
-                <div class="tab-main intro">
-                    <ul class="sui-nav nav-tabs tab-wraped">
-                        <li class="active">
-                            <a href="#one" data-toggle="tab">
-                                <span>商品介绍</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#two" data-toggle="tab">
-                                <span>规格与包装</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#three" data-toggle="tab">
-                                <span>售后保障</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#four" data-toggle="tab">
-                                <span>商品评价</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#five" data-toggle="tab">
-                                <span>手机社区</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                    <div class="tab-content tab-wraped">
-                        <div id="one" class="tab-pane active">
-                            <ul class="goods-intro unstyled">
-									      <li>产地：武功县</li>
-									      <li>注意事项：温水洗涤</li>
-                            </ul>
-                            <div class="intro-detail">
-                            买它！！！
-                            </div>
-                        </div>
-                        <div id="two" class="tab-pane">
-                            <p>塑料袋</p>
-                        </div>
-                        <div id="three" class="tab-pane">
-                            <p>质保三年</p>
-                        </div>
-                        <div id="four" class="tab-pane">
-                            <p>商品评价</p>
-                        </div>
-                        <div id="five" class="tab-pane">
-                            <p>手机社区</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--like-->
-        <div class="clearfix"></div>
-    </div>
-</div>
-<!-- 底部栏位 -->
-
-<!--页面底部  开始 -->
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<footer th:fragment="footer">
-    <div class="clearfix footer">
-        <div class="py-container">
-            <div class="footlink">
-                <div class="Mod-copyright">
-                    <ul class="helpLink">
-                        <li>关于我们<span class="space"></span></li>
-                        <li>联系我们<span class="space"></span></li>
-                        <li>商家入驻<span class="space"></span></li>
-                        <li>营销中心<span class="space"></span></li>
-                        <li>友情链接</li>
-                    </ul>
-                    <div class="address">公司地址：XXXXXXXXXXXX 联系电话：00000000000 邮编：100096</div>
-                    <div class="beian">Copyright ©XXXXXXX有限公司 All Rights Reserved　苏ICP备101dsf0号</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</footer>
-</html><!--页面底部  结束 -->
-</body>
-
-</html>
+Java stack trace (for programmers):
+----
+freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
+	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:134)
+	at freemarker.core.UnexpectedTypeException.newDesciptionBuilder(UnexpectedTypeException.java:85)
+	at freemarker.core.UnexpectedTypeException.<init>(UnexpectedTypeException.java:48)
+	at freemarker.core.NonHashException.<init>(NonHashException.java:49)
+	at freemarker.core.Dot._eval(Dot.java:48)
+	at freemarker.core.Expression.eval(Expression.java:83)
+	at freemarker.core.Expression.evalAndCoerceToStringOrUnsupportedMarkup(Expression.java:123)
+	at freemarker.core.BuiltInForString.getTargetString(BuiltInForString.java:34)
+	at freemarker.core.BuiltInsForStringsMisc$evalBI.calculateResult(BuiltInsForStringsMisc.java:61)
+	at freemarker.core.OutputFormatBoundBuiltIn._eval(OutputFormatBoundBuiltIn.java:42)
+	at freemarker.core.Expression.eval(Expression.java:83)
+	at freemarker.core.Assignment.accept(Assignment.java:134)
+	at freemarker.core.Environment.visit(Environment.java:330)
+	at freemarker.core.Environment.visit(Environment.java:336)
+	at freemarker.core.Environment.process(Environment.java:309)
+	at freemarker.template.Template.process(Template.java:384)
+	at personal.bs.service.impl.GoodsServiceImpl.genSkuHtml(GoodsServiceImpl.java:90)
+	at personal.bs.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$e2cf9605.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:746)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at personal.bs.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$4db5c353.genSkuHtml(<generated>)
+	at personal.bs.controller.GoodsController.genSkuHtml(GoodsController.java:27)
+	at personal.bs.controller.GoodsController$$FastClassBySpringCGLIB$$4840bdaf.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:746)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
+	at personal.bs.config.ControllerLogAspect.doAround(ControllerLogAspect.java:84)
+	at sun.reflect.GeneratedMethodAccessor177.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at personal.bs.controller.GoodsController$$EnhancerBySpringCGLIB$$93bdb547.genSkuHtml(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:158)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:126)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:111)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.cloud.sleuth.instrument.web.ExceptionLoggingFilter.doFilter(ExceptionLoggingFilter.java:48)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at brave.servlet.TracingFilter.doFilter(TracingFilter.java:86)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1468)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)

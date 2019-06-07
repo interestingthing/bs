@@ -202,7 +202,6 @@
                                 <td ng-repeat="item in entity.goodsDesc.specificationItems">
                                     {{pojo.spec[item.attributeName]}}
                                 </td>
-
                                 <!--<td>-->
                                 <!--<button id="selectMain">主图(重新选择)</button>-->
                                 <!--<button id="add">细节图片(可以多选)</button>-->
@@ -313,7 +312,7 @@
                                         <button id="add{{$index}}">细节图片(可以多选)</button>
                                         <!-- id="file_input"   ng-click="uploadFile()-->
                                         <button id="submit{{$index}}" class="btn btn-primary" type="button">
-                                            保存
+                                            保存图片
                                         </button>
 
 
@@ -322,15 +321,14 @@
                                                ng-model="pojo.imgUrl" placeholder="图片">
                                         <input id="file_input{{$index}}" style="display: none" type="file" multiple>
                                         <div></div>
-                                        {{pojo.imgUrl}}
-                                        <div ng-repeat="url in pojo.imgUrl track by $index">
-                                            <div class="float" data-ng-click="deleteImgFromBack({{p_index}},{{$index}})">
-                                                <div data-ng-click="deleteImgFromBack({{p_index}},{{$index}})"
+                                        <div ng-repeat="url in pojo.imgUrlShow track by $index">
+                                            <div class="float" ng-click="deleteImgFromBack({{p_index}},{{$index}})">
+                                                <div ng-click="deleteImgFromBack(p_index,$index)"
                                                      class="delete">delete
                                                 </div>
                                                 <div class="result"
-                                                     data-ng-click="deleteImgFromBack({{p_index}},{{$index}})">
-                                                    <img data-ng-click="deleteImgFromBack({{p_index}},{{$index}})"
+                                                     ng-click="deleteImgFromBack({{p_index}},{{$index}})">
+                                                    <img ng-click="deleteImgFromBack({{p_index}},{{$index}})"
                                                          class="subPic" src="../../../static{{url}}" width="100px"
                                                          height="100px"/>
                                                 </div>

@@ -14,6 +14,7 @@ import personal.bs.service.GoodsService;
 import personal.bs.service.SkuSearchService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -141,8 +142,17 @@ public class GoodsController {
      */
     @PostMapping("/search")
     @ResponseBody
-    public PageResult search(@RequestBody SpuPO goods, int page, int rows, @SessionAttribute("storeId") Integer storeId) {
-        goods.setStoreId(storeId);
+    public PageResult search(HttpServletRequest request, @RequestBody SpuPO goods,
+         int page, int rows,
+         @SessionAttribute(value = "storeId", required = false) Integer storeId,
+         @SessionAttribute(value = "operateId", required = false) Integer operateId) {
+        if (operateId != null) {
+            //查出所有的商品
+        } else if (request.getRequestURL().toString().contains("store")) {
+            if (operateId != null) {
+                goods.setStoreId(storeId);
+            }
+        }
 
         return goodsService.findPage(goods, page, rows);
     }
@@ -171,7 +181,7 @@ public class GoodsController {
         try {
             //完成商品审核导入索引库、生成商品详细页
             goodsService.updateStatus(ids, status);
-            if ("1".equals(status)) {
+            if ("2".equals(status)) {
                 //如果是审核通过导入到索引库
                 List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
                 skuSearchService.importToSolr(skuPOS);

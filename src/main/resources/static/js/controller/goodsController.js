@@ -9,7 +9,8 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
 
         $scope.deleteImgFromBack = function (index, index1) {
             console.log("#deleteImgFromBack" + index + "   " + index1);
-            $scope.entity.itemList[index].imgUrl = $scope.entity.itemList[index].imgUrl.splice(index1, 1);
+            // $scope.entity.itemList[index].imgUrl =
+            $scope.entity.itemList[index].imgUrl.splice(index1, 1);
             $(this).parent().parent().remove();
         }
 
@@ -114,7 +115,7 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                         formdata.delete("file");
                         dataArray = [];
                         // $('.float').remove();
-                        $scope.entity.itemList[index].imgUrl = [];
+                        $scope.entity.itemList[index].imgUrlShow = [];
                         $scope.$apply();
                         $(input[index]).next().children().remove();
                         input[index].click();
@@ -143,7 +144,7 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                             // var index = $(event.target).next().prop("id");
                             // console.log(index);
                             var pattern = /[\[\]\s]/g;
-                            $scope.entity.itemList[index].imgUrl1 = result['message'].replace(pattern, "").split(",");
+                            $scope.entity.itemList[index].imgUrl = result['message'].replace(pattern, "").split(",");
                             $(element).next("h7").remove();
                             $(element).after("<h7 id=\"loginMsg\" style=\"\n" +
                                 "                            position: relative;\n" +
@@ -276,7 +277,8 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                     for (var i = 0; i < $scope.entity.itemList.length; i++) {
                         $scope.entity.itemList[i].spec = JSON.parse($scope.entity.itemList[i].spec);
                         var pattern = /[\[\]\s]/g;
-                        $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrl.replace(pattern, "").split(",");
+                        $scope.entity.itemList[i].imgUrlShow = $scope.entity.itemList[i].imgUrl.replace(pattern, "").split(",");
+                        $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrlShow;
                     }
                 }
             );
@@ -285,6 +287,9 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
         // 增加商品
         $scope.add = function () {
             var serviceObject;//服务层对象
+            // for (var i = 0; i < $scope.entity.itemList.length; i++) {
+            //     $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrlShow;
+            // }
             // for (var i = 0; i < $scope.entity.itemList.length; i++) {
             //     $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrl.join(",")+"]";
             // }
