@@ -1,42 +1,48 @@
 <div id="nav-bottom">
 	<!--顶部-->
 	<div class="nav-top">
-		<div class="top">
-			<div class="py-container">
-				<div class="shortcut">
-					<ul class="fl">
-						<li class="f-item">wgxcb欢迎您！</li>
-						<li class="f-item">请<a href="login.html" >登录</a>　<span><a href="register.html" >免费注册</a></span></li>
-					</ul>
-					<ul class="fr">
-						<li class="f-item">我的订单</li>
-						<li class="f-item space"></li>
-						<li class="f-item"><a href="home.html" >我的wgxcb</a></li>
-						<li class="f-item space"></li>
-						<li class="f-item">wgxcb会员</li>
-						<li class="f-item space"></li>
-						<li class="f-item" id="service">
-							<span>客户服务</span>
-							<ul class="service">
-								<li><a href="cooperation.html" >合作招商</a></li>
-								<li><a href="shoplogin.html" >商家后台</a></li>
-								<li><a href="cooperation.html" >合作招商</a></li>
-								<li><a href="#">商家后台</a></li>
-							</ul>
-						</li>
-						<li class="f-item space"></li>
-						<li class="f-item">网站导航</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+        <div class="top">
+            <div class="py-container">
+                <div class="shortcut">
+                    <ul class="fl">
+                        <li class="f-item">欢迎您！&nbsp;&nbsp;</li>
+                        <#--<div class="f-item" th:if="${username}">-->
+                            <#--<li class="f-item" th:if="${username}" th:text="${username}"></li>-->
+                            <#--<li class="f-item">&nbsp;&nbsp;<a th:href="@{/user/logout}" >注销</a>&nbsp;&nbsp;-->
+                            <#--</li>-->
+                        <#--</div>-->
+
+                        <#--<div class="f-item" th:unless="${username}">-->
+                            <#--<li class="f-item">&nbsp;&nbsp;请<a href="/user/login.html" >登录</a>&nbsp;&nbsp;-->
+                            <#--</li>-->
+                            <#--<span><a href="register.html" >免费注册</a></span>-->
+                        <#--</div>-->
+                    </ul>
+                    <ul class="fr">
+                        <li class="f-item"><a href="/user/index.html" >网站首页</a></li>
+                        <li class="f-item space"></li>
+                        <li class="f-item"><a href="/user/home-index.html" >我的主页</a></li>
+                        <li class="f-item space"></li>
+                        <li class="f-item"><a href="/operate/login.html" >运营商后台</a></li>
+                        <li class="f-item space"></li>
+                        <li class="f-item"><a href="/store/login.html" >商家后台</a></li>
+                        <!--<li class="f-item" id="service">-->
+                        <!--<span>客户服务</span>-->
+                        <!--<ul class="service">-->
+
+                        <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
 
 		<!--头部-->
 		<div class="header">
 			<div class="py-container">
 				<div class="yui3-g Logo">
 					<div class="yui3-u Left logoArea">
-						<a class="logo-bd" title="wgxcb" href="index.html" ></a>
+                            <a href="/user/index" class="fl logo"></a>
 					</div>
 					<div class="yui3-u Center searchArea">
 						<div class="search">

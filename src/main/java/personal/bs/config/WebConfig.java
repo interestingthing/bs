@@ -1,9 +1,13 @@
 package personal.bs.config;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import org.apache.catalina.webresources.StandardRoot;
+import org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.ServletContainerInitializer;
 
 /**
  * 相当于之前的web.xml
@@ -48,4 +52,17 @@ public class WebConfig {
 //        return viewResolver;
 //    }
 
+//    @Bean
+//    public ServletContainerInitializer embeddedServletContainerFactory() {
+//        return new TomcatEmbeddedServletContainerFactory() {
+//
+//            @Override
+//            protected void postProcessContext(Context context) {
+//                final int maxCacheSize = 40 * 1024;
+//                StandardRoot standardRoot = new StandardRoot(context);
+//                standardRoot.setCacheMaxSize(maxCacheSize);
+//                context.setResources(standardRoot);
+//            }
+//        };
+//    }
 }

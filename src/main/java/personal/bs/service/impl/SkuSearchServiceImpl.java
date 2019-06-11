@@ -17,9 +17,13 @@ import personal.bs.domain.po.TypePO;
 import personal.bs.domain.po.TypePOExample;
 import personal.bs.service.SkuSearchService;
 import personal.bs.service.SpecTemplateService;
+import personal.bs.utils.ChangeToPinYinJP;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -114,15 +118,16 @@ public class SkuSearchServiceImpl implements SkuSearchService {
         //1.3 按规格过滤
         if (searchMap.get("spec") != null && StringUtils.isNotBlank(searchMap.get("spec").toString())) {
             Map<String, String> specMap = (Map<String, String>) searchMap.get("spec");
+//            HashMap<String, String> specm = new HashMap<>();
+//            specMap.forEach((k, v) -> {
+//                specm.put(ChangeToPinYinJP.changeToTonePinYin(k), v);
+//            });
             for (String key : specMap.keySet()) {
-
                 FilterQuery filterQuery = new SimpleFilterQuery();
-                Criteria filterCriteria = new Criteria("sku_spec_" + String.join("", Collections.nCopies(key.length(), "_"))).contains(specMap.get(key));
+                Criteria filterCriteria = new Criteria("sku_spec_" + ChangeToPinYinJP.changeToTonePinYin(key)).contains(specMap.get(key));
                 filterQuery.addCriteria(filterCriteria);
                 query.addFilterQuery(filterQuery);
-
             }
-
         }
 
         //1.4按价格过滤
@@ -279,11 +284,19 @@ public class SkuSearchServiceImpl implements SkuSearchService {
     public void importToSolr(List<SkuPO> list) {
         ArrayList<SkuPO> solrSkuPOS = new ArrayList<>();
         System.out.println("===商品列表===");
+
         for (SkuPO item : list) {
             //将spec字段中的json字符串转换为map
+
             Map<String, String> specMap = JSON.parseObject(item.getSpec(), Map.class);
-            item.setSpecMap(specMap);
+
+            HashMap<String, String> specm = new HashMap<>();
+            specMap.forEach((k, v) -> {
+                specm.put(ChangeToPinYinJP.changeToTonePinYin(k), v);
+            });
+            item.setSpecMap(specm);
             solrSkuPOS.add(item);
+            log.warn("规格=====" + specMap);
         }
         solrTemplate.saveBeans("wgxcb", list);
         solrTemplate.commit("wgxcb");

@@ -21,7 +21,7 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
             console.log("#1");
 
             var input = $("input[id^='file_input']");
-            console.log($("input[id^='file_input']").length);
+            console.log("file_input length ======"+$("input[id^='file_input']").length);
             //$("tr").css({"background-color":"red","border":"2px solid red"});
             console.log("多图片上传初始化");
             var oSelect = $("button[id^='selectMain']");
@@ -31,20 +31,26 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
             var dataArray = [];
 
             //读取文件
-            function read() {
+            function read(event) {
+
                 // console.log($(this).prop('files'));
-                var file_input = $(this);
-                console.log(file_input);
-                var iLen = file_input.prop('files').length;
+                // var file_input = $(event.target());
+                console.log($(event.target));
+                var iLen = $(event.target).prop('files').length;
                 // console.log(iLen);
+                console.log("总共选择了"+iLen);
 
                 for (var i = 0; i < iLen; i++) {
 
-                    dataArray.push(file_input.prop('files')[i]);
+                    dataArray.push($(event.target).prop('files')[i]);
                     var reader = new FileReader();
                     //转成base64
-                    reader.readAsDataURL(file_input.prop('files')[i]);
-                    reader.fileName = this.files[i].name;
+                    reader.readAsDataURL($(event.target).prop('files')[i]);
+                    console.log("上传文件====="+$(event.target).prop('files')[i]);
+
+                    reader.fileName = $(event.target).prop('files')[i].name;
+                    console.log("上传文件====="+$(event.target).prop('files')[i].name);
+
                     reader.onload = function (e) {
                         var result =
                             '<div class="delete">delete</div>' +
@@ -58,7 +64,8 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                         div['className'] = 'float';
                         //插入dom树
                         //.css({"color":"red","border":"2px solid red"})
-                        file_input.next().append(div);
+                        console.log($(event.target).next());
+                        $(event.target).next().append(div);
                         // file_input.next("div").find("div img").css({"color":"red","border":"2px solid red"});
                         // img.onload = function () {
                         //     var nowHeight = ReSizePic(this); //设置图片大小
@@ -94,21 +101,29 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                 console.log("#2");
                 console.log(input);
                 input.each(function (index, element) {
-                    console.log("#2.5");
+                    console.log("input addEventListener事件");
+
                     //console.log(input[index].prop("id"));
-                    element.addEventListener('change', read, false);
+                    // element.removeEventListener('change', read, false);
+                    $(element).unbind("change");
+                    $(element).change(function (element) {
+                        console.log("element====="+element);
+                        read(element);
+                    });
+                    // element.addEventListener('change', read, false);
+
                     // $(element).change(
                     //     read()
                     // );
                     //
                 });
 
-                console.log("#3");
-
                 oSelect.each(function (index, element) {
-                    console.log("#4");
+                    console.log("oSelect按钮绑定事件");
+                    $(element).unbind("click");
+
                     $(element).click(function () {
-                        console.log("#5");
+                        console.log("oSelect click事件触发");
                         input[index].value = "";
                         // 先将input值清空，否则选择图片与上次相同时change事件不会触发
                         //清空已选图片
@@ -123,6 +138,8 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                 });
 
                 oAdd.each(function (index, element) {
+                    $(element).unbind("click");
+
                     $(element).click(function () {
                         //console.log(input.value);
                         input[index].value = "";
@@ -132,9 +149,12 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                 });
 
                 oSubmit.each(function (index, element) {
-                    console.log("oSubmit");
+                    console.log("oSubmit按钮绑定事件");
+                    $(element).unbind("click");
 
                     $(element).click(function (event) {
+                        console.log("oSubmit click事件触发");
+
                         if (dataArray.length === 0) {
                             return alert('请先选择文件');
                         }
@@ -276,9 +296,15 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
                     // 遍历SKU的集合:
                     for (var i = 0; i < $scope.entity.itemList.length; i++) {
                         $scope.entity.itemList[i].spec = JSON.parse($scope.entity.itemList[i].spec);
+                        console.log($scope.entity.itemList[i].spec);
                         var pattern = /[\[\]\s]/g;
-                        $scope.entity.itemList[i].imgUrlShow = $scope.entity.itemList[i].imgUrl.replace(pattern, "").split(",");
-                        $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrlShow;
+                        if ($scope.entity.itemList[i].imgUrl != null) {
+                            $scope.entity.itemList[i].imgUrlShow = $scope.entity.itemList[i].imgUrl.replace(pattern, "").split(",");
+                            $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrlShow;
+                        } else {
+                            $scope.entity.itemList[i].imgUrlShow = [];
+                            $scope.entity.itemList[i].imgUrl = [];
+                        }
                     }
                 }
             );
@@ -293,6 +319,8 @@ app.controller('goodsController', function ($scope, $http, $controller, $locatio
             // for (var i = 0; i < $scope.entity.itemList.length; i++) {
             //     $scope.entity.itemList[i].imgUrl = $scope.entity.itemList[i].imgUrl.join(",")+"]";
             // }
+            $scope.entity.goodsDesc.introduction = $('textarea[name="content"]').val();
+
             if ($scope.entity.goods.id != null) {//如果有ID
                 serviceObject = goodsService.update($scope.entity); //修改
             } else {

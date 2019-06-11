@@ -52,28 +52,31 @@ public class CartController {
         List<Cart> cartList = JSON.parseArray(cartListString, Cart.class);
 
 
-        //如果未登录
+        //如果已登录
         if (id != null) {
-            //如果已登录
             //获取redis购物车
             cartList = cartService.findCartListFromRedis(id);
         }
 
+        Cart cartCur =null;
+        List<OrderItemPO> orderItemListCur=null;
         for (Cart cart : cartList) {
             List<OrderItemPO> orderItemList = cart.getOrderItemList();
             for (OrderItemPO orderItemPO : orderItemList) {
                 if (orderItemPO.getSkuId().equals(skuId)) {
                     orderItemList.remove(orderItemPO);
-                    // TODO
-                    CookieUtil.setCookie(request, response, "cartList", cartListString, 3600 * 24, "UTF-8");
-                    return cartList;
+                    cartCur=cart;
+                    orderItemListCur=orderItemList;
+                    break;
+//                    CookieUtil.setCookie(request, response, "cartList", JSON.toJSONString(cartList), 3600 * 24, "UTF-8");
                 }
-
-
             }
 
         }
-        CookieUtil.setCookie(request, response, "cartList", cartListString, 3600 * 24, "UTF-8");
+        cartList.remove(cartCur);
+        cartCur.setOrderItemList(orderItemListCur);
+        cartList.add(cartCur);
+        CookieUtil.setCookie(request, response, "cartList", JSON.toJSONString(cartList), 3600 * 24, "UTF-8");
         return cartList;
 
     }

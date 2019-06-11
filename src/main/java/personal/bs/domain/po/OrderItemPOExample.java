@@ -694,6 +694,76 @@ public class OrderItemPOExample {
             return (Criteria) this;
         }
 
+        public Criteria andImgurlIsNull() {
+            addCriterion("imgUrl is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlIsNotNull() {
+            addCriterion("imgUrl is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlEqualTo(String value) {
+            addCriterion("imgUrl =", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlNotEqualTo(String value) {
+            addCriterion("imgUrl <>", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlGreaterThan(String value) {
+            addCriterion("imgUrl >", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlGreaterThanOrEqualTo(String value) {
+            addCriterion("imgUrl >=", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlLessThan(String value) {
+            addCriterion("imgUrl <", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlLessThanOrEqualTo(String value) {
+            addCriterion("imgUrl <=", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlLike(String value) {
+            addCriterion("imgUrl like", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlNotLike(String value) {
+            addCriterion("imgUrl not like", value, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlIn(List<String> values) {
+            addCriterion("imgUrl in", values, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlNotIn(List<String> values) {
+            addCriterion("imgUrl not in", values, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlBetween(String value1, String value2) {
+            addCriterion("imgUrl between", value1, value2, "imgurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlNotBetween(String value1, String value2) {
+            addCriterion("imgUrl not between", value1, value2, "imgurl");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderIdLikeInsensitive(String value) {
             addCriterion("upper(order_id) like", value.toUpperCase(), "orderId");
             return (Criteria) this;
@@ -701,6 +771,11 @@ public class OrderItemPOExample {
 
         public Criteria andTitleLikeInsensitive(String value) {
             addCriterion("upper(title) like", value.toUpperCase(), "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgurlLikeInsensitive(String value) {
+            addCriterion("upper(imgUrl) like", value.toUpperCase(), "imgurl");
             return (Criteria) this;
         }
     }

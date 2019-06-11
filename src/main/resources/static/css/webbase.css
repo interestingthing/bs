@@ -102,6 +102,11 @@ ul.brand-list li {
     position: relative;
     z-index: 99
 }
+.Center1 {
+    width: 990px;
+    position: relative;
+    z-index: 99
+}
 
 .Right {
     width: 250px;
@@ -138,7 +143,7 @@ ul.brand-list li {
 }
 
 .SortList {
-    height: 352px
+    height: 464px
 }
 
 .space {

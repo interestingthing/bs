@@ -15,6 +15,7 @@ import personal.bs.service.SkuSearchService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -85,6 +86,22 @@ public class GoodsController {
     public Result update(@RequestBody GoodsDto goodsDto) {
         try {
             goodsService.update(goodsDto);
+
+            List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(new Integer[]{goodsDto.getGoods().getId()}, "2");
+
+            ArrayList<SkuPO> skuPOS1 = new ArrayList<>();
+            for (SkuPO skuPO : skuPOS) {
+                if ("1".equals(skuPO.getIsDefault())) {
+                    skuPOS1.add(skuPO);
+                    break;
+                }
+
+            }
+            if(skuPOS1.isEmpty()){
+                skuPOS1.add(skuPOS.get(0));
+            }
+            skuSearchService.importToSolr(skuPOS1);
+            goodsService.genSkuHtml(goodsDto.getGoods().getId());
             return new Result(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,9 +160,9 @@ public class GoodsController {
     @PostMapping("/search")
     @ResponseBody
     public PageResult search(HttpServletRequest request, @RequestBody SpuPO goods,
-         int page, int rows,
-         @SessionAttribute(value = "storeId", required = false) Integer storeId,
-         @SessionAttribute(value = "operateId", required = false) Integer operateId) {
+                             int page, int rows,
+                             @SessionAttribute(value = "storeId", required = false) Integer storeId,
+                             @SessionAttribute(value = "operateId", required = false) Integer operateId) {
         if (operateId != null) {
             //查出所有的商品
         } else if (request.getRequestURL().toString().contains("store")) {
@@ -184,7 +201,23 @@ public class GoodsController {
             if ("2".equals(status)) {
                 //如果是审核通过导入到索引库
                 List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
-                skuSearchService.importToSolr(skuPOS);
+
+//                List<SkuPO> skuPOS = goodsService.findItemListByGoodsIdListAndStatus(new Integer[]{goodsId}, "2");
+                //导入默认的sku，没有则为第一个为默认
+                ArrayList<SkuPO> skuPOS1 = new ArrayList<>();
+                for (SkuPO skuPO : skuPOS) {
+                    if ("1".equals(skuPO.getIsDefault())) {
+                        skuPOS1.add(skuPO);
+                        break;
+                    }
+
+                }
+                if(skuPOS1.isEmpty()){
+                    skuPOS1.add(skuPOS.get(0));
+                }
+
+                skuSearchService.importToSolr(skuPOS1);
+                //skuSearchService.importToSolr(skuPOS);
                 for (Integer id : ids) {
                     goodsService.genSkuHtml(id);
                 }

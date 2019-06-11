@@ -33,7 +33,10 @@ app.controller('searchController', function ($http, $scope, $location, searchSer
         searchService.search($scope.searchMap).success(
             function (response) {
                 $scope.resultMap = response;
-
+                for (var i = 0; i < $scope.resultMap.rows.length; i++) {
+                    if ($scope.resultMap.rows[i].imgUrl != null)
+                        $scope.resultMap.rows[i].imgUrl = $scope.resultMap.rows[i].imgUrl.split(",")[0];
+                }
                 buildPageLabel();
                 //构建分页栏
                 //$scope.searchMap.pageNo=1;//查询后显示第一页
@@ -133,15 +136,15 @@ app.controller('searchController', function ($http, $scope, $location, searchSer
     }
 
 
-    //加载关键字
-    $scope.loadkeywords = function () {
+//加载关键字
+$scope.loadkeywords = function () {
 
-        if (typeof($location.search()['keywords']) != "undefined")
-            $scope.searchMap.keywords = $location.search()['keywords'];
-        if (typeof($location.search()['category']) != "undefined")
-            $scope.searchMap.category = $location.search()['category'];
+    if (typeof($location.search()['keywords']) !== "undefined")
+        $scope.searchMap.keywords = $location.search()['keywords'];
+    if (typeof($location.search()['category']) !== "undefined")
+        $scope.searchMap.category = $location.search()['category'];
 
-        $scope.search();//查询
-    }
+    $scope.search();//查询
+}
 
 });

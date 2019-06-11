@@ -174,3 +174,7 @@ public class SkuPO implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 }
+
+//@Field("spu_id")    @Field("sku_price")@Field("sku_image")
+//@Field("sku_category") @Field("sku_spec_*")    @Field("sku_seller")
+

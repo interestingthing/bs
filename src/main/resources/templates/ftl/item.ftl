@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/pages-zoom.css"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/widget-cartPanelView.css"/>
 
+    <script type="text/javascript" src="../../static/js/plugins/jquery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../../static/js/plugins/jquery.jqzoom/jquery.jqzoom.js"></script>
+    <script type="text/javascript" src="../../static/js/plugins/jquery.jqzoom/zoom.js"></script>
     <script type="text/javascript" src="../../static/js/plugins/angularjs/angular.min.js"></script>
     <script type="text/javascript" src="../../static/js/base.js"></script>
     <script type="text/javascript" src="../../static/js/controller/baseController.js"></script>
@@ -25,8 +28,19 @@
                id:${item.id?c},
                title: '${item.title}',
                price:${item.price?c},
-               spec:${item.spec}
+               spec:${item.spec},
+               spuId:${item.spuId?c}
            },
+          </#list>
+        ];
+
+        var img = [
+          <#list img as item>
+            [
+              <#list item as url>
+                  '${url}',
+              </#list>
+            ],
           </#list>
         ];
 
@@ -41,10 +55,9 @@
 <#--<#list itemList as sku>   -->
 <#-- -->
 <#--    <#if sku_index == 0>-->
-    <#-- </#if>-->
+<#-- </#if>-->
 <#--   -->
 <#--</#list>-->
-<#assign imageList=["/img/skuImg/d8566ce9e1da44e39ed7d6bd719eba0b.jpg","/img/skuImg/8180fecdbdbf4e96afce865068e7c3c7.jpg"]>
 
 <#--<#assign imageList=$(itemList[0].imgUrl)?eval>-->
 <#--扩展属性-->
@@ -58,10 +71,10 @@
         <div class="crumb-wrap">
             <ul class="sui-breadcrumb">
                 <li>
-                    <a href="/user/search.html#?category='+${type1.name}">${type1.name}</a>
+                    <a href="/user/search.html#?category='${type1.name}">${type1.name}</a>
                 </li>
                 <li>
-                    <a href="/user/search.html#?category='+${type2.name}">${type2.name}</a>
+                    <a href="/user/search.html#?category='${type2.name}">${type2.name}</a>
                 </li>
             </ul>
         </div>
@@ -73,11 +86,10 @@
                     <!--默认第一个预览-->
                     <div id="preview" class="spec-preview">
 							<span class="jqzoom">
-							 <#if (imageList?size>0)>
-							     <img jqimg="../../static${imageList[0]}" src="../../static${imageList[0]}" width="400px"
-                                      height="400px"/>
-                             </#if>
-                            </span>
+							        <img jqimg="../../static{{imageList[0]}}"
+                                         src="../../static{{imageList[0]}}"
+                                         width="400px" height="400px"/>
+                        </span>
                     </div>
                     <!--下方的缩略图-->
                     <div class="spec-scroll">
@@ -85,9 +97,10 @@
                         <!--左右按钮-->
                         <div class="items">
                             <ul>
-                               <#list imageList as item>
-                                   <li><img src="../../static${item}" bimg="../../static${item}" onmousemove="preview(this)"/></li>
-                               </#list>
+                                <li ng-repeat="url in imageList" repeat-finish="renderFinish()"><img
+                                        src="../../static{{url}}"
+                                        bimg="../../static{{url}}"
+                                        onmousemove="preview(this)"/></li>
                             </ul>
                         </div>
                         <a class="next">&gt;</a>
@@ -110,7 +123,7 @@
                             <span>降价通知</span>
                         </div>
                         <div class="fr remark">
-                            <i>累计评价</i><em>612188</em>
+                            <i>累计评价</i><em>{{sku.comment}}</em>
                         </div>
                     </div>
                     <div class="summary-wrap">
@@ -205,11 +218,7 @@
                                 <span>商品评价</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#five" data-toggle="tab">
-                                <span>手机社区</span>
-                            </a>
-                        </li>
+
                     </ul>
                     <div class="clearfix"></div>
                     <div class="tab-content tab-wraped">
@@ -222,7 +231,7 @@
                                    </#list>
                             </ul>
                             <div class="intro-detail">
-                            ${goodsDesc.introduction}
+                                ${goodsDesc.introduction}
                             </div>
                         </div>
                         <div id="two" class="tab-pane">
@@ -233,9 +242,6 @@
                         </div>
                         <div id="four" class="tab-pane">
                             <p>商品评价</p>
-                        </div>
-                        <div id="five" class="tab-pane">
-                            <p>手机社区</p>
                         </div>
                     </div>
                 </div>

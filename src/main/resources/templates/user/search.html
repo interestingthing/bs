@@ -222,8 +222,8 @@
                                 <!--<a href="http://localhost:9105/{{item.id}}.html" ><img-->
                                 <!--src="{{item.image}}"/></a>-->
 
-                                <a href="/sku/{{item.id}}.html" ><img
-                                        src="../../static/img/2.jpg"/></a>
+                                <a href="/sku/{{item.spuId}}.html" ><img
+                                        src="../../static{{item.imgUrl}}"/></a>
                             </div>
                             <div class="price">
                                 <strong>
@@ -231,7 +231,11 @@
                                     <i>{{item.price}}</i>
                                 </strong>
                             </div>
-                            <div class="attr" ng-bind-html="item.title | trustHtml"></div>
+                            <div class="attr"
+                                 style="height: 34px; line-height: 17px;overflow: hidden;
+                                        overflow-x: hidden;overflow-y: hidden;"
+                                 ng-bind-html="item.title | trustHtml"></div>
+                            <!--<div class="attr" ng-bind-html="item.title"></div>-->
 
 
                             <div class="commit">

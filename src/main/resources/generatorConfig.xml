@@ -75,14 +75,15 @@
         <!--<table schema="" tableName="orders" domainObjectName="OrderPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
-        <!--<table schema="" tableName="order_item" domainObjectName="OrderItemPO">-->
-        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
-        <!--</table>-->
-        <table schema="" tableName="sku" domainObjectName="SkuPO">
+        <table schema="" tableName="order_item" domainObjectName="OrderItemPO">
         <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
+        <!--<table schema="" tableName="sku" domainObjectName="SkuPO">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--</table>-->
         <!--<table schema="" tableName="spu_desc" domainObjectName="TbGoodsDesc">-->
-        <!--&lt;!&ndash;<generatedKey column="spu_id" sqlStatement="JDBC" identity="true"/>&ndash;&gt;-->
+            <!--<generatedKey column="spu_id" sqlStatement="JDBC" identity="true"/>-->
+            <!--<columnOverride column="introduction" javaType="java.lang.String" jdbcType="VARCHAR" />-->
         <!--</table>-->
         <!--<table schema="" tableName="spu" domainObjectName="SpuPO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
@@ -97,7 +98,7 @@
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
         <!--<table schema="" tableName="store" domainObjectName="StorePO">-->
-            <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
         <!--<table schema="" tableName="type" domainObjectName="TypePO">-->
         <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->

@@ -49,10 +49,10 @@ public interface OrderItemPOMapper {
     @Insert({
         "insert into order_item (order_id, sku_id, ",
         "num, store_id, title, ",
-        "price, sum)",
+        "price, sum, imgUrl)",
         "values (#{orderId,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, ",
         "#{num,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
-        "#{price,jdbcType=DOUBLE}, #{sum,jdbcType=DOUBLE})"
+        "#{price,jdbcType=DOUBLE}, #{sum,jdbcType=DOUBLE}, #{imgurl,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(OrderItemPO record);
@@ -81,7 +81,7 @@ public interface OrderItemPOMapper {
      */
     @Select({
         "select",
-        "id, order_id, sku_id, num, store_id, title, price, sum",
+        "id, order_id, sku_id, num, store_id, title, price, sum, imgUrl",
         "from order_item",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -126,7 +126,8 @@ public interface OrderItemPOMapper {
           "store_id = #{storeId,jdbcType=INTEGER},",
           "title = #{title,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=DOUBLE},",
-          "sum = #{sum,jdbcType=DOUBLE}",
+          "sum = #{sum,jdbcType=DOUBLE},",
+          "imgUrl = #{imgurl,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(OrderItemPO record);

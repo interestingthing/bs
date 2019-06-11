@@ -152,7 +152,8 @@ public class CartServiceImpl implements CartService {
         //orderItem.setOrderId();
         orderItem.setSkuId(item.getId());
         orderItem.setNum(num);
-//        orderItem.set(item.getImage());
+        String[] img = item.getImgUrl().split(",");
+        orderItem.setImgurl(img[0]);
         orderItem.setPrice(item.getPrice());
         orderItem.setStoreId(item.getStoreId());
         orderItem.setTitle(item.getTitle());

@@ -5,7 +5,43 @@ app.controller('itemController', function ($scope, $http, $controller, itemServi
 
 
     $scope.specificationItems = {};//存储用户选择的规格
+    $scope.renderFinish = function () {
+        $(function () {
+            var tempLength = 0; //临时变量,当前移动的长度
+            var viewNum = 5; //设置每次显示图片的个数量
+            var moveNum = 2; //每次移动的数量
+            var moveTime = 300; //移动速度,毫秒
+            var scrollDiv = $(".spec-scroll .items ul"); //进行移动动画的容器
+            var scrollItems = $(".spec-scroll .items ul li"); //移动容器里的集合
+            var moveLength = scrollItems.eq(0).width() * moveNum; //计算每次移动的长度
+            var countLength = (scrollItems.length - viewNum) * scrollItems.eq(0).width(); //计算总长度,总个数*单个长度
 
+            //下一张
+            $(".spec-scroll .next").bind("click", function () {
+                if (tempLength < countLength) {
+                    if ((countLength - tempLength) > moveLength) {
+                        scrollDiv.animate({left: "-=" + moveLength + "px"}, moveTime);
+                        tempLength += moveLength;
+                    } else {
+                        scrollDiv.animate({left: "-=" + (countLength - tempLength) + "px"}, moveTime);
+                        tempLength += (countLength - tempLength);
+                    }
+                }
+            });
+            //上一张
+            $(".spec-scroll .prev").bind("click", function () {
+                if (tempLength > 0) {
+                    if (tempLength > moveLength) {
+                        scrollDiv.animate({left: "+=" + moveLength + "px"}, moveTime);
+                        tempLength -= moveLength;
+                    } else {
+                        scrollDiv.animate({left: "+=" + tempLength + "px"}, moveTime);
+                        tempLength = 0;
+                    }
+                }
+            });
+        });
+    }
     //数量加减
     $scope.addNum = function (x) {
         $scope.num += x;
@@ -33,8 +69,8 @@ app.controller('itemController', function ($scope, $http, $controller, itemServi
 
     //加载默认SKU
     $scope.loadSku = function () {
-
         $scope.sku = skuList[0];
+        $scope.imageList = img[0];
         console.log($scope.sku);
         $scope.specificationItems = JSON.parse(JSON.stringify($scope.sku.spec));
     }
@@ -63,11 +99,14 @@ app.controller('itemController', function ($scope, $http, $controller, itemServi
         for (i = 0; i < skuList.length; i++) {
             if (matchObject(skuList[i].spec, $scope.specificationItems)) {
                 $scope.sku = skuList[i];
+                $scope.imageList = img[i];
+                console.log($scope.sku);
+                // location.href="http://localhost:8080/sku/"+$scope.sku.spuId+"-"+$scope.sku.id+".html";
                 return;
             }
         }
         $scope.sku = {id: i, title: '-----', price: i};
-        console.log($scope.sku);
+
     }
 
     //添加商品到购物车

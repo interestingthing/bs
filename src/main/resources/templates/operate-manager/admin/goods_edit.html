@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../../static/js/plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../../../static/js/plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../../../static/css/style.css">
-    <script src="../../../static/js/plugins/jquery/jquery-2.2.3.min.js"></script>
+    <script src="../../../static/jquery/jquery-3.3.1.js"></script>
     <script src="../../../static/js/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- 富文本编辑器 -->
@@ -32,6 +32,53 @@
     <script type="text/javascript" src="../../../static/js/controller/goodsController.js"></script>
 
 
+    <style type="text/css">
+        .float {
+            float: left;
+            overflow: hidden;
+            border: 1px solid #CCCCCC;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        img {
+            position: relative;
+        }
+
+        .result {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #file_input {
+            display: none;
+        }
+
+        .delete {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            text-align: center;
+            line-height: 100px;
+            z-index: 10;
+            font-size: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #777;
+            opacity: 0;
+            transition-duration: 0.7s;
+            -webkit-transition-duration: 0.7s;
+        }
+
+        .delete:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+
+    </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="wgxcb" ng-controller="goodsController"
@@ -50,22 +97,23 @@
                 <li class="active">
                     <a href="#home" data-toggle="tab">商品基本信息</a>
                 </li>
-                <li>
-                    <a href="#pic_upload" data-toggle="tab">商品图片</a>
-                </li>
+                <!--<li>-->
+                <!--<a href="#pic_upload" data-toggle="tab">商品图片</a>-->
+                <!--</li>-->
                 <li>
                     <a href="#customAttribute" data-toggle="tab">扩展属性</a>
                 </li>
                 <li>
                     <a href="#spec" data-toggle="tab">规格</a>
                 </li>
+
             </ul>
             <!--tab头/-->
 
             <!--tab内容-->
             <div class="tab-content">
 
-                <!--表单内容-->
+                <!--商品基本信息-->
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
                         <div class="col-md-2 title">商品分类</div>
@@ -134,45 +182,6 @@
                     </div>
                 </div>
 
-                <!--图片上传-->
-                <div class="tab-pane" id="pic_upload">
-                    <div class="row data-type">
-                        <!-- 颜色图片 -->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"
-                                    ng-click="image_entity={}" data-toggle="modal"><i class="fa fa-file-o"></i> 新建
-                            </button>
-
-                        </div>
-
-                        <table class="table table-bordered table-striped table-hover dataTable">
-                            <thead>
-                            <tr>
-
-                                <th class="sorting">颜色</th>
-                                <th class="sorting">图片</th>
-                                <th class="sorting">操作</th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="pojo in entity.goodsDesc.itemImages">
-                                <td>
-                                    {{pojo.color}}
-                                </td>
-                                <td>
-                                    <img alt="" src="{{pojo.url}}" width="100px" height="100px">
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-default" title="删除"
-                                            ng-click="remove_image_entity($index)"><i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-
 
                 <!--扩展属性-->
                 <div class="tab-pane" id="customAttribute">
@@ -187,8 +196,8 @@
                 </div>
 
                 <!--规格-->
-                <div class="tab-pane" id="spec">
-                    <div class="row data-type">
+                <div class="tab-pane " id="spec">
+                    <div class="row ">
                         <div class="col-md-2 title">是否启用规格</div>
                         <div class="col-md-10 data">
                             <input type="checkbox" ng-model="entity.goods.isEnableSpec" ng-true-value="1"
@@ -201,16 +210,15 @@
 
                         <div class="row data-type">
 
-<!--[
-{"id":8,"spuId":13,"imgUrl":null,"price":111.00,"type":"床品套件","spec":"{\"颜色\":\"黑色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"1"},
-{"id":9,"spuId":13,"imgUrl":null,"price":11.00,"type":"床品套件","spec":"{\"颜色\":\"蓝色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":999,"status":"1"},
-{"id":10,"spuId":13,"imgUrl":null,"price":1.00,"type":"床品套件","spec":"{\"颜色\":\"红色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"0"}]-->
+                            <!--[
+                            {"id":8,"spuId":13,"imgUrl":null,"price":111.00,"type":"床品套件","spec":"{\"颜色\":\"黑色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"1"},
+                            {"id":9,"spuId":13,"imgUrl":null,"price":11.00,"type":"床品套件","spec":"{\"颜色\":\"蓝色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":999,"status":"1"},
+                            {"id":10,"spuId":13,"imgUrl":null,"price":1.00,"type":"床品套件","spec":"{\"颜色\":\"红色\",\"床单尺寸\":\"150*230\"}","store":"平台","typeId":26,"storeId":0,"title":null,"num":99,"status":"0"}]-->
 
                             <!--{"options":[{"id":6,"orders":1,"specId":1,"value":"黑色"},{"id":7,"orders":3,"specId":1,"value":"蓝色"},{"id":8,"orders":2,"specId":1,"value":"红色"}],"id":1,"text":"颜色"}-->
                             <div ng-repeat="pojo in specList">
                                 <div class="col-md-2 title">{{pojo.text}}</div>
                                 <div class="col-md-10 data">
-					                               
                                 <span ng-repeat="option in pojo.options">
                                     <input type="checkbox" ng-value=""
                                            ng-checked="checkAttributeValue(pojo.text,option.value)"
@@ -233,6 +241,8 @@
                                     <th class="sorting" ng-repeat="item in entity.goodsDesc.specificationItems">
                                         {{item.attributeName}}
                                     </th>
+
+                                    <th width="750px" class="sorting">图片(1张主图+最多5张细节图)</th>
                                     <th class="sorting">价格</th>
                                     <th class="sorting">库存</th>
                                     <th class="sorting">是否启用</th>
@@ -243,20 +253,45 @@
                                 <!--itemList:{{entity.itemList}}-->
                                 <!--itemList:[{"spec":{"颜色":"黑色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"1","isDefault":"0"},{"spec":{"颜色":"蓝色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"1","isDefault":"1"},{"spec":{"颜色":"红色","床单尺寸":"150*230"},"price":0,"num":99999,"status":"0","isDefault":"0"}]-->
 
-                                <tr ng-repeat="pojo in entity.itemList">
+                                <tr ng-repeat="pojo in entity.itemList track by $index" repeat-finish="renderFinish()">
                                     <td ng-repeat="item in entity.goodsDesc.specificationItems">
                                         {{pojo.spec[item.attributeName]}}
+                                    </td>
+                                    <td ng-init="p_index=$index">
+                                        <button id="selectMain{{$index}}">主图(重新选择)</button>
+                                        <button id="add{{$index}}">细节图片(可以多选)</button>
+                                        <!-- id="file_input"   ng-click="uploadFile()-->
+                                        <button id="submit{{$index}}" class="btn btn-primary" type="button">
+                                            保存图片
+                                        </button>
+                                        <input id="{{$index}}" style="display: none" name="imgUrl" type="text"
+                                               class="form-control"
+                                               ng-model="pojo.imgUrl" placeholder="图片">
+                                        <input id="file_input{{$index}}" style="display: none" type="file" multiple>
+                                        <div></div>
+                                        <div ng-repeat="url in pojo.imgUrlShow track by $index">
+                                            <div class="float" >
+                                                <div ng-click="deleteImgFromBack(p_index,$index)"
+                                                     class="delete">delete
+                                                </div>
+                                                <div class="result"
+                                                     >
+                                                    <img
+                                                         class="subPic" src="../../../static{{url}}" width="100px"
+                                                         height="100px"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <input class="form-control" ng-model="pojo.price" placeholder="价格">
                                     </td>
                                     <td>
-                                        <input class="form-control" ng-model="pojo.num" placeholder="库存数量">
+                                        <input class="form-control" ng-model="pojo.stockCount" placeholder="库存数量">
                                     </td>
                                     <td>
                                         <input type="checkbox" ng-model="pojo.status" ng-true-value="1"
                                                ng-false-value="0">
-                                        <!--todo what-->
                                     </td>
                                     <td>
                                         <input type="checkbox" ng-model="pojo.isDefault" ng-true-value="1"
@@ -288,63 +323,92 @@
 </section>
 
 
-<!-- 上传窗口 -->
-<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">上传商品图片</h3>
-            </div>
-            <div class="modal-body">
-
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <td>颜色</td>
-                        <td><input class="form-control" placeholder="颜色" ng-model="image_entity.color"></td>
-                    </tr>
-                    <tr>
-                        <td>商品图片</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="file" id="file"/>
-                                        <button class="btn btn-primary" type="button" ng-click="uploadFile()">
-                                            上传
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <img src="{{image_entity.url}}" width="200px" height="200px">
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="add_image_entity()">
-                    保存
-                </button>
-                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- 正文区域 /-->
 <script type="text/javascript">
     var editor;
     KindEditor.ready(function (K) {
         editor = K.create('textarea[name="content"]', {
-            allowFileManager: true
+            width: "100%", //编辑器的宽度为70%
+            // height : "100%", //编辑器的高度为100px
+            themeType: 'simple',
+            skinType: 'tinymce',
+            resizeType: 2,
+            //指定上传图片的服务器端程序。
+            uploadJson: '/kindeditor/fileUpload',
+            //指定浏览远程图片的服务器端程序。
+            fileManagerJson: '/kindeditor/fileManager',
+            // afterCreate: function () {
+            //     this.sync();
+            // }, //关键是这两个
+            afterBlur: function () {
+                this.sync();
+                console.log("textarea is ====" + $('textarea[name="content"]').val());
+            },//关键是这两个
+            allowFileManager: true,
+            items: ['source', '|', 'undo', 'redo', '|', 'preview', 'template', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink']
         });
     });
-
+    /*
+    source：表示可以切换编辑器的编辑模式进入源代码HTML查看模式；
+    undo：表示后退，也就是我们常用的CTRL+Z快捷键功能；
+    redo：表示前进，也就是我们常用的CTRL+Y快捷键功能；
+    preview：表示预览，点击可以提前预览编辑器内的内容所展示的效果。
+    print：表示打印编辑器内的内容。
+    template：表示可以插入编辑器内的模板窗体；
+    code：表示可以插入代码段；
+    cut：表示剪切；
+    copy：表示复制，如同CTRL+C；
+    paste：表示粘贴，如同CTRL+V；
+    plainpaste：表示粘贴为无格式文本，主要是用于比如想赋值其他有HTML格式的纯文本进入编辑器，可以先在这里面进行HTML标签的过滤；
+    wordpaste：表示从WORD内粘贴；
+    justifyleft：表示选中文本居左；
+    justifycenter：表示选中文本居中；
+    justifyright：表示选中文本居右；
+    justifyfull：表示两端对齐；
+    insertorderedlist：表示编号（1、2、3）；
+    insertunorderedlist：表示项目符号；
+    indent：表示增加缩进；
+    outdent：表示减少缩进；
+    subscript：表示下标；如同：X2
+    superscript：表示上标；如同：X2
+    clearhtml：表示清除HTML标签；
+    quickformat：表示快速排版；
+    selectall：表示全选；
+    fullscreen：表示全屏；
+    formatblock：表示段落；
+    fontname：表示字体；
+    fontsize：表示文字大小；
+    forecolor：表示文字颜色；
+    hilitecolor：表示文字背景色；
+    bold：表示文字加粗；
+    italic：表示文字斜体；
+    underline：表示给文字追加下划线；
+    strikethrough：表示给文字追加删除线；
+    lineheight：表示调整行距；
+    removeformat：表示删除选中段的格式；
+    image：表示单个上传图片；
+    multiimage：表示批量上传图片；
+    flash：表示插入flash；
+    media：表示插入音视频文件；
+    insertfile：表示插入文件；
+    table：表示插入表格；
+    hr：表示插入横线；
+    emoticons：表示插入表情；
+    baidumap：表示插入地图；
+    pagebreak：表示插入分页符；
+    anchor：表示插入锚点；
+    link：表示插入超链接；
+    unlink：表示取消超级链接；一般和link配合出现；
+    about：表示关于kindeditor编辑器的信息；
+    */
 </script>
-</body>
 
+</body>
 </html>

@@ -50,6 +50,9 @@ spring:
 
 server:
   port: 8080
+  tomcat:
+    resource:
+      cache-ttl:
 management:
   endpoints:
     web:
@@ -58,7 +61,6 @@ management:
       base-path: /
   server:
     port: 9000
-
 #logging:
 #  level:
 #    root: INFO

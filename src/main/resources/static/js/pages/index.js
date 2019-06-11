@@ -6,7 +6,6 @@
 $(function() {
 	$('.all-sort-list2 > .item').hover(function() {
 		//父类分类列表容器的高度
-
 		$(this).addClass('hover');
 		$(this).children('.item-list').css('display', 'block');
 	}, function() {

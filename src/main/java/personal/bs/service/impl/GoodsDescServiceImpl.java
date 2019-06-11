@@ -90,6 +90,9 @@ public class GoodsDescServiceImpl implements GoodsDescService {
         if (goodsDesc != null) {
             if (goodsDesc.getIntroduction() != null && goodsDesc.getIntroduction().length() > 0) {
                 criteria.andIntroductionLike("%" + goodsDesc.getIntroduction() + "%");
+
+
+                goodsDesc.getIntroduction();
             }
             if (goodsDesc.getSpecificationItems() != null && goodsDesc.getSpecificationItems().length() > 0) {
                 criteria.andSpecificationItemsLike("%" + goodsDesc.getSpecificationItems() + "%");

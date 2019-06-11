@@ -115,11 +115,10 @@ public class PageController {
     /**
      * 访问商品详情页面
      * @param page
-     * @param username
      * @return
      */
     @GetMapping("/sku/{page}.html")
-    public String skuDetail(@PathVariable("page") Integer page) {
+    public String skuDetail(@PathVariable("page") String page) {
         return "skuHtml/" + page;
     }
 //    @GetMapping("/operate/good_edit.html")

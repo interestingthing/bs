@@ -5,10 +5,9 @@ app.controller('contentController', function ($scope, $controller, contentServic
 
     //搜索跳转
     $scope.search = function () {
-        console.log(typeof($scope.keywords) != "undefined");
-        if (typeof($scope.keywords) != "undefined")
-            location.href = "search.html#?keywords=" + $scope.keywords;
-        // location.href="http://localhost:9104/search.html#?keywords="+$scope.keywords;
+        console.log(typeof($scope.keywords) !== "undefined");
+        if (typeof($scope.keywords) !== "undefined")
+            location.href = "/user/search.html#?keywords=" + $scope.keywords;
     }
 
     $scope.showTypeList = function () {

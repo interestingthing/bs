@@ -35,7 +35,7 @@ public class GoodsDescDto implements Serializable {
 
     private List<CustomAttributeItems> customAttributeItems;
 
-    private List<Map<String,String>> itemImages;
+    private List<String> itemImages;
 
     private String packageList;
 
